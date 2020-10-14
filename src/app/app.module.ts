@@ -172,6 +172,7 @@ import { DepositoEditarComponent } from './pages/mantenimiento/deposito-editar/d
 import { NotificacionPersonalComponent } from './pages/mantenimiento/notificacion-personal/notificacion-personal.component';
 import { PopupInsumoListadoComponent } from './pages/insumo/popup-insumo-listado/popup-insumo-listado.component';
 import { PopupAsociarInsumoStockComponent } from './pages/produccion/popups/popup-asociar-insumo-stock/popup-asociar-insumo-stock.component';
+import { UsuarioPasswordComponent } from './pages/mantenimiento/usuario-password/usuario-password.component';
 
 
 
@@ -260,7 +261,8 @@ import { PopupAsociarInsumoStockComponent } from './pages/produccion/popups/popu
     NotificacionPersonalComponent,
     PopupInsumoListadoComponent,
     PopupAsociarInsumoStockComponent,
-    LoginComponent
+    LoginComponent,
+    UsuarioPasswordComponent
   ],
   imports: [
 

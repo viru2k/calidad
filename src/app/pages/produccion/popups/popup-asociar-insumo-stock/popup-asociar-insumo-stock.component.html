@@ -53,25 +53,10 @@
                 <td style="width: 18%">{{elementos.comprobante}}</td>                      
                 <td style="width: 18%" >{{elementos.lote}}</td>
                 <td style="width: 18%"  >{{elementos.fecha_ingreso | date : 'dd/MM/yyyy'}}  </td>
-                <td style="width: 18%" class="texto-info texto-bold" >{{elementos.cantidad_existente}}</td>
+                <td style="width: 18%" class="texto-info texto-bold" >{{elementos.cantidad_existente}}</td>                
+                <td style="width: 18%" class="texto-info texto-bold" >    <input type="number" class="form-control  texto-success form-control-sm col-11" (change)="changeValor($event, elementos)" >       </td>
 
-                <td style="width: 18%" pEditableColumn>
-                    <p-cellEditor>
-                        <ng-template pTemplate="input">
-                            <input class="form-control  form-control-sm" type="text" [(ngModel)]="elementos.cantidad_afectada">
-                        </ng-template>
-                        <ng-template pTemplate="output">
-                            {{elementos.cantidad_afectada}}
-                        </ng-template>
-                    </p-cellEditor>
-                </td>
-
-
-             <!--    <td style="width: 18%" class="texto-info texto-bold" >{{elementos.cantidad_afectada}}</td> -->
-                <td style="width: 6%; text-align:center" >                   
-                    <a  (click)="accion($event,op,elementos)"  class="icon-hover"> <i class="fas fa-cart-plus icon-color-info fa-lg"></i></a>       
-                    
-                </td>            
+                   
                     
             </tr>
         </ng-template>
@@ -85,10 +70,10 @@
             
             </tr>
         </ng-template>
-
+<!-- 
         <p-overlayPanel  #op appendTo="body"  [showTransitionOptions]="'400ms'" [hideTransitionOptions]="'300ms'"  [dismissable]="true" [showCloseIcon]="true" (onHide)="cerrarVentanta()" >                          
 
-            <!-- <span>   <a class="nav-link azul text-info  my-hover" (click)="asociarInsumo()">Asociar insumo</a></span> -->
+
             <div class=" d-flex justify-content-center">
                 <div class="row ml-2 mr-2">
                     <label class="texto-bold mr-4"> Cantidad</label>
@@ -102,7 +87,7 @@
                 <button class="btn btn-info btn-block ml-1 col-2" (click)="agregarValor($event, op)"><i class="fas fa-check mr-1"></i> </button>
             </div>
           </p-overlayPanel> 
-       
+        -->
     </p-table>
 
   </div>

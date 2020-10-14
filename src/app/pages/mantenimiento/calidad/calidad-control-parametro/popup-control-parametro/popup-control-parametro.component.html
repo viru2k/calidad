@@ -14,13 +14,13 @@
 
                     <div class="form-group ">
                     <label class="mt-1 ml-1 mr-1 ">Opciones :</label>         
-                    <select [(ngModel)]="selectedOpcion" class="form-control-sm text-sm texto-monserrat texto-secondary" (change)="onChangeOpcion($event)" >                        
+                    <select formControlName="control_tipo" class="form-control-sm text-sm texto-monserrat texto-secondary" (change)="onChangeOpcion($event)" >                        
                       <option *ngFor="let grupo of opciones" class="text-sm texto-monserrat texto-secondary"    >
                         <label >{{grupo.name}}</label>              
                     </option>
                   </select>
                     </div>
-                    <div class="form-group ">
+                    <!-- <div class="form-group ">
                         <label  >Ranking {{rating_msg}}</label>
                         <p-rating [(ngModel)]="rating" [cancel]="false" iconOnClass="fas fa-circle icon-color-usuario m-1" iconOffClass="far fa-circle icon-color-azul-neutro m-1" iconCancelClass="far fa-circle icon-color-danger" stars="5"  (onRate)="handleRate($event)"></p-rating>
                     </div> 
@@ -28,7 +28,7 @@
                     <div class="form-group ">
                         <label  class="mr-2" >Válido / Invalido</label>
                         <p-checkbox name="groupname" value="estado" formControlName="estado" binary="true" (onChange)="changeEstado($event)"></p-checkbox>                
-                    </div> 
+                    </div>  -->
                  
                     <div class="form-group ">
                         <label  class="mr-2" >Activo / inactivo</label>

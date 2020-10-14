@@ -57,8 +57,7 @@ export class PopupAsociarInsumoStockComponent implements OnInit {
       { field: 'lote', header: 'Lote',  width: '18%' },
       { field: 'fecha_ingreso', header: 'ingresó',  width: '18%' },
       { field: 'cantidad_existente', header: 'Existencia',  width: '18%' },
-      { field: 'cantidad_afectada', header: 'Usado',  width: '18%' },
-      { field: '', header: '',  width: '6%' }
+      { field: 'cantidad_afectada', header: 'Usado',  width: '18%' }
     ];
 
     this.userData = JSON.parse(localStorage.getItem('userData'));
@@ -69,6 +68,20 @@ export class PopupAsociarInsumoStockComponent implements OnInit {
   }
 
   
+
+  changeValor(event, elem: any)  {
+    console.log(event.target.value);
+    console.log(elem);
+    const resultado =  this.elementos.findIndex(x => x['stock_movimiento_id'] === elem.stock_movimiento_id);
+    this.elementos[resultado]['cantidad_afectada'] = event.target.value;
+    console.log( this.elementos[resultado]);
+    
+    this.acumulado = 0;
+
+    this.elementos.forEach(element => {
+        this.acumulado = Number(this.acumulado) + Number(element.cantidad_afectada);
+    });
+  }
 
   accion(event: any, overlaypanel: OverlayPanel, elementos: any) {
     this.selectedRow = elementos;

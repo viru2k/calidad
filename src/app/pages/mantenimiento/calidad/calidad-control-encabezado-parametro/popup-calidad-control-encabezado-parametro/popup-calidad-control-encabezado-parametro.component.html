@@ -6,7 +6,7 @@
   </div>
     <div class="row m-3">
       <p-table  #dt class="pt-2"  tableStyleClass="prime-table" selectionMode="single" [columns]="cols" [value]="elementos"  [loading]="loading"   columnResizeMode="expand" [responsive]="true"
-      scrollHeight="300px" [scrollable]="true" loadingIcon="fas fa-spinner fa-2x icon-color-green"  >
+      scrollHeight="500px" [scrollable]="true" loadingIcon="fas fa-spinner fa-2x icon-color-green"  >
                
       <ng-template pTemplate="header" let-columns >
                 
@@ -31,8 +31,10 @@
                     <tr style="height:24px">
                            
                             <td style="width: 50%">{{elementos.parametro}}</td>
-                            <td style="width: 16%"><i class="far fa-minus-square texto-danger fa-lg texto-bold mr-2 mt-1"></i><label class="texto-danger texto-bold ">{{elementos.parametro_minimo}}</label></td>
-                            <td style="width: 16%"><i class="far fa-plus-square texto-success fa-lg texto-bold mr-2 mt-1"></i><label class="texto-success texto-bold ">{{elementos.parametro_maximo}}</label></td>
+                            <td style="width: 16%"><i class="far fa-minus-square texto-danger fa-lg  mr-2 mt-1"></i><label class="texto-danger ">{{elementos.parametro_minimo}}</label></td>
+                            <td style="width: 16%"><i class="far fa-plus-square texto-success fa-lg  mr-2 mt-1"></i><label class="texto-success ">{{elementos.parametro_maximo}}</label></td>
+                            <td style="width: 16%" class=" texto-info">{{elementos.control_tipo}}</td>
+                            
                             <td style="width: 16%">{{elementos.estado}}</td>
                             <td style="width: 16%">
                               <a  (click)="borrar(elementos)" class="icon-hover"> <i class="fas fa-trash icon-color-danger fa-lg"></i></a>                        

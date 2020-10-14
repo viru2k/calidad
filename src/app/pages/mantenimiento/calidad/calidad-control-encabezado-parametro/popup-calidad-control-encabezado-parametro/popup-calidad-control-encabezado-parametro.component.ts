@@ -26,6 +26,7 @@ export class PopupCalidadControlEncabezadoParametroComponent implements OnInit {
       { field: 'parametro', header: 'Parámetro',  width: '50%' },
       { field: 'parametro_minimo', header: 'Mínimo',  width: '16%' },
       { field: 'parametro_maximo', header: 'Máximo',  width: '16%' },
+      { field: 'control_tipo', header: 'Control',  width: '16%' },
       { field: 'estado', header: 'Estado',  width: '16%' },
       { field: '', header: 'Acción',  width: '16%' },
       
@@ -103,7 +104,7 @@ nuevo() {
   data,
    header: 'Buscar parámetros',
    width: '80%',
-   height: '50%'
+   height: '90%'
   });
 
   ref.onClose.subscribe((PopupFindCalidadParametroComponent: any) => {

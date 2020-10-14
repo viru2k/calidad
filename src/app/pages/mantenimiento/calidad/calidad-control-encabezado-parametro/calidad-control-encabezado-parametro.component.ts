@@ -69,12 +69,14 @@ buscar(elemento: any) {
   data,
    header: 'Editar parámetros en control de calidad',
    width: '80%',
-   height: '50%'
+   height: '90%'
   });
 
   ref.onClose.subscribe((PopupCalidadControlEncabezadoParametroComponent: any) => {
-
-      this.loadlist();
+      if (PopupCalidadControlEncabezadoParametroComponent) {
+        this.loadlist();
+      }
+     
 
   });
 

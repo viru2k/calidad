@@ -89,8 +89,8 @@ delControlParametro(id: string) {
 }
 
 
-setCalidadControlParametrosValor(articulo: ControCalidadParametroValor[]) {
-  return this.http.post<any>(this.url + 'calidad/control/parametros/valor', articulo);
+setCalidadControlParametrosValor(items: any[]) {
+  return this.http.post<any>(this.url + 'calidad/control/parametros/valor', items);
 }
 
 }

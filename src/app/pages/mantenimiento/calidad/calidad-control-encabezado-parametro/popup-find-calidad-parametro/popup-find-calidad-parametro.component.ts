@@ -36,6 +36,17 @@ export class PopupFindCalidadParametroComponent implements OnInit {
     this.loadlist();
   }
 
+minimo(event) {
+  console.log(event.target.value);
+  this.parametroMinimo = Number(event.target.value);
+}
+
+
+maximo(event) {
+  console.log(event.target.value);
+  this.parametroMaximo = Number(event.target.value);
+}
+
   loadlist(){
 
     this.loading = true;
@@ -63,6 +74,7 @@ export class PopupFindCalidadParametroComponent implements OnInit {
 
 guardar(elemento: any) {
   console.log(elemento);
+  console.log(this.parametroMaximo);
   if ((this.parametroMaximo === 0) || (this.parametroMinimo === 0)) {
     swal({
       title: 'Parametros incompletos',

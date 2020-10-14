@@ -3,10 +3,10 @@
     <!-- <i class="far fa-question-circle icono-info ml-2 mt-2 mr-1" (mouseenter)="op2.show($event)"  style="font-size:24px"></i> -->
       <h5>ASOCIAR INSUMOS A LA PRODUCCION </h5>
     </div>
-    <div class="card">
-      <div class="d-flex justify-content-between">
-        <div class="d-flex justify-content-start">
-          <button class=" ml-2 mr-3 btn-sm btn-cuadrado-success" (click)="loadlist()">Producciones activas</button>
+    <div class="card-rounded card-header mb-3">
+      <div class="ml-2 row d-flex justify-content-between d-flex align-items-center">  
+        <div class="d-flex justify-content-start d-flex align-items-center">
+          <button class="btn-cuadrado-success btn-sm mr-2 texto-bold" (click)="loadlist()">Producciones activas</button>
           <!--   <label class="mr-2 mt-1">Estado :</label>
             <select [(ngModel)]="selectedEstado" class="form-control-sm text-sm texto-monserrat texto-secondary icon-hover" (change)="onChangeEstado($event)" >                        
               <option  *ngFor="let grupo of estado" class="text-sm texto-monserrat texto-secondary icon-hover"    >

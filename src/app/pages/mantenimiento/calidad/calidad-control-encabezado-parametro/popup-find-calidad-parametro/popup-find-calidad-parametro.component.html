@@ -1,16 +1,11 @@
-<div class=" faq-title text-center pb-1 pt-2 ">
+<div class=" faq-title text-center pb-1  ">
     <h5>PARAMETROS DE CONTROL DE CALIDAD</h5>
   </div>
 
-  <div class="card-rounded card-header">
-    <div class="ml-2 mr-2  row">
-      <div class="d-flex justify-content-end ">  <label class="mr-1 mt-1  texto-success">Mínimo :</label>    <input type="number" class="form-control  form-control-sm col-8" [(ngModel)]="parametroMinimo" ></div>
-      <div class="d-flex justify-content-start mr-2 "><label class="mr-1 mt-1  texto-danger">Máximo :</label><input type="number" class="form-control  form-control-sm col-8" [(ngModel)]="parametroMaximo" ></div>
-    </div> 
-  </div>
+
     <div class="row m-3">
       <p-table  #dt class="pt-2"  tableStyleClass="prime-table" selectionMode="single" [columns]="cols" [value]="elementos"  [loading]="loading"   columnResizeMode="expand" [responsive]="true"
-      scrollHeight="300px" [scrollable]="true" loadingIcon="fas fa-spinner fa-2x icon-color-green"   >
+      scrollHeight="500px" [scrollable]="true" loadingIcon="fas fa-spinner fa-2x icon-color-green"   >
      
 
                
@@ -36,9 +31,15 @@
                   <ng-template pTemplate="body" let-elementos  >
                     <tr style="height:24px">
                            
-                            <td style="width: 80%">{{elementos.parametro}}</td>
-                          
-                                        
+                            <td style="width: 80%">
+
+                                <div class="d-flex justify-content-between ml-2">
+                                  <div class="d-flex justify-content-start ml-2 mt-1"> <label>{{elementos.parametro}}</label></div>                                                                
+                                  <div class="d-flex justify-content-end mr-2 "> 
+                                    <label class="mr-1 mt-1  texto-success texto-bold">Mínimo :</label>    <input type="number" class="form-control  texto-success form-control-sm col-3" (change)="minimo($event)" >
+                                    <label class="mr-1 mt-1  texto-danger texto-bold">Máximo :</label>     <input type="number" class="form-control  texto-danger form-control-sm col-3" (change)="maximo($event)" ></div>
+                              </div>
+                            </td>                                            
                             <td style="width: 20%">
                               <a  (click)="guardar(elementos)" class="icon-hover"> <i class="far fa-check-circle icon-color-info fa-2x"></i></a>                        
                                 </td>

@@ -178,7 +178,7 @@ loadUser() {
       this.elementoModulo = <any>this.elemento;
       this.user = new User(this.elemento[0].id , this.elemento[0].email, this.elemento[0].nombreyapellido,
       this.elemento[0].name, this.elemento[0].admin, this.elemento[0].email, currentUser.access_token, this.elementoModulo);
-      this.username = userData['username'];
+      this.username = userData.username;
       localStorage.removeItem('userData');
       localStorage.setItem('userData', JSON.stringify(this.user));
       this.loading = false;

@@ -33,6 +33,7 @@ export class PopupControlParametroComponent implements OnInit {
     this.updateDataForm = new FormGroup({
       'id': new FormControl('', ),
       'parametro': new FormControl('', Validators.required),
+      'control_tipo': new FormControl('', Validators.required),
       'estado': new FormControl('true', Validators.required),
       
   });
@@ -76,7 +77,9 @@ export class PopupControlParametroComponent implements OnInit {
 
 
 onChangeOpcion(event){
-  console.log(this.updateDataForm.value);
+  console.log(event.target.value);
+  
+  //this.updateDataForm.patchValue({});
 }
 
   changeEstado(event){

@@ -38,6 +38,7 @@ import { OrdenPedidoConsultaStockComponent } from './pages/ventas/orden-pedido-c
 import { InsumoStockComponent } from './pages/insumo/insumo-stock/insumo-stock.component';
 import { DepositoComponent } from './pages/mantenimiento/deposito/deposito.component';
 import { NotificacionPersonalComponent } from './pages/mantenimiento/notificacion-personal/notificacion-personal.component';
+import { UsuarioPasswordComponent } from './pages/mantenimiento/usuario-password/usuario-password.component';
 
 const routes: Routes = [
 
@@ -68,6 +69,7 @@ const routes: Routes = [
 { path: 'mantenimiento/deposito', component: DepositoComponent },
 { path: 'mantenimiento/grupo', component: GrupoTrabajoComponent },
 { path: 'usuario', component: UsuarioComponent },
+{ path: 'usuario/password', component: UsuarioPasswordComponent },
 { path: 'mantenimiento/lineas/produccion', component: MaquinaComponent },
 
 { path: 'mantenimiento/calidad/encabezado', component: CalidadControlEncabezadoComponent },

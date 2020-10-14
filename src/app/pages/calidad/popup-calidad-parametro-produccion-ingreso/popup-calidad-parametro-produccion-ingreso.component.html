@@ -6,7 +6,7 @@
     <div class="row">
       <h5 >PRODUCTO : {{data.nombre}}</h5> 
       <h6 class="mr-2 ml-4 texto-secondary">A PRODUCIR EL : {{data.fecha_produccion | date: 'EEEE dd/MM/yyyyy'}}</h6>
-      <h6 class="mr-2 ml-2 texto-success">SOLICITADO : {{data.orden_produccion_detalle_cantidad_solicitada}} UNIDADES - EN PACKS : {{data.orden_produccion_detalle_cantidad_solicitada / data.unidades}}</h6> 
+      <h6 class="mr-2 ml-2 texto-success texto-bold">SOLICITADO : {{data.orden_produccion_detalle_cantidad_solicitada}} UNIDADES - EN PACKS : {{data.orden_produccion_detalle_cantidad_solicitada / data.unidades}}</h6> 
     </div>
   </div>
   <div class="d-flex justify-content-between m-2">
@@ -30,9 +30,9 @@
     </div>
 </div>
 
-<div class="d-flex justify-content-center m-2" *ngIf="selected">
-    <label class="mr-2 mt-1 texto-terthiary texto-bold">Descripción : {{selected.calidad_descripcion}}</label>
-    <label class="mr-4 mt-1 texto-terthiary texto-bold">Ficha número : {{selected.ficha_nro}}</label>
+<div class="d-flex justify-content-start m-2" *ngIf="selected">
+    <label class="mr-2 mt-1 texto-info texto-bold">Descripción : {{selected.calidad_descripcion}}</label>
+    <label class="mr-4 mt-1 texto-info texto-bold">Ficha número : {{selected.ficha_nro}}</label>
 </div>
 
 
@@ -67,18 +67,28 @@
 
                   <td style="width: 35%" >{{elementos.parametro}}</td>                                         
     
-                  <td style="width: 12%;" class="text-info texto-bold">
-                       <label> {{elementos.calidad_valor |  number : '1.2-2'}}</label>                                     
+                  <td style="width: 26%;" >
+                       <div class="d-flex justify-content-start d-flex align-items-center" *ngIf="elementos.control_tipo === 'NUMERO'">
+                        <label class="mr-1 mt-2">Valor :</label>    <input type="number" class="form-control  texto-success form-control-sm col-3" (change)="changeValor($event, elementos)" >                               
+                       </div>
+
+                       <div class="d-flex justify-content-start d-flex align-items-center" *ngIf="elementos.control_tipo === 'RANKING'">
+                        <label class="mr-1 mt-2" > {{elementos.calidad_ranking}}</label>
+                        <p-rating (change)="changeRanking($event, elementos)" [cancel]="false" iconOnClass="fas fa-circle icon-color-usuario m-1" iconOffClass="far fa-circle icon-color-azul-neutro m-1" iconCancelClass="far fa-circle icon-color-danger" stars="5"  (onRate)="handleRate($event, elementos)"></p-rating>                                    
+                       </div>
+
+                       <div class="d-flex justify-content-start d-flex align-items-center" *ngIf="elementos.control_tipo === 'OPCION'">
+                        <label  class="mr-1 mt-2" >Válido / Invalido</label>
+                        <p-checkbox name="groupname" value="SI"  binary="true" (onChange)="changeEstado($event, elementos)"></p-checkbox>    
+                      </div>
                   </td>                           
                   <td style="width: 30%"  [ngClass]="iconoColor('CANCELADO')">
-                    {{elementos.es_no_conformidad_descripcion }}
+                    <textarea rows="1" cols="30" pInputTextarea autoResize="autoResize"  class="form-control   form-control-sm col-12" (change)="changeNoConformidad($event, elementos)"></textarea>
+                  
                 </td>                   
-                  <td style="width: 30%"  [ngClass]="iconoColor('PAUSADO')">
-                    {{elementos.tiene_accion_correctiva_descripcion }}
+                  <td style="width: 30%"  [ngClass]="iconoColor('PAUSADO')">                    
+                    <textarea rows="1" cols="30" pInputTextarea autoResize="autoResize"  class="form-control   form-control-sm col-12" (change)="changeAccionCorrectiva($event, elementos)" ></textarea>                   
                 </td>                   
-                  <td style="width: 8%">
-                    <a  (click)="accion($event,elementos)"  class="icon-hover"> <i class="fas fa-pen icon-color-info fa-lg"></i></a>                        
-                  </td>
           </tr>
 
          
@@ -94,27 +104,5 @@
     <button class="btn btn-lg btn-info btn-block" (click)="guardarControl()" >GUARDAR CONTROL</button>
   </div>
   
-  <p-dialog header="Carga de valores" [(visible)]="display" [style]="{width: '80%'}" [baseZIndex]="10000">
-    <div class="d-flex justify-content-start m-2">
-      <label class="mr-2">Valor obtenido</label>
-      <input type="number" class="form-control form-control-sm" [(ngModel)]="valorObtenido" [autofocus]>
-    </div>
-  
-      <div class="d-flex justify-content-start m-2">
-        <label class="mr-2">No conformidad</label>
-        <input [disabled] ="!estadoNoConformidad" class="form-control form-control-sm mr-2" type="text" [(ngModel)]="noConformidad" >
-        <p-checkbox name="groupname" value="estadoNoConformidad" [(ngModel)]="estadoNoConformidad" binary="true" (onChange)="changeNoConformidad($event)"></p-checkbox>      
-    </div>
-
-    <div class="d-flex justify-content-start m-2">
- 
-        <label class="mr-2">Acción correctiva</label>
-        <input [disabled] ="!estadoAccionCorrectiva" class="form-control form-control-sm mr-2 " type="text" [(ngModel)]="accionCorrectiva" >
-        <p-checkbox name="groupname" value="estadoAccionCorrectiva" [(ngModel)]="estadoAccionCorrectiva" binary="true" (onChange)="changeAccionCorrectiva($event)"></p-checkbox>   
-      </div>          
-    <div>
-      <button class="btn btn-info btn-block" (click)="confirmarParametro()">Confirmar</button>
-    </div>
-  <p-dialog>
 
 

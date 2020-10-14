@@ -629,6 +629,15 @@ FIN  ESTILO DE LA BARRA
     
 }
 
+.btn-pdf{
+    background:  #e63946!important; 
+    border:  #e63946!important;
+    border-radius: 5px;    
+    outline-color: #e63946!important; 
+    color: #FFFFFF!important;
+    outline: 0;
+    
+}
 
 
 
@@ -1241,11 +1250,15 @@ body {
     font-weight: bold;
 }
 .texto-info{
-    color: #00BCD4;    
+    color: #457b9d;    
 }
 
 .texto-success{
-    color: #009688;    
+    color: #40916c;    
+}
+
+.texto-success-dark{
+    color: #1b4332;    
 }
 
 
@@ -1254,7 +1267,7 @@ body {
 }
 
 .texto-danger{
-    color: #D32F2F;
+    color: #ba181b;
 }
 
 .texto-danger-soft{

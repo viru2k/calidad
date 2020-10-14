@@ -23,7 +23,8 @@ export class CalidadControlParametroComponent implements OnInit {
 
     this.cols = [
 
-      { field: 'parametro', header: 'Parámetro',  width: '60%' },
+      { field: 'parametro', header: 'Parámetro',  width: '40%' },
+      { field: 'control_tipo', header: 'Control',  width: '20%' },
       { field: 'estado', header: 'Estado',  width: '20%' },
       { field: '', header: 'Acción',  width: '20%' }
 
