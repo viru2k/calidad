@@ -1,7 +1,7 @@
 
-// export const URL_SERVICIOS = 'http://localhost/api-calidad/public/api/';
-// export const config: SocketIoConfig = { url: 'http://localhost:4444', options: {} };
-// export const URL_ARCHIVO = 'http://localhost/api-calidad/public/';
+ //export const URL_SERVICIOS = 'http://localhost/api-calidad/public/api/';
+ //export const config: SocketIoConfig = { url: 'http://localhost:4444', options: {} };
+ //export const URL_ARCHIVO = 'http://localhost/api-calidad/public/';
 
 
 export const URL_SERVICIOS = 'https://productosgraziani.com.ar/api-calidad/public/api/';
@@ -9,7 +9,7 @@ export const config: SocketIoConfig = { url: 'https://productosgraziani.com.ar:4
 export const URL_ARCHIVO = 'https://productosgraziani.com.ar/api-calidad/public/';
 
 /***********SERVER DE PRUEBAS ********************** */
- 
+
 
 
 
@@ -17,7 +17,7 @@ export const URL_ARCHIVO = 'https://productosgraziani.com.ar/api-calidad/public/
 
 // REMOTO WEB
 
-//export const URL_SERVICIOS = 'https://clinicaz.com.ar/graziani/api-calidad/public/api/'; 
+//export const URL_SERVICIOS = 'https://clinicaz.com.ar/graziani/api-calidad/public/api/';
 //export const config: SocketIoConfig = { url: 'http://clinicaz.com.ar:4444', options: {} };
 //export const URL_ARCHIVO = 'http://clinicaz.com.ar/graziani/api-calidad/public/';
 
@@ -36,6 +36,6 @@ export const calendarioIdioma:any =  {
     monthNames: [ "enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre" ],
     monthNamesShort: [ "ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic" ],
     today: 'Hoy',
-    clear: 'Borrar' 
+    clear: 'Borrar'
 }
 //export const URL_SERVICIOS = '/mascota-api-v1';

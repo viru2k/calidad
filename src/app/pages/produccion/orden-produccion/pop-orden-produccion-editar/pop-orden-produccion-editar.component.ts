@@ -20,12 +20,18 @@ export class PopOrdenProduccionEditarComponent implements OnInit {
   editar;
   fecha_creacion: Date;
   _fecha_creacion: string;
+  _fecha_produccion: string;
+  fecha_produccion: Date;
   fecha_desde: Date;
   fecha_hasta: Date;
   _fecha_desde: string;
   _fecha_hasta: string;
   descripcion: string;
   obesrvacion: string;
+  hora: Date;
+  cantidad_solicitada: number;
+  cantidad_usada: number;
+  cantidad_existente: number;
   fecha: Date;
   es: any;
   cols: any[];
@@ -38,7 +44,7 @@ export class PopOrdenProduccionEditarComponent implements OnInit {
   estado: any[] = [];
   selectedEstado: string = 'ACTIVO' ;
   selectedEstadoRenglon : string = 'ACTIVO' ;
-  selectedRow:any;
+  selectedRow:any = null;
   position: string;
 
    // tslint:disable-next-line: max-line-length
@@ -50,6 +56,7 @@ export class PopOrdenProduccionEditarComponent implements OnInit {
       { field: 'descripcion', header: 'Descripción',  width: '30%' },
       { field: 'pallet_pack', header: 'Pack',  width: '8%' },
       { field: 'pallet_pisos', header: 'Pisos',  width: '8%' },
+      { field: 'unidad_hora', header: 'U/h',  width: '8%' },
       { field: 'unidades', header: 'Unidades',  width: '10%' },
       { field: 'cantidad_solicitada', header: 'A producir',  width: '12%' },
       { field: 'cantidad_usada', header: 'Producido',  width: '12%' },
@@ -74,6 +81,9 @@ export class PopOrdenProduccionEditarComponent implements OnInit {
     this.fecha_desde = new Date();
     this.fecha_hasta = new Date();
     this.fecha = new Date();
+    this.es = calendarioIdioma  ;
+   // this.fecha_produccion = new Date();
+
     console.log(this.config.data);
     if (this.config.data) {
       this.editar = true;
@@ -94,11 +104,23 @@ export class PopOrdenProduccionEditarComponent implements OnInit {
    }
 
 
-   
+
+
+
   editarProduccion(event: any,  overlaypanel: OverlayPanel,  elem: any) {
 
     this.selectedRow = elem;
+   // this._fecha_produccion = formatDate(new Date(elem.fecha_produccion), 'yyyy-MM-dd', 'en');
+   console.log(new Date(elem.fecha_produccion));
+    this.fecha_produccion = new Date(elem.fecha_produccion);
+    this.cantidad_solicitada = elem.cantidad_solicitada;
+    this.cantidad_usada = elem.cantidad_usada;
+    this.cantidad_existente = elem.cantidad_existente;
+    this.hora =  elem.hora;
+
+    console.log(elem.cantidad_solicitada);
     console.log(this.selectedRow);
+    //this.fecha_produccion = this.selectedRow['fecha_produccion'];
     this.position = 'top';
     //this.displayEstado = true;
     overlaypanel.toggle(event);
@@ -108,19 +130,29 @@ export class PopOrdenProduccionEditarComponent implements OnInit {
     console.log(event);
     this.fecha_creacion = event;
     console.log(new Date(this.fecha_creacion));
-    
+
   }
 
   onChangeEstado(e) {
     console.log(e.target.value);
   }
 
-  
+
   onChangeEstadoRenglon(e) {
     console.log(e.target.value);
     console.log(e.target);
     this.cambiarEstadoRenglon();
   }
+
+  onChangeHoraRenglon(e) {
+    console.log(e.target.value);
+    console.log(e.target);
+    this.cambiarEstadoRenglon();
+  }
+
+
+
+
 
    loadlist(produccion: any) {
     console.log(produccion);
@@ -145,11 +177,11 @@ export class PopOrdenProduccionEditarComponent implements OnInit {
        this.alertServiceService.throwAlert('error', 'Error: ' + error.status + '  Error al cargar los registros', '', '500');
      }
  }
- 
+
  buscarArticulo(){
-  
+
   const data: any = null;
-  
+
   const ref = this.dialogService.open(PopUpOrdenProduccionDetalleEditarComponent, {
   data,
    header: 'Asociar articulo',
@@ -163,7 +195,7 @@ export class PopOrdenProduccionEditarComponent implements OnInit {
       console.log(PopUpOrdenProduccionDetalleEditarComponent);
       this.elementos.push(PopUpOrdenProduccionDetalleEditarComponent);
     }
-    
+
   });
 
  }
@@ -260,8 +292,14 @@ export class PopOrdenProduccionEditarComponent implements OnInit {
 
  cambiarEstadoRenglon() {
   try {
-    
+   this._fecha_produccion = formatDate(new Date(this.fecha_produccion), 'yyyy-MM-dd', 'en');
+    this.selectedRow.fecha_produccion = this._fecha_produccion;
     this.selectedRow.estado = this.selectedEstadoRenglon;
+    this.selectedRow.cantidad_solicitada = this.cantidad_solicitada;
+    this.selectedRow.cantidad_existente = this.cantidad_existente;
+    this.selectedRow.cantidad_usada = this.cantidad_usada;
+    this.selectedRow.hora = this.hora;
+    console.log(this.selectedRow);
     this.produccionService.updProduccionDetalleEstado(this.selectedRow, this.selectedRow.orden_produccion_detalle_id)
     .subscribe(resp => {
       this.loadlist(this.config.data.id);
@@ -293,5 +331,5 @@ export class PopOrdenProduccionEditarComponent implements OnInit {
    }
  }
  }
- 
- 
+
+

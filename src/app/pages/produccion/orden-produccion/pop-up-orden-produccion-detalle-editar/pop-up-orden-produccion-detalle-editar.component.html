@@ -1,5 +1,5 @@
 <div class=" faq-title text-center pb-1 pt-2 ">
-    <!-- ------------------------ INFORMACION DE CARGA ------------------------- -->  
+    <!-- ------------------------ INFORMACION DE CARGA ------------------------- -->
 
 
     <h5>CONFECCION PRODUCTOS SELECCIONADOS</h5>
@@ -10,38 +10,38 @@
 <!-- ----------------------------------------------------------------------- -->
 
   <p-dialog header="Parametrizar producción" [(visible)]="display" position="top"  appendTo="body" positionTop="100" styleClass="mydialog">
-  
+
     <div class="card-rounded card-header">
-      <div class="ml-2 row d-flex justify-content-between">  
-          <div class="d-flex justify-content-start"> 
+      <div class="ml-2 row d-flex justify-content-between">
+          <div class="d-flex justify-content-start">
               <label class="mt-2 ml-1 mr-1">Producción para el dia :</label>
-              <p-calendar [(ngModel)]="fecha_produccion" appendTo="body" (onSelect)="actualizarFecha($event)" tabindex="0"  [locale]="es" dateFormat="DD dd/mm/yy "   [readonlyInput]="true">              
-              </p-calendar> 
+              <p-calendar [(ngModel)]="fecha_produccion" appendTo="body" (onSelect)="actualizarFecha($event)" tabindex="0"  [locale]="es" dateFormat="DD dd/mm/yy "   [readonlyInput]="true">
+              </p-calendar>
           </div>
           <div class="d-flex justify-content-center">
             <label class="mt-2 ml-1 mr-1">Horas de producción:</label>
-            <p-calendar [(ngModel)]="hora_produccion" appendTo="body" [timeOnly]="true"></p-calendar>               
+            <p-calendar [(ngModel)]="hora_produccion" appendTo="body" (onSelect)="calcularHoras()" [timeOnly]="true"></p-calendar>
         </div>
 
     </div>
 
-    <div class="ml-2 mt-2 row d-flex justify-content-between">  
-      <div class="d-flex justify-content-start"> 
-        
+    <div class="ml-2 mt-2 row d-flex justify-content-between">
+      <div class="d-flex justify-content-start">
+
       </div>
       <div class="d-flex justify-content-start">
         <label class="mt-2 ml-1 mr-1">Grupo:</label>
-        <select [(ngModel)]="selected" class="form-control" (change)="onChangeGrupo()">                      
-           <option *ngFor="let grupo of grupos" [ngValue]="grupo" class="text-sm"  > <label>{{grupo.grupo_nombre}}</label> </option>            
-        </select>              
+        <select [(ngModel)]="selected" class="form-control" (change)="onChangeGrupo()">
+           <option *ngFor="let grupo of grupos" [ngValue]="grupo" class="text-sm"  > <label>{{grupo.grupo_nombre}}</label> </option>
+        </select>
     </div>
-      <div class="d-flex justify-content-end">                   
-        <label *ngIf="selectedRow" class="mt-1" ><b>Packs: {{cantidad / selectedRow.unidades }}</b></label>
-        <label *ngIf="selectedRow" class="mt-1 ml-2 mr-2" > Unidades: {{cantidad}}</label>
-        <a  (click)="calcular()" class="icon-hover"> <i class="fas fa-calculator icon-color-warning fa-2x"></i></a>    
+      <div class="d-flex justify-content-end">
+        <label *ngIf="selectedRow" class="mt-1" ><b>Packs: {{(cantidad / selectedRow.unidades) | number : '1.2-2'}}</b></label>
+        <label *ngIf="selectedRow" class="mt-1 ml-2 mr-2" > Unidades: {{cantidad | number : '1.2-2'}}</label>
+        <a  (click)="calcular()" class="icon-hover"> <i class="fas fa-calculator icon-color-warning fa-2x"></i></a>
       </div>
 </div>
-  </div> 
+  </div>
   <div>
     <button  class="btn-cuadrado-info btn--block  mb-1" (click)="agregarProducto()" > <i class="far fa-plus-square fa-lg mr-2 mt-1"  ></i>Agregar producto</button>
   </div>
@@ -51,28 +51,28 @@
 
     <div  class="m-3">
         <p-table  #dt class=""  tableStyleClass="prime-table" selectionMode="single" [columns]="cols" [value]="elementos" [(selection)]="selecteditems"  [loading]="loading"  columnResizeMode="expand" [responsive]="true"
-        scrollHeight="500px" [scrollable]="true"  [loading]="loading" loadingIcon="fas fa-spinner fa-2x icon-color-green" >
-       
+        scrollHeight="300px" [scrollable]="true"  [loading]="loading" loadingIcon="fas fa-spinner fa-2x icon-color-green" >
+
         <ng-template pTemplate="caption">
-          <div class="ml-2 row d-flex justify-content-between">  
+          <div class="ml-2 row d-flex justify-content-between">
             <div class="d-flex justify-content-start">
-              <button  class="btn-cuadrado-success btn--block  mb-1" (click)="guardar()" > <i class="fas fa-check fa-lg mr-2 mt-1"  ></i>Agregar productos</button>
+              <button  class="btn-cuadrado-success btn--block  mb-1" (click)="guardar()" > <i class="fas fa-check fa-lg mr-2 mt-1"  ></i>Confirmar productos seleccionados</button>
             </div>
-         
+
           </div>
-          
+
         </ng-template>
-      
+
                    <ng-template pTemplate="header" let-columns >
-                  
+
                               <tr >
-                                   
+
                                 <th  *ngFor="let col of columns" [pSortableColumn]="col.field"  [ngStyle]="{'width': col.width}">
                                     {{col.header}}
                                     <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
-                                </th> 
-                                
-                            </tr> 
+                                </th>
+
+                            </tr>
                             <tr>
                             <th *ngFor="let col of columns" [ngSwitch]="col.field"  >
                               <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'nombre'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
@@ -81,12 +81,14 @@
                                 <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'unidades'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
                                 <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'pallet_pisos'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
                                 <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'pallet_pack'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
-                                <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'volumen'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
+                                <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'unidad_hora'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
+                                <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'cantidad'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
+                                <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'packs'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
                             </th>
                             <th></th>
                         </tr>
                     </ng-template>
-                  
+
             <ng-template pTemplate="body" let-elementos  >
                 <tr style="height:24px">
                         <td style="width: 30%">{{elementos.nombre}}</td>
@@ -95,13 +97,14 @@
                         <td style="width: 15%">{{elementos.grupo_nombre}}</td>
                         <td style="width: 8%">{{elementos.unidades}}</td>
                         <td style="width: 8%">{{elementos.pallet_pisos}}</td>
-                        <td style="width: 8%">{{elementos.pallet_pack}}</td>                
-                        <td style="width: 8%">{{elementos.cantidad}}</td>      
-                        <td style="width: 8%">{{elementos.packs}}</td>                                 
+                        <td style="width: 8%">{{elementos.pallet_pack}}</td>
+                        <td style="width: 8%">{{elementos.unidad_hora}}</td>
+                        <td style="width: 10%">{{elementos.cantidad | number : '1.2-2'}}</td>
+                        <td style="width: 10%">{{elementos.packs | number : '1.2-2'}}</td>
                         <td style="width: 6%">
-                          <a  (click)="editarProduccion(elementos)" class="icon-hover"> <i class="fas fa-pen icon-color-info fa-lg"></i></a>                                                  
+                          <a  (click)="editarProduccion(elementos)" class="icon-hover"> <i class="fas fa-pen icon-color-info fa-lg"></i></a>
                         </td>
-                      
+
                 </tr>
             </ng-template>
         </p-table>

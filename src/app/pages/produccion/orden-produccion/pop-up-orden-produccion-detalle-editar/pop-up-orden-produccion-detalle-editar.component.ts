@@ -19,10 +19,11 @@ export class PopUpOrdenProduccionDetalleEditarComponent implements OnInit {
   selectedRow:any;
   fecha_produccion: Date;
   hora_produccion: Date;
+  hora_produccion_minutos = 0;
   es: any;
   cols: any[];
   columns: any[];
-  elementos: any[];
+  elementos: any[] = [];
   grupos: any[];
   selecteditems: any;
   loading;
@@ -38,15 +39,16 @@ export class PopUpOrdenProduccionDetalleEditarComponent implements OnInit {
   // tslint:disable-next-line: max-line-length
   constructor(private alertServiceService: AlertServiceService, public dialogService: DialogService, private messageService: MessageService, private articuloService: ArticuloService, public sectorService: SectorService, public ref: DynamicDialogRef,  private config: DynamicDialogConfig) {
     this.cols = [
-      { field: 'nombre', header: 'Articulo',  width: '30%' },    
+      { field: 'nombre', header: 'Articulo',  width: '30%' },
       { field: 'fecha_produccion', header: 'Fecha producción',  width: '12%' },
       { field: 'horas', header: 'Horas',  width: '10%' },
       { field: 'grupo_nombre', header: 'Grupo',  width: '15%' },
       { field: 'unidades', header: 'Unidades',  width: '8%' },
       { field: 'pallet_pisos', header: 'Pisos',  width: '8%' },
-      { field: 'pallet_pack', header: 'Pack',  width: '8%' },      
-      { field: 'cantidad', header: 'Cantidad',  width: '8%' },
-      { field: 'packs', header: 'Packs',  width: '8%' },
+      { field: 'pallet_pack', header: 'Pack',  width: '8%' },
+      { field: 'unidad_hora', header: 'U/h',  width: '8%' },
+      { field: 'cantidad', header: 'Cantidad',  width: '10%' },
+      { field: 'packs', header: 'Packs',  width: '10%' },
       { field: '', header: '',  width: '6%' }
 
    ];
@@ -75,7 +77,7 @@ export class PopUpOrdenProduccionDetalleEditarComponent implements OnInit {
 
 
   showDialog(position: string) {
-  
+
 }
 
   loadlist() {
@@ -158,10 +160,29 @@ calcular() {
 
  }
 
+ calcularHoras(): void{
+  const totalTime = ((this.hora_produccion.getHours()*60) + this.hora_produccion.getMinutes());
+  console.log(totalTime);
+  console.log((this.selectedRow['unidad_hora']));
+  this.hora_produccion_minutos = totalTime;
+  this.cantidad = this.hora_produccion_minutos * (Number(this.selectedRow['unidad_hora']) /60) ;
+  const resultado =  this.elementos.findIndex(x => x.id === this.selectedRow.id);
+  console.log(resultado);
+  this.index = resultado;
+ // this.elementos[resultado]['cantidad'] = PopupCalculdorPalletsComponent[0]['unidades'];
+  //this.cantidad =   PopupCalculdorPalletsComponent[0]['unidades'];
+  //this.volumen = PopupCalculdorPalletsComponent[1]['volumen'];
+ }
+
+  timeConvert(n) {
+
+  }
+
  agregarProducto() {
 /* ---------------------------------- DATOS --------------------------------- */
   if (this.cantidad > 0) {
     const fecha = formatDate(new Date(this.fecha_produccion), 'yyyy-MM-dd', 'en');
+    console.log(fecha);
     const hora = formatDate(new Date(this.hora_produccion), 'HH:mm', 'en');
     this.elementos[this.index]['fecha_produccion'] = fecha;
     this.elementos[this.index]['horas'] = hora;
@@ -222,7 +243,7 @@ detalle() {
     this.selectedRow = elem;
     console.log(this.selectedRow);
     this.position = 'top';
-    this.display = true;  
+    this.display = true;
   }
 
   removerProduccion(_elemento: any)  {

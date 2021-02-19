@@ -1,5 +1,5 @@
+<p-scrollPanel [style]="{width: '100%', height: '500px'}">
 <div class="row d-flex justify-content-center">
-
     <div class="col-8 ">
         <div class="row m-2">
             <h5 class="mr-2 texto-bold">ARTICULO: </h5>
@@ -9,46 +9,46 @@
         <div class="row m-2">
             <label class="mr-1">Cantidad de pallets :</label>
             <input type="number" class="mr-1 ml-1 form-control form-control-sm" [(ngModel)]="pallet" (change)="calcular()">
-            
+
         </div>
-    
+
         <div class="row m-2">
             <label class="mr-1">Cantidad de pisos :</label>
             <input type="number" class="mr-1 ml-1 form-control form-control-sm" [(ngModel)]="piso" (change)="calcular()">
             <label class="mr-1 ml-1">Calculo :</label>
             <label class="mr-1 ml-1">{{piso_calculo }}</label>
         </div>
-    
+
         <div class="row m-2">
             <label class="mr-1">Cantidad de pack :</label>
             <input type="number" class="mr-1 ml-1 form-control form-control-sm" [(ngModel)]="pack" (change)="calcular()">
             <label class="mr-1 ml-1">Calculo :</label>
             <label class="mr-1 ml-1">{{pack_calculo}}</label>
         </div>
-    
+
         <div class="row m-2">
             <label class="mr-1">Cantidad de botellas :</label>
             <input type="number" class="mr-1 ml-1 form-control form-control-sm  " [(ngModel)]="unidad" (change)="calcular()">
             <label class="mr-1 ml-1">Calculo :</label>
             <label class="mr-1 ml-1">{{unidad}}</label>
         </div>
-    
-        <div class="row m-2">            
+
+        <div class="row m-2">
             <label class="mr-1 ml-1 texto-bold texto-info">TOTAL EN PACK :</label>
             <label class="mr-1 ml-1 texto-bold texto-info">{{TOTAL_PACK}}</label>
             <hr>
         </div>
-        <div class="row m-2">            
+        <div class="row m-2">
             <label class="mr-1 ml-1 texto-bold texto-success">TOTAL EN UNIDADES :</label>
             <label class="mr-1 ml-1 texto-bold texto-success">{{TOTAL_CALCULO}}</label>
             <hr>
         </div>
         <div class="row m-2">
-            <label class="mr-1 ml-1 texto-bold texto-secondary">TOTAL EN LITROS :</label>                    
+            <label class="mr-1 ml-1 texto-bold texto-secondary">TOTAL EN LITROS :</label>
             <label class="mr-1 ml-1 texto-bold texto-secondary">{{litros_calculo}}</label>
         </div>
     </div>
-  
 </div>
+</p-scrollPanel>
 <button class="btn btn-info btn-block" (click)="guardarCalculo()"> Realizar calculo</button>
 

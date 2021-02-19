@@ -1,88 +1,110 @@
-     
-            <form class="col-12 "  [formGroup]="updateDataForm">
+<p-scrollPanel [style]="{width: '100%', height: '400px'}">
+  <form class="row "  [formGroup]="updateDataForm">
+    <div class="col-6">
+      <div class="row d-flex justify-content-center">
+        <div class="col-10">
+            <div class="form-group ">
+                    <label  >Nombre</label>
+                    <input class="form-control col-md-12 form-control-sm" formControlName="nombre"  autofocus  />
+                    <div *ngIf="updateDataForm.controls['nombre'].errors?.required && updateDataForm.controls['nombre'].touched" class="alert alert-warning">
+                            * Este campo es requerido
+                    </div>
+            </div>
+        </div>
+    </div>
 
-                <div class="row d-flex justify-content-center">
-                    <div class="col-8">
-                        <div class="form-group ">
-                                <label  >Nombre</label>
-                                <input class="form-control col-md-12 form-control-sm" formControlName="nombre"  autofocus  />
-                                <div *ngIf="updateDataForm.controls['nombre'].errors?.required && updateDataForm.controls['nombre'].touched" class="alert alert-warning">
-                                        * Este campo es requerido
-                                </div>
-                        </div>   
+    <div class="row d-flex justify-content-center">
+        <div class="col-10">
+            <div class="form-group ">
+                    <label  >Descripción</label>
+                    <input class="form-control col-md-12 form-control-sm" formControlName="descripcion"  autofocus  />
+                    <div *ngIf="updateDataForm.controls['descripcion'].errors?.required && updateDataForm.controls['descripcion'].touched" class="alert alert-warning">
+                            * Este campo es requerido
                     </div>
-                </div>
+            </div>
+        </div>
+    </div>
 
-                <div class="row d-flex justify-content-center">
-                    <div class="col-8">
-                        <div class="form-group ">
-                                <label  >Descripción</label>
-                                <input class="form-control col-md-12 form-control-sm" formControlName="descripcion"  autofocus  />
-                                <div *ngIf="updateDataForm.controls['descripcion'].errors?.required && updateDataForm.controls['descripcion'].touched" class="alert alert-warning">
-                                        * Este campo es requerido
-                                </div>
-                        </div>   
+    <div class="row d-flex justify-content-center">
+        <div class="col-10">
+            <div class="form-group ">
+                    <label  >Unidades por pack</label>
+                    <input  type="number"  class="form-control col-md-12 form-control-sm" formControlName="unidades"    />
+                    <div *ngIf="updateDataForm.controls['unidades'].errors?.required && updateDataForm.controls['unidades'].touched" class="alert alert-warning">
+                            * Este campo es requerido
                     </div>
-                </div>
-             
-                <div class="row d-flex justify-content-center">
-                    <div class="col-8">
-                        <div class="form-group ">
-                                <label  >Unidades por pack</label>
-                                <input  type="number"  class="form-control col-md-12 form-control-sm" formControlName="unidades"    />
-                                <div *ngIf="updateDataForm.controls['unidades'].errors?.required && updateDataForm.controls['unidades'].touched" class="alert alert-warning">
-                                        * Este campo es requerido
-                                </div>
-                        </div>   
-                    </div>
-                </div>
+            </div>
+        </div>
+    </div>
 
-                <div class="row d-flex justify-content-center">
-                    <div class="col-8">
-                        <div class="form-group ">
-                                <label  >Pisos</label>
-                                <input  type="number"  class="form-control col-md-12 form-control-sm" formControlName="pallet_pisos"    />
-                                <div *ngIf="updateDataForm.controls['pallet_pisos'].errors?.required && updateDataForm.controls['pallet_pisos'].touched" class="alert alert-warning">
-                                        * Este campo es requerido
-                                </div>
-                        </div>   
-                    </div>
-                </div>
 
-                <div class="row d-flex justify-content-center">
-                    <div class="col-8">
-                        <div class="form-group ">
-                                <label  >Packs por piso</label>
-                                <input  type="number"  class="form-control col-md-12 form-control-sm" formControlName="pallet_pack"    />
-                                <div *ngIf="updateDataForm.controls['pallet_pack'].errors?.required && updateDataForm.controls['pallet_pack'].touched" class="alert alert-warning">
-                                        * Este campo es requerido
-                                </div>
-                        </div>   
-                    </div>
-                </div>
 
-                <div class="row d-flex justify-content-center">
-                    <div class="col-8">
-                        <div class="form-group ">
-                                <label  >Volumen</label>
-                                <input type="number" class="form-control col-md-12 form-control-sm" formControlName="volumen"    />
-                                <div *ngIf="updateDataForm.controls['volumen'].errors?.required && updateDataForm.controls['volumen'].touched" class="alert alert-warning">
-                                        * Este campo es requerido
-                                </div>
-                        </div>   
-                    </div>
+    <div class="row d-flex justify-content-center">
+      <div class="col-10">
+          <div class="form-group ">
+                  <label  >Pisos</label>
+                  <input  type="number"  class="form-control col-md-12 form-control-sm" formControlName="pallet_pisos"    />
+                  <div *ngIf="updateDataForm.controls['pallet_pisos'].errors?.required && updateDataForm.controls['pallet_pisos'].touched" class="alert alert-warning">
+                          * Este campo es requerido
+                  </div>
+          </div>
+      </div>
+  </div>
+
+    </div>
+    <div class="col-6">
+
+  <div class="row d-flex justify-content-center">
+      <div class="col-10">
+          <div class="form-group ">
+                  <label  >Packs por piso</label>
+                  <input  type="number"  class="form-control col-md-12 form-control-sm" formControlName="pallet_pack"    />
+                  <div *ngIf="updateDataForm.controls['pallet_pack'].errors?.required && updateDataForm.controls['pallet_pack'].touched" class="alert alert-warning">
+                          * Este campo es requerido
+                  </div>
+          </div>
+      </div>
+  </div>
+
+
+  <div class="row d-flex justify-content-center">
+    <div class="col-10">
+        <div class="form-group ">
+                <label  >Unidades x hora</label>
+                <input  type="number"  class="form-control col-md-12 form-control-sm" formControlName="unidad_hora"    />
+                <div *ngIf="updateDataForm.controls['unidad_hora'].errors?.required && updateDataForm.controls['unidad_hora'].touched" class="alert alert-warning">
+                        * Este campo es requerido
                 </div>
-            </form>
-            <div class="form-group d-flex justify-content-center col-8">
-                <label class="mr-1" >Unidad</label>
-                <p-dropdown [options]="unidades" [(ngModel)]="selectedForma" optionLabel="descripcion" ></p-dropdown>
-         
-        </div>   
-        
-            <p-footer>
-                    <div class="ui-dialog-buttonpane ui-helper-clearfix">
-                            <button  [disabled]="!updateDataForm.valid" class="btn btn-info  btn-block"  (click)="guardarDatos()" >GUARDAR</button>
-                            
-                    </div>
-                </p-footer>
-       
+        </div>
+    </div>
+</div>
+
+<div class="row d-flex justify-content-center">
+  <div class="col-10">
+      <div class="form-group ">
+              <label  >Volumen</label>
+              <input type="number" class="form-control col-md-12 form-control-sm" formControlName="volumen"    />
+              <div *ngIf="updateDataForm.controls['volumen'].errors?.required && updateDataForm.controls['volumen'].touched" class="alert alert-warning">
+                      * Este campo es requerido
+              </div>
+      </div>
+  </div>
+</div>
+    </div>
+
+</form>
+</p-scrollPanel>
+<div class="form-group d-flex justify-content-center col-10">
+    <label class="mr-1" >Unidad</label>
+    <p-dropdown [options]="unidades" [(ngModel)]="selectedForma" optionLabel="descripcion" ></p-dropdown>
+
+</div>
+
+<p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                <button  [disabled]="!updateDataForm.valid" class="btn btn-info  btn-block"  (click)="guardarDatos()" >GUARDAR</button>
+
+        </div>
+    </p-footer>
+
+

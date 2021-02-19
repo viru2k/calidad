@@ -1,38 +1,38 @@
 <div class=" faq-title text-center pb-1 pt-2 ">
     <h5>ADMINISTRACION ORDEN DE PRODUCCION</h5>
   </div>
-  
+
   <div class="card-rounded card-header">
-    <div class="ml-2 row d-flex justify-content-between">  
+    <div class="ml-2 row d-flex justify-content-between">
         <div class="d-flex justify-content-start">
-          <button  class="btn-cuadrado-success btn--block mb-1" (click)="nuevo()"  > <i class="fas fa-plus fa-lg mr-2 mt-1"></i>ORDEN DE PRODUCCION</button>
-        
+          <button  class="btn-cuadrado-success btn--block mb-1" (click)="nuevo()"  > <i class="fas fa-plus fa-lg mr-2 mt-1"></i>PLANIFICACION DE PRODUCCION</button>
+
         </div>
         <div class="d-flex justify-content-end">
        <!--     <label class="mr-2 text-info">Ver Ordenes de producción finalizadas</label> <p-inputSwitch [(ngModel)]="checked" class="text-info" (onChange)="handleChange($event)"></p-inputSwitch> -->
         </div>
     </div>
-   
+
   </div>
     <div  class="m-3">
       <p-table  #dt class=""  tableStyleClass="prime-table" selectionMode="single" [columns]="cols"  [loading]="loading" [value]="elementos" [(selection)]="selecteditems"   columnResizeMode="expand" [responsive]="true"
       scrollHeight="500px" [scrollable]="true"  [loading]="loading" loadingIcon="fas fa-spinner fa-2x icon-color-green" >
-     
 
-    
+
+
                  <ng-template pTemplate="header" let-columns >
-                
+
                             <tr >
-                                 
+
                               <th  *ngFor="let col of columns" [pSortableColumn]="col.field"  [ngStyle]="{'width': col.width}">
                                   {{col.header}}
                                   <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
-                              </th> 
-                              
-                          </tr> 
+                              </th>
+
+                          </tr>
                           <tr>
                           <th *ngFor="let col of columns" [ngSwitch]="col.field"  >
-                               <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'id'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">  
+                               <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'id'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
                               <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'fecha_creacion'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
                               <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'descripcion'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
                               <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'observacion'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
@@ -44,24 +44,24 @@
                           <th></th>
                       </tr>
                   </ng-template>
-                
+
           <ng-template pTemplate="body" let-elementos  >
             <tr style="height:24px"  [ngClass]="colorRow(elementos.estado)">
-              <td style="width: 7%; font-size: 14px;font-weight: bold;" [ngClass]="iconoColor(elementos.estado)">{{elementos.id}}</td> 
-              <td style="width: 8%"  [ngClass]="iconoColor(elementos.estado)">{{elementos.estado}}</td>     
+              <td style="width: 7%; font-size: 14px;font-weight: bold;" [ngClass]="iconoColor(elementos.estado)">{{elementos.id}}</td>
+              <td style="width: 8%"  [ngClass]="iconoColor(elementos.estado)">{{elementos.estado}}</td>
               <td style="width: 10%">{{elementos.fecha_creacion | date:'dd/MM/yyyy'}}</td>
               <td style="width: 40%">{{elementos.descripcion}}</td>
               <td style="width: 25%">{{elementos.observacion}}</td>
               <td style="width: 12%; font-weight: bold;font-size: 11px;" class="texto-success">{{elementos.fecha_desde | date : 'dd/MM/yyyy hh:mm:ss'}}</td>
               <td style="width: 12%; font-weight: bold;font-size: 11px;" class="texto-danger-soft">{{elementos.fecha_hasta | date : 'dd/MM/yyyy hh:mm:ss'}}</td>
-              <td style="font-size: 10px;width: 12%" class="texto-secondary">{{elementos.nombreyapellido}}</td>             
+              <td style="font-size: 10px;width: 12%" class="texto-secondary">{{elementos.nombreyapellido}}</td>
               <td style="width: 6%">
-                <a  (click)="buscar(elementos)" class="icon-hover"><i class="fas fa-bars icon-color-info fa-2x"></i></a>                         
+                <a  (click)="buscar(elementos)" class="icon-hover"><i class="fas fa-bars icon-color-info fa-2x"></i></a>
               </td>
       </tr>
           </ng-template>
-       
-     
-    
+
+
+
       </p-table>
     </div>

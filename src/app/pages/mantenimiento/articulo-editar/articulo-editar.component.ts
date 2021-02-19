@@ -29,6 +29,7 @@ export class ArticuloEditarComponent implements OnInit {
       'unidades': new FormControl('1'),
       'pallet_pisos': new FormControl('1'),
       'pallet_pack': new FormControl('1'),
+      'unidad_hora': new FormControl('1'),
       'volumen': new FormControl('1'),
       'id': new FormControl(''),
       'usuario_modifica_id': new FormControl('1')

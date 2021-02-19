@@ -29,6 +29,7 @@ export class ArticuloComponent implements OnInit {
       { field: 'unidades', header: 'Unidades',  width: '8%' },
       { field: 'pallet_pisos', header: 'Pisos',  width: '8%' },
       { field: 'pallet_pack', header: 'Pack',  width: '8%' },
+      { field: 'unidad_hora', header: 'U/h',  width: '8%' },
       { field: 'volumen', header: 'Volumen',  width: '8%' },
       { field: '', header: '',  width: '6%' },
 

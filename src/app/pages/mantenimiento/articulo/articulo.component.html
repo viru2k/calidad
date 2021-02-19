@@ -2,24 +2,24 @@
   <h5>CONFIGURACION DE PRODUCTO</h5>
 </div>
 <div class="card-rounded card-header">
-  <div class="ml-2">    <button    class="ml-2  btn-cuadrado-info"  (click)="nuevo()" > <i class="fas fa-plus fa-lg mr-2"></i>Producto</button>  </div> 
+  <div class="ml-2">    <button    class="ml-2  btn-cuadrado-info"  (click)="nuevo()" > <i class="fas fa-plus fa-lg mr-2"></i>Producto</button>  </div>
 </div>
   <div  class="m-3">
     <p-table  #dt class=""  tableStyleClass="prime-table" selectionMode="single" [columns]="cols" [value]="elementos"  [loading]="loading" [(selection)]="selecteditems"   columnResizeMode="expand" [responsive]="true"
     scrollHeight="500px" [scrollable]="true"  [loading]="loading" loadingIcon="fas fa-spinner fa-2x icon-color-green" >
-   
 
-  
+
+
                <ng-template pTemplate="header" let-columns >
-              
+
                           <tr >
-                               
+
                             <th  *ngFor="let col of columns" [pSortableColumn]="col.field"  [ngStyle]="{'width': col.width}">
                                 {{col.header}}
                                 <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
-                            </th> 
-                            
-                        </tr> 
+                            </th>
+
+                        </tr>
                         <tr>
                         <th *ngFor="let col of columns" [ngSwitch]="col.field"  >
                           <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'nombre'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
@@ -28,12 +28,13 @@
                             <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'unidades'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
                             <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'pallet_pisos'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
                             <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'pallet_pack'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
+                            <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'unidad_hora'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
                             <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'volumen'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
                         </th>
                         <th></th>
                     </tr>
                 </ng-template>
-              
+
         <ng-template pTemplate="body" let-elementos  >
             <tr style="height:24px">
                     <td style="width: 30%">{{elementos.nombre}}</td>
@@ -42,14 +43,15 @@
                     <td style="width: 8%">{{elementos.unidades}}</td>
                     <td style="width: 8%">{{elementos.pallet_pisos}}</td>
                     <td style="width: 8%">{{elementos.pallet_pack}}</td>
+                    <td style="width: 8%">{{elementos.unidad_hora}}</td>
                     <td style="width: 8%">{{elementos.volumen}}</td>
-                                
+
                     <td style="width: 6%">
-                      <a  (click)="buscar(elementos)" class="icon-hover"> <i class="fas fa-pen icon-color-info fa-lg"></i></a>                        
+                      <a  (click)="buscar(elementos)" class="icon-hover"> <i class="fas fa-pen icon-color-info fa-lg"></i></a>
                         </td>
             </tr>
         </ng-template>
-  
-       
+
+
     </p-table>
   </div>

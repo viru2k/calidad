@@ -22,7 +22,7 @@ import { PushNotificationService } from './services/push-notification.service';
 /* -------------------------------------------------------------------------- */
 /*                             PRIME NG LIBRERIAS                             */
 /* -------------------------------------------------------------------------- */
-
+import {CardModule} from 'primeng/card';
 import {OrderListModule} from 'primeng/orderlist';
 import {CheckboxModule} from 'primeng/checkbox';
 import {TableModule} from 'primeng/table';
@@ -42,6 +42,7 @@ import {ListboxModule} from 'primeng/listbox';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import {MenuItem, MessageService, DialogService, SelectItem} from 'primeng/api';
+import {KeyFilterModule} from 'primeng/keyfilter';
 import {ScrollPanelModule} from 'primeng/scrollpanel';
 import {PanelModule} from 'primeng/panel';
 import {AutoCompleteModule} from 'primeng/autocomplete';
@@ -298,7 +299,9 @@ import { UsuarioPasswordComponent } from './pages/mantenimiento/usuario-password
     ColorPickerModule,
     ToggleButtonModule,
     AutoCompleteModule,
+    KeyFilterModule,
     DataViewModule,
+    CardModule,
     RatingModule,
     PivotViewModule ,
     SweetAlert2Module.forRoot(),
