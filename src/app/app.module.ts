@@ -53,6 +53,7 @@ import {ColorPickerModule} from 'primeng/colorpicker';
 import {SelectButtonModule} from 'primeng/selectbutton';
 import {DataViewModule} from 'primeng/dataview';
 import {RatingModule} from 'primeng/rating';
+import {ChartModule} from 'primeng/chart';
 
 
 
@@ -174,6 +175,8 @@ import { NotificacionPersonalComponent } from './pages/mantenimiento/notificacio
 import { PopupInsumoListadoComponent } from './pages/insumo/popup-insumo-listado/popup-insumo-listado.component';
 import { PopupAsociarInsumoStockComponent } from './pages/produccion/popups/popup-asociar-insumo-stock/popup-asociar-insumo-stock.component';
 import { UsuarioPasswordComponent } from './pages/mantenimiento/usuario-password/usuario-password.component';
+import { PopupChartBarComponent } from './shared/popups/popup-chart-bar/popup-chart-bar.component';
+import { PopupChartLineComponent } from './shared/popups/popup-chart-line/popup-chart-line.component';
 
 
 
@@ -263,7 +266,9 @@ import { UsuarioPasswordComponent } from './pages/mantenimiento/usuario-password
     PopupInsumoListadoComponent,
     PopupAsociarInsumoStockComponent,
     LoginComponent,
-    UsuarioPasswordComponent
+    UsuarioPasswordComponent,
+    PopupChartBarComponent,
+    PopupChartLineComponent
   ],
   imports: [
 
@@ -287,6 +292,7 @@ import { UsuarioPasswordComponent } from './pages/mantenimiento/usuario-password
     SpinnerModule,
     ToastModule,
     ListboxModule,
+    ChartModule,
     OverlayPanelModule,
     DynamicDialogModule,
     OrderListModule,
@@ -374,7 +380,12 @@ PopupAsociarInsumoStockComponent,
 /*                                    MOBIL                                   */
 /* -------------------------------------------------------------------------- */
 
+/* -------------------------------------------------------------------------- */
+/*                                    GRAFICOS                                */
+/* -------------------------------------------------------------------------- */
 
+PopupChartBarComponent,
+PopupChartLineComponent,
 
 /* -------------------------------------------------------------------------- */
 /*                             POPUPS COMPARTIDOS                             */

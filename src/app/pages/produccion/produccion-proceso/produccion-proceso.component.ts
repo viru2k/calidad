@@ -1,3 +1,4 @@
+import { PopupChartBarComponent } from './../../../shared/popups/popup-chart-bar/popup-chart-bar.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { OrdenProduccion } from './../../../models/orden-produccion.model';
 import { OrdenProduccionDetalle } from './../../../models/orden-produccion-detalle.model';
@@ -21,7 +22,7 @@ import { Table } from 'primeng/table';
 })
 export class ProduccionProcesoComponent implements OnInit {
 
-  
+
   editar;
   fecha_creacion: Date;
   _fecha_creacion: string;
@@ -56,7 +57,7 @@ export class ProduccionProcesoComponent implements OnInit {
   constructor(private alertServiceService: AlertServiceService, private produccionService: ProduccionService, public dialogService: DialogService,
                private messageService: MessageService, private exporterService: ExporterService,  private filter: Filter) {
 
-    this.cols = [                  
+    this.cols = [
       { field: 'orden_produccion_detalle_id', header: 'Prod Nº',  width: '7.5%' },
       { field: 'estado', header: 'Estado',  width: '12%' },
       { field: 'fecha_produccion', header: 'A producir el',  width: '18%' },
@@ -75,7 +76,7 @@ export class ProduccionProcesoComponent implements OnInit {
    }
 
   ngOnInit() {
-    
+
     this.es = calendarioIdioma  ;
     this.fecha_creacion = new Date();
     this.fecha_desde = new Date();
@@ -92,9 +93,21 @@ export class ProduccionProcesoComponent implements OnInit {
     overlaypanel.toggle(evt);
   }
 
-  
+  estadistica(){
 
-  
+
+    const data: any = this.elementos;
+    const ref = this.dialogService.open(PopupChartBarComponent, {
+    data,
+     header: 'Informe de barras',
+     width: '100%',
+     height: '100%'
+    });
+    ref.onClose.subscribe((PopupChartBarComponent: any) => {
+    });
+  }
+
+
   onChangeEstado(e) {
     console.log(e.target.value);
     this.selectedEstado = e.target.value;
@@ -196,7 +209,7 @@ export class ProduccionProcesoComponent implements OnInit {
 
 
 stockProduccion() {
-    
+
   const data: any = this.selectedItem;
   /* const ref = this.dialogService.open(UsuarioEditarComponent, {
   data,
@@ -205,7 +218,7 @@ stockProduccion() {
    height: '90%'
   });
 
-  
+
   ref.onClose.subscribe((UsuarioEditarComponent: any) => {
     if (UsuarioEditarComponent) {
       this.loadlist();
@@ -241,7 +254,7 @@ iconoColor(estado: string) {
 
   if (estado === 'ACTIVO') {
 
-    
+
   }
   if (estado === 'PAUSADO') {
     return {'icono-warning'  : 'null' };
@@ -303,11 +316,11 @@ realizarFiltroBusqueda(resp: any[]){
     this._estado.push(element.estado);
     this._maquina_nombre.push(element.maquina_nombre);
   });
-  
+
   // ELIMINO DUPLICADOS
   this._estado = this.filter.filterArray(this._estado);
   this._maquina_nombre = this.filter.filterArray(this._maquina_nombre);
-  
+
 
 
 }

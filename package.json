@@ -22,6 +22,7 @@
     "@angular/pwa": "^0.803.24",
     "@angular/router": "~8.2.13",
     "@angular/service-worker": "~8.2.13",
+    "@babel/compat-data": "7.8.0",
     "@syncfusion/ej2-angular-pivotview": "^17.4.50",
     "@toverux/ngx-sweetalert2": "^4.0.0",
     "@types/chart.js": "^2.7.40",
@@ -29,7 +30,7 @@
     "angular-popper": "^2.0.0",
     "animate.css": "^3.7.0",
     "bootstrap": "^4.0.0",
-    "chart.js": "^2.7.2",
+    "chart.js": "^2.9.4",
     "compass": "^0.1.1",
     "compass-mixins": "^0.12.10",
     "file-saver": "^2.0.2",
@@ -53,8 +54,7 @@
     "tslib": "^1.10.0",
     "web-push": "^3.4.4",
     "xlsx": "^0.15.1",
-    "zone.js": "~0.9.1",
-    "@babel/compat-data": "7.8.0"
+    "zone.js": "~0.9.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.803.24",
