@@ -14,6 +14,7 @@ import { element } from 'protractor';
 import { Filter } from './../../../shared/filter';
 import { ExporterService } from './../../../services/exporter.service';
 import { Table } from 'primeng/table';
+import date from 'date-and-time';
 
 @Component({
   selector: 'app-produccion-proceso',
@@ -49,9 +50,12 @@ export class ProduccionProcesoComponent implements OnInit {
 
   totalCantidad = 0;
   totalSolicitado = 0;
-
+  totalMinutos = 0;
+  totalHoras = 0;
+  totalUnidadesHora = 0;
   _estado: any[] = [];
   _maquina_nombre: any[] = [];
+  _nombre: any[] = [];
   @ViewChild('dt', { static: false }) table: Table;
 
   constructor(private alertServiceService: AlertServiceService, private produccionService: ProduccionService, public dialogService: DialogService,
@@ -62,11 +66,13 @@ export class ProduccionProcesoComponent implements OnInit {
       { field: 'estado', header: 'Estado',  width: '12%' },
       { field: 'fecha_produccion', header: 'A producir el',  width: '18%' },
       { field: 'lote', header: 'Lote',  width: '18%' },
-      { field: 'nombre', header: 'Producto',  width: '30%' },
+      { field: 'nombre', header: 'Producto',  width: '28%' },
       { field: 'maquina_nombre', header: 'Linea',  width: '18%' },
       { field: 'hora_inicio', header: 'Inicio',  width: '8%' },
       { field: 'hora_fin', header: 'Fin',  width: '8%' },
+      { field: 'horas', header: 'Horas',  width: '8%' },
       { field: 'cantidad_solicitada', header: 'Solicitado',  width: '10%' },
+      { field: '', header: 'Un/Hr.',  width: '10%' },
       { field: '', header: 'En packs',  width: '10%' },
       { field: 'cantidad_producida', header: 'Realizado',  width: '10%' },
       { field: '', header: 'En packs',  width: '10%' },
@@ -120,7 +126,21 @@ export class ProduccionProcesoComponent implements OnInit {
     try {
          this.produccionService.getProduccionProcesoByEstado(this.selectedEstado)
          .subscribe(resp => {
+          resp.forEach(element => {
+            console.log(element['hora_fin']);
+            if(!!element['hora_fin']){
+              const now = new Date();
+              const next_month = date.subtract(new Date(element['hora_fin']), new Date(element['hora_inicio']));
+                  console.log(formatDate(new Date(next_month), 'yyyy-MM-dd HH:mm', 'en'));
+            }
+          });
            if (resp[0]) {
+          //  hora_inicio: "2020-08-20 20:39:45" resp['hora_inicio']
+
+
+
+
+
             this.realizarFiltroBusqueda(resp);
             this.elementos = resp;
             this.sumarValores(this.elementos);
@@ -149,10 +169,11 @@ export class ProduccionProcesoComponent implements OnInit {
   try {
        this.produccionService.getProduccionProcesoByDates(this._fecha_desde, this._fecha_hasta)
        .subscribe(resp => {
+
          if (resp[0]) {
           this.realizarFiltroBusqueda(resp);
           this.elementos = resp;
-          this.sumarValores(this.elementos);
+          this.sumarValores(resp);
           console.log(this.elementos);
              } else {
                this.elementos = null;
@@ -270,18 +291,33 @@ iconoColor(estado: string) {
 
 sumarValores(vals: any) {
   let i: number;
+  console.log(vals);
   console.log(vals !== undefined);
   this.totalCantidad = 0;
   this.totalSolicitado = 0;
+  this.totalUnidadesHora = 0;
+  this.totalHoras = 0;
+  this.totalMinutos = 0;
 
-  for (i= 0; i < vals.length; i++) {
-      this.totalSolicitado = this.totalSolicitado + Number(vals[i]['cantidad_solicitada']);
-      this.totalCantidad = this.totalCantidad + Number(vals[i]['cantidad_producida']);
+  vals.forEach(element => {
+    if(!!element['hora_fin']){
+      const now = new Date();
+      const minutos = date.subtract(new Date(element['hora_fin']), new Date(element['hora_inicio'])).toMinutes();
+      const horas = date.subtract(new Date(element['hora_fin']), new Date(element['hora_inicio'])).toHours();
+      console.log('EN HORAS '+horas+ 'EN MINUTOS'+ minutos);
+      this.totalMinutos = this.totalMinutos + minutos;
+      this.totalHoras = this.totalHoras + horas;
+      this.totalUnidadesHora = this.totalUnidadesHora + Number(element['cantidad_producida']);
+      element['unidad_hora'] = element['cantidad_producida'] / horas;
+      element['horas'] = horas;
+    }
 
-  }
-
+    this.totalSolicitado = this.totalSolicitado + Number(element['cantidad_solicitada']);
+    this.totalCantidad = this.totalCantidad + Number(element['cantidad_producida']);
+  });
+  console.log('unidades '+ this.totalUnidadesHora + ' horas' + this.totalHoras);
+  this.totalUnidadesHora = this.totalUnidadesHora / this.totalHoras;
 }
-
 
 
 filtered(event){
@@ -289,6 +325,7 @@ filtered(event){
   this.elementosFiltrados  = event.filteredValue;
   this.sumarValores(this.elementosFiltrados);
 }
+
 
 exportarExcel() {
   const fecha = formatDate(new Date(), 'dd/MM/yyyy hh:mm', 'es-Ar');
@@ -311,18 +348,18 @@ realizarFiltroBusqueda(resp: any[]){
   // FILTRO LOS ELEMENTOS QUE SE VAN USAR PARA FILTRAR LA LISTA
   this._estado = [];
   this._maquina_nombre = [];
+  this._nombre = [];
 
   resp.forEach(element => {
     this._estado.push(element.estado);
     this._maquina_nombre.push(element.maquina_nombre);
+    this._nombre.push(element.nombre);
   });
 
   // ELIMINO DUPLICADOS
   this._estado = this.filter.filterArray(this._estado);
   this._maquina_nombre = this.filter.filterArray(this._maquina_nombre);
-
-
-
+  this._nombre = this.filter.filterArray(this._nombre);
 }
 
 

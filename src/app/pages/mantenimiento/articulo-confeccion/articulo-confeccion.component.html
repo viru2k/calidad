@@ -6,25 +6,25 @@
     <p-table  #dt class=""  tableStyleClass="prime-table" selectionMode="single" [columns]="cols" [value]="elementos"  [loading]="loading" [(selection)]="selecteditems"   columnResizeMode="expand" [responsive]="true"
     scrollHeight="500px" [scrollable]="true"  [loading]="loading" loadingIcon="fas fa-spinner fa-2x icon-color-green" >
 
-  
+
                <ng-template pTemplate="header" let-columns >
-              
+
                           <tr >
-                               
+
                             <th  *ngFor="let col of columns" [pSortableColumn]="col.field"  [ngStyle]="{'width': col.width}">
                                 {{col.header}}
                                 <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
-                            </th> 
-                            
-                        </tr> 
-                        <tr>  
+                            </th>
+
+                        </tr>
+                        <tr>
       <th *ngFor="let col of columns" [ngSwitch]="col.field"  >
-        <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'descripcion'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')" autofocus>   
-        <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'unidad_descripcion'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">   
-        <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'unidades'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">   
-        <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'pallet_pisos'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">   
-        <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'pallet_pack'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">   
-        <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'volumen'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">   
+        <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'descripcion'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')" autofocus>
+        <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'unidad_descripcion'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
+        <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'unidades'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
+        <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'pallet_pisos'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
+        <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'pallet_pack'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
+        <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'volumen'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
     </th>
     <th></th>
 </tr>
@@ -40,13 +40,13 @@
 <td style="width: 10%">{{elementos.pallet_pisos}}</td>
 <td style="width: 10%">{{elementos.pallet_pack}}</td>
 <td style="width: 10%">{{elementos.volumen}}</td>
-            
+
 <td style="width: 6%">
-  <a     (click)="loadlistConfeccion(elementos)"    ><i class="fas fa-bars fa-2x icon-color-purple my-hover"></i></a>
-    
+  <a     (click)="loadlistConfeccion(elementos)"    ><i class="fas fa-bars fa-md icon-color-purple my-hover"></i></a>
+
     </td>
 </tr>
-</ng-template>  
+</ng-template>
     </p-table>
   </div>
 
