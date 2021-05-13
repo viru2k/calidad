@@ -11,7 +11,7 @@ import { AlertServiceService } from './../../../../../services/alert-service.ser
 })
 export class PopupControlParametroComponent implements OnInit {
 
-  
+
   updateDataForm: FormGroup;
   elementos: any;
   unidades: any;
@@ -35,7 +35,7 @@ export class PopupControlParametroComponent implements OnInit {
       'parametro': new FormControl('', Validators.required),
       'control_tipo': new FormControl('', Validators.required),
       'estado': new FormControl('true', Validators.required),
-      
+
   });
 
     this.userData = JSON.parse(localStorage.getItem('userData'));
@@ -45,8 +45,8 @@ export class PopupControlParametroComponent implements OnInit {
     this.es_nuevo = false;
     this.updateDataForm.patchValue(this.config.data);
     this.updateDataForm.patchValue({parametro: this.config.data.parametro});
-  
-    
+
+
     if(this.config.data.estado === 'ACTIVO') {
       this.esActivo  = true;
     } else {
@@ -63,7 +63,8 @@ export class PopupControlParametroComponent implements OnInit {
   this.opciones = [
     {name: 'NUMERO',      value: 'NUMERO'},
     {name: 'RANKING',     value: 'RANKING'},
-    {name: 'OPCION',  value: 'OPCION'}    
+    {name: 'OPCION',  value: 'OPCION'},
+    {name: 'TIEMPO',  value: 'TIEMPO'}
 ];
   }
 
@@ -78,7 +79,7 @@ export class PopupControlParametroComponent implements OnInit {
 
 onChangeOpcion(event){
   console.log(event.target.value);
-  
+
   //this.updateDataForm.patchValue({});
 }
 
@@ -105,7 +106,7 @@ onChangeOpcion(event){
     }
 
   }
-  
+
 
   nuevaUnidad() {
     this.loading = true;

@@ -66,13 +66,13 @@
               <button *ngIf = "!editar" class="btn-cuadrado-info  texto-bold mb-1" (click)="buscarArticulo()"  > <i class="fa fa-plus fa-lg mr-2"></i>Agregar producto a planificación</button>
                 <!-- <a  (click)="buscarArticulo()" *ngIf="!editar" class="icon-hover  icon-color-info mt-2 ml-2"> <i class="fa fa-plus fa-lg mr-2"></i>Agregar producto</a> -->
             </div>
+<!-- ------------------------ INFORMACION DE CARGA ------------------------- -->
+     <!--     <div class="col-8 mt-2" style="text-align: right">
 
-          <div class="col-8 mt-2" style="text-align: right">
 
 
-              <!-- ------------------------ INFORMACION DE CARGA ------------------------- -->
 
-        <!--   <i class="far fa-question-circle icono-info ml-2 mt-2" (mouseenter)="op2.show($event)"  style="font-size:24px"></i> -->
+           <i class="far fa-question-circle icono-info ml-2 mt-2" (mouseenter)="op2.show($event)"  style="font-size:24px"></i>
           <p-overlayPanel #op2 [showCloseIcon]="true" [dismissable]="false" appendTo="body">
             <p class="texto-info texto-bold">Desde aquí se selecciona el producto asociando sus parametos de :</p>
             <p> - Dia en que se planifica la producción</p>
@@ -84,7 +84,7 @@
             <p><b class="texto-warning"> Recordar que  se debe repetir el proceso para cada producto para completar la producción planificada</b></p>
           </p-overlayPanel>
 
-          </div>
+          </div>-->
         </div>
 
       </ng-template>
@@ -131,7 +131,7 @@
                       <td style="width: 12%"><b>{{elementos.cantidad_existente |  number : '1.0-2'}}</b></td>
                       <td style="width: 15%">{{elementos.estado}}</td>
                       <td style="width: 6%">
-                        <a  (click)="editarProduccion($event,op3,elementos)" class="icon-hover"> <i class="fas fa-pen icon-color-info fa-lg"></i></a>
+                        <a *ngIf="this.userData['access_list'][4]" (click)="editarProduccion($event,op3,elementos)" class="icon-hover"> <i class="fas fa-pen icon-color-info fa-lg"></i></a>
                       </td>
               </tr>
           </ng-template>

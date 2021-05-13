@@ -52,7 +52,7 @@ export class PopupCalidadParametroProduccionIngresoComponent implements OnInit {
       { field: 'parametro', header: 'Parámetro',  width: '35%' },
       { field: '', header: 'Valor',  width: '26%' },
       { field: 'es_no_conformidad_descripcion', header: 'No conformidad',  width: '30%' },
-      { field: 'tiene_accion_correctiva_descripcion', header: 'Acción correctiva',  width: '30%' },      
+      { field: 'tiene_accion_correctiva_descripcion', header: 'Acción correctiva',  width: '30%' },
     ];
 
   }
@@ -69,12 +69,12 @@ export class PopupCalidadParametroProduccionIngresoComponent implements OnInit {
     this.getCalidadControlEncabezado(this.config.data.id);
     this.getControlByProcesoId();
 
-    
+
   }
 
 
   onChangeControl(e: any) {
-    console.log(e.target.value);
+    console.log(e);
     this.getCalidadControlParametroControl();
   }
 
@@ -87,6 +87,7 @@ export class PopupCalidadParametroProduccionIngresoComponent implements OnInit {
     this.elementos[resultado]['calidad_valor'] = event.target.value;
     this.elementos[resultado]['calidad_ranking'] = 0;
     this.elementos[resultado]['calidad_verificado'] = 'NO';
+    this.elementos[resultado]['calidad_tiempo'] = '00:00';
     console.log( this.elementos[resultado]);
   }
 
@@ -96,12 +97,13 @@ export class PopupCalidadParametroProduccionIngresoComponent implements OnInit {
     this.elementos[resultado]['calidad_ranking'] = event.target.value;
     this.elementos[resultado]['calidad_valor'] = 0;
     this.elementos[resultado]['calidad_verificado'] = 'NO';
+    this.elementos[resultado]['calidad_tiempo'] = '00:00';
     console.log( this.elementos[resultado]);
   }
 
   changeEstado(event, elem: any)  {
     console.log(event);
-    console.log(event.value);
+
     const resultado =  this.elementos.findIndex(x => x['id'] === elem.id);
     if (event) {
       this.elementos[resultado]['calidad_verificado'] = 'SI';
@@ -110,8 +112,21 @@ export class PopupCalidadParametroProduccionIngresoComponent implements OnInit {
     }
     this.elementos[resultado]['calidad_valor'] = 0;
     this.elementos[resultado]['calidad_ranking'] = 0;
+    this.elementos[resultado]['calidad_tiempo'] = '00:00';
     console.log( this.elementos[resultado]);
 
+  }
+
+  changeTiempo(event, elem: any) {
+    console.log(event);
+    console.log(elem);
+    const fecha = formatDate(new Date(event), 'yyyy-MM-dd HH:mm', 'en') ;
+    const resultado =  this.elementos.findIndex(x => x['id'] === elem.id);
+    this.elementos[resultado]['calidad_ranking'] =0;
+    this.elementos[resultado]['calidad_valor'] = 0;
+    this.elementos[resultado]['calidad_verificado'] = 'NO';
+    this.elementos[resultado]['calidad_tiempo'] = fecha;
+    console.log( this.elementos[resultado]);
   }
 
   changeAccionCorrectiva(event, elem: any) {
@@ -145,7 +160,7 @@ export class PopupCalidadParametroProduccionIngresoComponent implements OnInit {
     console.log(this.elementos);
     this.elementos.forEach(ele => {
       console.log(ele);
-     
+
       const fecha = formatDate(new Date(this.fecha), 'yyyy-MM-dd', 'en') + ' ' +  formatDate(new Date(this.hora), 'HH:mm:ss', 'en') ;
       this.elementos[i]['fecha'] = fecha;
       this.elementos[i]['produccion_proceso_id']  = this.procesoProduccionId;
@@ -171,9 +186,13 @@ export class PopupCalidadParametroProduccionIngresoComponent implements OnInit {
       if (!this.elementos[i]['calidad_valor'] ) {
           this.elementos[i]['calidad_valor'] = 0;
         }
+        console.log(this.elementos[i]['calidad_tiempo']);
+        if (!this.elementos[i]['calidad_tiempo'] ) {
+            this.elementos[i]['calidad_tiempo'] = '00:00';
+          }
       i++;
      //   console.log(fecha);
-      
+
     }
       );
     console.log(this.elementos);
@@ -181,7 +200,7 @@ export class PopupCalidadParametroProduccionIngresoComponent implements OnInit {
     try {
            this.calidadService.setCalidadControlParametrosValor(this.elementos)
            .subscribe(resp => {
-            
+
              this.loading = false;
              console.log(resp);
              this.alertServiceService.throwAlert('success',  'Control generado correctamente', '', '200');
@@ -232,7 +251,7 @@ export class PopupCalidadParametroProduccionIngresoComponent implements OnInit {
      }
  }
 
- 
+
 
  getCalidadControlParametroControl() {
 

@@ -1,5 +1,5 @@
-import { DataSet } from './DataSet.model';
-export class ChartBar {
+import { DataSet } from './chart-bar-data-set.model';
+export class ChartBarModel {
 
   labels: string[];
   datasets: DataSet[];

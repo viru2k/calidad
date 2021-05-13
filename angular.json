@@ -29,22 +29,24 @@
               "src/manifest.webmanifest"
             ],
             "styles": [
-              "src/styles.scss",   
+              "src/styles.scss",
               "src/assets/css/bootstrap.min.css",
               "node_modules/primeicons/primeicons.css",
-              "node_modules/primeng/resources/themes/omega/theme.scss",                         
+              "node_modules/primeng/resources/themes/omega/theme.scss",
               "node_modules/animate.css/animate.css",
               "node_modules/hover.css/css/hover-min.css",
               "node_modules/primeng/resources/primeng.min.css",
-              "node_modules/fullcalendar/dist/fullcalendar.min.css",              
+              "node_modules/fullcalendar/dist/fullcalendar.min.css",
               "node_modules/font-awesome/scss/font-awesome.scss"
             ],
             "scripts": [
+              "node_modules/chart.js/dist/Chart.js",
+              "node_modules/quill/dist/quill.js",
               "./node_modules/jspdf/dist/jspdf.min.js",
               "./node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.js",
               "./node_modules/popper.js/dist/esm/popper.min.js",
               "./node_modules/bootstrap/dist/js/bootstrap.min.js",
-              "node_modules/chart.js/dist/Chart.js",
+
               "node_modules/hammerjs/hammer.min.js"
             ]
           },

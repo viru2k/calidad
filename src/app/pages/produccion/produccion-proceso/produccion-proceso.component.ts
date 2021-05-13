@@ -15,6 +15,7 @@ import { Filter } from './../../../shared/filter';
 import { ExporterService } from './../../../services/exporter.service';
 import { Table } from 'primeng/table';
 import date from 'date-and-time';
+import { PopupChartLineComponent } from '../../../shared/popups/popup-chart-line/popup-chart-line.component';
 
 @Component({
   selector: 'app-produccion-proceso',
@@ -78,7 +79,7 @@ export class ProduccionProcesoComponent implements OnInit {
       { field: '', header: 'En packs',  width: '10%' },
       { field: '', header: '',  width: '6%' },
     ];
-
+    this.userData = JSON.parse(localStorage.getItem('userData'));
    }
 
   ngOnInit() {
@@ -99,20 +100,19 @@ export class ProduccionProcesoComponent implements OnInit {
     overlaypanel.toggle(evt);
   }
 
-  estadistica(){
+  estadistica() {
 
-
-    const data: any = this.elementos;
-    const ref = this.dialogService.open(PopupChartBarComponent, {
+    const data: any  =  this.elementosFiltrados;
+    const ref = this.dialogService.open(PopupChartLineComponent, {
     data,
-     header: 'Informe de barras',
-     width: '100%',
-     height: '100%'
+     header: 'Gráfico de barras',
+     width: '98%',
+     height: '90%'
     });
-    ref.onClose.subscribe((PopupChartBarComponent: any) => {
-    });
-  }
+    ref.onClose.subscribe((PopupChartLineComponent: any) => {
 
+    });
+}
 
   onChangeEstado(e) {
     console.log(e.target.value);
@@ -143,6 +143,7 @@ export class ProduccionProcesoComponent implements OnInit {
 
             this.realizarFiltroBusqueda(resp);
             this.elementos = resp;
+            this.elementosFiltrados = resp;
             this.sumarValores(this.elementos);
             console.log(this.elementos);
                } else {

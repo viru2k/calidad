@@ -15,24 +15,24 @@ import { UsuarioModuloComponent } from './../usuario-modulo/usuario-modulo.compo
 })
 export class UsuarioComponent implements OnInit {
 
-  
+
   cols: any[];
   columns: any[];
   elementos: any[];
   selecteditems: any;
   loading;
 
-  constructor(private userService: UserService, private alertServiceService: AlertServiceService,  public dialogService: DialogService, private messageService: MessageService) { 
+  constructor(private userService: UserService, private alertServiceService: AlertServiceService,  public dialogService: DialogService, private messageService: MessageService) {
 
     this.cols = [
-    
+
       { field: 'nombreyapellido', header: 'Nombre y apellido',  width: '50%' },
       { field: 'email', header: 'Usuario',  width: '30%' },
       { field: '', header: 'Permisos',  width: '10%' },
       { field: '', header: 'Contraseña',  width: '10%' },
       { field: '', header: 'Acción',  width: '10%' },
-      
-      
+
+
    ];
   }
 
@@ -106,7 +106,7 @@ editarPassword(elemento: any) {
 }
 
 editarPermiso(elemento: any) {
-  console.log(elemento);  
+  console.log(elemento);
   const data: any = elemento;
   const ref = this.dialogService.open(UsuarioModuloComponent, {
   data,

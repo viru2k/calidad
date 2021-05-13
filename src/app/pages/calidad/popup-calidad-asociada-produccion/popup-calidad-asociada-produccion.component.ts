@@ -14,11 +14,12 @@ import { formatDate } from '@angular/common';
 })
 export class PopupCalidadAsociadaProduccionComponent implements OnInit {
 
- 
+
   procesoProduccionId: string;
   elemento: any = null;
   elementos: ControCalidadParametroValor[];
   elementosControl: ControCalidadParametroValor[];
+
   userData: any;
   loading;
   selected: any;
@@ -36,7 +37,7 @@ export class PopupCalidadAsociadaProduccionComponent implements OnInit {
   elementoFinal: ControCalidadParametroValor[] = [];
   data: any;
 
-  constructor(private alertServiceService: AlertServiceService, private produccionService: ProduccionService, 
+  constructor(private alertServiceService: AlertServiceService, private produccionService: ProduccionService,
               private calidadService: CalidadService, public dialogService: DialogService,
               private messageService: MessageService, private config: DynamicDialogConfig, public ref: DynamicDialogRef) {
 
@@ -123,7 +124,7 @@ export class PopupCalidadAsociadaProduccionComponent implements OnInit {
     try {
            this.calidadService.setCalidadControlParametrosValor(this.elementoFinal)
            .subscribe(resp => {
-            
+
              this.loading = false;
              console.log(resp);
              this.alertServiceService.throwAlert('success',  'Control generado correctamente', '', '200');

@@ -4,24 +4,25 @@
   </div>
   <div *ngIf="data" class="d-flex justify-content-center align-items-center">
     <div class="row">
-      <h5 >PRODUCTO : {{data.nombre}}</h5> 
+      <h5 >PRODUCTO : {{data.nombre}}</h5>
       <h6 class="mr-2 ml-4 texto-secondary">A PRODUCIR EL : {{data.fecha_produccion | date: 'EEEE dd/MM/yyyyy'}}</h6>
-      <h6 class="mr-2 ml-2 texto-success texto-bold">SOLICITADO : {{data.orden_produccion_detalle_cantidad_solicitada}} UNIDADES - EN PACKS : {{data.orden_produccion_detalle_cantidad_solicitada / data.unidades}}</h6> 
+      <h6 class="mr-2 ml-2 texto-success texto-bold">SOLICITADO : {{data.orden_produccion_detalle_cantidad_solicitada}} UNIDADES - EN PACKS : {{data.orden_produccion_detalle_cantidad_solicitada / data.unidades}}</h6>
     </div>
   </div>
   <div class="d-flex justify-content-between m-2">
     <div class="d-flex justify-content-start ">
       <label class="mr-2 mt-1">Controles :</label>
-      <select [(ngModel)]="selected" class="form-control-sm text-sm texto-monserrat texto-secondary icon-hover" (change)="onChangeControl($event)" >             
-               
+      <p-dropdown [options]="elementosControl" [(ngModel)]="selected" (onChange)="onChangeControl($event)" placeholder="Seleccionar control" [showClear]="true" optionLabel="calidad_titulo" filter="true"></p-dropdown>
+<!--       <select [(ngModel)]="selected" class="form-control-sm text-sm texto-monserrat texto-secondary icon-hover" (change)="onChangeControl($event)" >
+
         <option  *ngFor="let grupo of elementosControl" class="text-sm texto-monserrat texto-secondary icon-hover" [ngValue]="grupo"   >
-          <label class="icon-hover texto-secondary"  >{{grupo.calidad_titulo}}</label>              
+          <label class="icon-hover texto-secondary"  >{{grupo.calidad_titulo}}</label>
       </option>
-      </select>
+      </select> -->
     </div>
     <div class="d-flex justify-content-center ">
       <label class="mr-2 mt-1">Fecha de carga :</label>
-      <p-calendar [(ngModel)]="fecha"   tabindex="0"  [locale]="es" dateFormat="dd/mm/yy "   [readonlyInput]="true">   </p-calendar>    
+      <p-calendar [(ngModel)]="fecha"   tabindex="0"  [locale]="es" dateFormat="dd/mm/yy "   [readonlyInput]="true">   </p-calendar>
       <label class="mr-2 ml-2 mt-1">Hora de carga :</label>
       <p-calendar [(ngModel)]="hora" [timeOnly]="true"></p-calendar>
     </div>
@@ -38,71 +39,75 @@
 
   <p-table  #dt   tableStyleClass="prime-table" selectionMode="single" [columns]="cols"  [loading]="loading" [value]="elementos"  columnResizeMode="expand" [responsive]="true"
   scrollHeight="500px" [scrollable]="true"  [loading]="loading" loadingIcon="fas fa-spinner fa-2x icon-color-green" >
-  
+
 
 
              <ng-template pTemplate="header" let-columns >
-            
+
                         <tr >
-                             
+
                           <th  *ngFor="let col of columns" [pSortableColumn]="col.field"  [ngStyle]="{'width': col.width}">
                               {{col.header}}
                               <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
-                          </th> 
-                          
-                      </tr> 
+                          </th>
+
+                      </tr>
                       <tr >
                       <th *ngFor="let col of columns" [ngSwitch]="col.field"  >
-                           <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'parametro'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">  
+                           <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'parametro'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
                           <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'calidad_valor'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
                           <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'es_no_conformidad'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
-                          <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'tiene_accion_correctiva'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">                      
+                          <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'tiene_accion_correctiva'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
                       </th>
                       <th></th>
                   </tr>
               </ng-template>
-            
+
       <ng-template pTemplate="body" let-elementos  >
           <tr style="height:24px" >
 
-                  <td style="width: 35%" >{{elementos.parametro}}</td>                                         
-    
+                  <td style="width: 35%" >{{elementos.parametro}}</td>
+
                   <td style="width: 26%;" >
                        <div class="d-flex justify-content-start d-flex align-items-center" *ngIf="elementos.control_tipo === 'NUMERO'">
-                        <label class="mr-1 mt-2">Valor :</label>    <input type="number" class="form-control  texto-success form-control-sm col-3" (change)="changeValor($event, elementos)" >                               
+                          <input type="number" class="form-control  texto-success form-control-sm col-3" (change)="changeValor($event, elementos)" >
                        </div>
 
                        <div class="d-flex justify-content-start d-flex align-items-center" *ngIf="elementos.control_tipo === 'RANKING'">
                         <label class="mr-1 mt-2" > {{elementos.calidad_ranking}}</label>
-                        <p-rating (change)="changeRanking($event, elementos)" [cancel]="false" iconOnClass="fas fa-circle icon-color-usuario m-1" iconOffClass="far fa-circle icon-color-azul-neutro m-1" iconCancelClass="far fa-circle icon-color-danger" stars="5"  (onRate)="handleRate($event, elementos)"></p-rating>                                    
+                        <p-rating (change)="changeRanking($event, elementos)" [cancel]="false" iconOnClass="fas fa-circle icon-color-usuario m-1" iconOffClass="far fa-circle icon-color-azul-neutro m-1" iconCancelClass="far fa-circle icon-color-danger" stars="5"  (onRate)="handleRate($event, elementos)"></p-rating>
                        </div>
 
                        <div class="d-flex justify-content-start d-flex align-items-center" *ngIf="elementos.control_tipo === 'OPCION'">
                         <label  class="mr-1 mt-2" >Válido / Invalido</label>
-                        <p-checkbox name="groupname" value="SI"  binary="true" (onChange)="changeEstado($event, elementos)"></p-checkbox>    
+                        <p-inputSwitch  (onChange)="changeEstado($event, elementos)"></p-inputSwitch>
+                   <!--      <p-checkbox name="groupname" value="SI"  binary="true" (onChange)="changeEstado($event, elementos)"></p-checkbox> -->
                       </div>
-                  </td>                           
+                      <div class="d-flex justify-content-start d-flex align-items-center" *ngIf="elementos.control_tipo === 'TIEMPO'">
+                        <p-calendar appendTo="body"  [timeOnly]="true" (onSelect)="changeTiempo($event, elementos)"></p-calendar>
+                      </div>
+                  </td>
                   <td style="width: 30%"  [ngClass]="iconoColor('CANCELADO')">
                     <textarea rows="1" cols="30" pInputTextarea autoResize="autoResize"  class="form-control   form-control-sm col-12" (change)="changeNoConformidad($event, elementos)"></textarea>
-                  
-                </td>                   
-                  <td style="width: 30%"  [ngClass]="iconoColor('PAUSADO')">                    
-                    <textarea rows="1" cols="30" pInputTextarea autoResize="autoResize"  class="form-control   form-control-sm col-12" (change)="changeAccionCorrectiva($event, elementos)" ></textarea>                   
-                </td>                   
+
+                </td>
+                  <td style="width: 30%"  [ngClass]="iconoColor('PAUSADO')">
+                    <textarea rows="1" cols="30" pInputTextarea autoResize="autoResize"  class="form-control   form-control-sm col-12" (change)="changeAccionCorrectiva($event, elementos)" ></textarea>
+                </td>
           </tr>
 
-         
-          
+
+
       </ng-template>
-  
-      
-    
+
+
+
 
   </p-table>
 
   <div class="mt-2">
     <button class="btn btn-lg btn-info btn-block" (click)="guardarControl()" >GUARDAR CONTROL</button>
   </div>
-  
+
 
 

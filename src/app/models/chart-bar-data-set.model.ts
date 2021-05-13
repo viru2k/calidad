@@ -1,9 +1,10 @@
 export class DataSet {
 
   label: string;
+  data: any[];
   backgroundColor: string;
   borderColor: string;
-  data: any[];
+
 
 
   constructor(

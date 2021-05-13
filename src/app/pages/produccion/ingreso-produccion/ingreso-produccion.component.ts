@@ -21,6 +21,7 @@ import { PopupOrdenProduccionDetalleConsultaComponent } from './popup-orden-prod
 import { calendarioIdioma } from './../../../config/config';
 import { formatDate } from '@angular/common';
 import { Filter } from './../../../shared/filter';
+import { PopupChartLineComponent } from '../../../shared/popups/popup-chart-line/popup-chart-line.component';
 
 /* -------------------------------------------------------------------------- */
 /*         AGREGAR UNA PRODUCCION REALIZADA A UNA ORDEN DE PRODUCCION         */
@@ -50,7 +51,7 @@ export class IngresoProduccionComponent implements OnInit {
   _fecha_desde: string;
   _fecha_hasta: string;
   _estado: any[] = [];
-  constructor(private alertServiceService: AlertServiceService, 
+  constructor(private alertServiceService: AlertServiceService,
               private articuloService: ArticuloService,private produccionService: ProduccionService,
               public dialogService: DialogService, private messageService: MessageService, private filter: Filter) {
 
@@ -196,13 +197,23 @@ buscar(elemento: any) {
     if(PopupOrdenProduccionDetalleConsultaComponent){
       this.loadlist();
     }
-      
+
   });
 
 }
 
-estadistica(elemento: any) {
+estadistica() {
 
+    const data: any  =  this.elementos;
+    const ref = this.dialogService.open(PopupChartLineComponent, {
+    data,
+     header: 'Gráfico de barras',
+     width: '98%',
+     height: '90%'
+    });
+    ref.onClose.subscribe((PopupChartLineComponent: any) => {
+
+    });
 }
 
 
@@ -249,10 +260,10 @@ realizarFiltroBusqueda(resp: any[]){
   resp.forEach(element => {
     this._estado.push(element['estado']);
   });
-  
+
   // ELIMINO DUPLICADOS
-  this._estado = this.filter.filterArray(this._estado);  
-  
+  this._estado = this.filter.filterArray(this._estado);
+
 
 
 }

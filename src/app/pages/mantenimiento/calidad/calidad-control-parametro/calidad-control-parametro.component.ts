@@ -12,14 +12,14 @@ import { PopupControlParametroComponent } from './popup-control-parametro/popup-
 })
 export class CalidadControlParametroComponent implements OnInit {
 
-  
+
   cols: any[];
   columns: any[];
   elementos: any[];
   selecteditems: any;
   loading;
 
-  constructor(private calidadService: CalidadService, private alertServiceService: AlertServiceService,  public dialogService: DialogService, private messageService: MessageService) { 
+  constructor(private calidadService: CalidadService, private alertServiceService: AlertServiceService,  public dialogService: DialogService, private messageService: MessageService) {
 
     this.cols = [
 
@@ -98,6 +98,17 @@ nuevo() {
       this.loadlist();
     }
   });
+
+}
+
+colorRow(estado: string) {
+
+  if (estado === 'ACTIVO') {
+    return {'texto-success'  : 'null' };
+  }
+  if (estado === 'INACTIVO') {
+    return {'texto-danger'  : 'null' };
+  }
 
 }
 }
