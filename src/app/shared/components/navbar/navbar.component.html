@@ -1,246 +1,578 @@
+<div id="main-wrapper">
+  <!-- ============================================================== -->
+  <!-- Topbar header - style you can find in pages.scss -->
+  <!-- ============================================================== -->
+  <header class="topbar">
+    <nav class="navbar top-navbar navbar-expand-md navbar-light">
+      <!-- ============================================================== -->
+      <!-- Logo -->
+      <!-- ============================================================== -->
 
-
-
-
-
-
-        <div id="main-wrapper">
-                <!-- ============================================================== -->
-                <!-- Topbar header - style you can find in pages.scss -->
-                <!-- ============================================================== -->
-                <header class="topbar">
-                    <nav class="navbar top-navbar navbar-expand-md navbar-light">
-                        <!-- ============================================================== -->
-                        <!-- Logo -->
-                        <!-- ============================================================== -->
-
-                        <!-- ============================================================== -->
-                        <!-- End Logo -->
-                        <!-- ============================================================== -->
-                        <div class="navbar-collapse">
-                            <!-- ============================================================== -->
-                            <!-- toggle and nav items -->
-                            <!-- ============================================================== -->
-                            <ul class="navbar-nav mr-auto">
-                                <!-- This is  -->
-                                <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up waves-effect waves-dark" href="javascript:void(0)"><i class="fas fa-bars"></i></a> </li>
-                                <li class="nav-item"> <a class="nav-link sidebartoggler hidden-sm-down waves-effect waves-dark" href="javascript:void(0)"><i class="fas fa-bars"></i></a> </li>
-                                <li class="nav-item hidden-sm-down"></li>
-                            </ul>
-                            <!-- ============================================================== -->
-                            <!-- User profile and search -->
-                            <!-- ============================================================== -->
-                            <ul class="navbar-nav my-lg-0">
-
-
-
-
-                                <!-- ============================================================== -->
-                                <!-- Profile -->
-                                <!-- ============================================================== -->
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="./assets/images/icon/staff-w.png" width="32px" height="32px" alt="user"></a>
-                                    <div class="dropdown-menu dropdown-menu-right animated flipInY">
-                                        <ul class="dropdown-user">
-                                            <li>
-                                                <div class="dw-user-box">
-                                                    <div class="u-img"><img src="./assets/images/user-default.png" alt="user"></div>
-                                                    <div class="u-text">
-                                                        <h4>{{name | titlecase }}</h4>
-                                                        <h6 class="text-muted">{{username}}</h6></div>
-                                                </div>
-                                            </li>
-                                            <li role="separator" class="divider"></li>
-                                            <li><a routerLink="/usuario/password" ><i class="ti-user"></i> Mi perfil</a></li>
-
-                                            <li role="separator" class="divider"></li>
-                                            <li><a (click)="cerrarSesion()"><i class="fa fa-power-off"></i> Salir</a></li>
-                                        </ul>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </nav>
-                </header>
-                <!-- ============================================================== -->
-                <!-- End Topbar header -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- Left Sidebar - style you can find in sidebar.scss  -->
-                <!-- ============================================================== -->
-                <aside class="left-sidebar">
-                    <!-- Sidebar scroll-->
-                    <div class="scroll-sidebar">
-                        <!-- Sidebar navigation-->
-                        <nav class="sidebar-nav">
-                            <ul id="sidebarnav">
-                                <li *ngIf="!this.administracion_produccion">
-                                         <a class="has-arrow waves-effect waves-dark d-flex justify-content-start"   aria-expanded="false"><i class="fas fa-people-carry  mr-1"></i><span class="hide-menu"> Producción</span></a>
-                                    <ul aria-expanded="false" class="collapse">
-                                        <li>
-                                                <a   class="has-arrow waves-effect waves-dark"  aria-expanded="false">Stock de insumos</a>
-                                                <ul aria-expanded="false" class="collapse">
-                                                    <li><a routerLink="/insumo/stock/ingreso" class="d-flex align-items-center"><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i>Ingresar insumos</a></li>
-                                                    <li><a routerLink="/insumo/stock" class="d-flex align-items-center"><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i>Stock de insumos</a></li>
-                                                    <li><a routerLink="/insumo/indicadores" class="d-flex align-items-center"><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i>Indicadores de stock insumos</a></li>
-                                                </ul>
-                                        </li>
-                                        <li *ngIf="!this.gestion_produccion">
-                                                <a   class="has-arrow waves-effect waves-dark"  aria-expanded="false">Planificación de producción</a>
-                                                <ul aria-expanded="false" class="collapse">
-                                                    <li><a routerLink="/orden/produccion" class="d-flex align-items-center"><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i>Orden de producción</a></li>
-                                                    <li><a routerLink="/produccion/ingreso" class="d-flex align-items-center"><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i>Detalle de ordenes de producción</a></li>
-                                                    <li><a routerLink="/produccion/proceso" class="d-flex align-items-center"><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i>Listado de Producciones</a></li>
-                                                </ul>
-                                        </li>
-                                        <li *ngIf="!this.gestion_produccion">
-                                                <a   class="has-arrow waves-effect waves-dark"  aria-expanded="false">Gestión de producción</a>
-                                                <ul aria-expanded="false" class="collapse">
-                                                    <li><a routerLink="/produccion/ingreso" class="d-flex align-items-center"><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i>Cargar producción</a></li>
-                                                    <li><a routerLink="/produccion/asociar/insumo" class="d-flex align-items-center"><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i>Asociar insumos a producción</a></li>
-                                                    <li><a routerLink="/produccion/movimientos" class="d-flex align-items-center"><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i>Movimientos de producción</a></li>
-                                                    <li><a routerLink="/insumo/movimientos" class="d-flex align-items-center"><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i>Movimientos de insumos</a></li>
-                                                </ul>
-                                        </li>
-
-                                    </ul>
-                                </li>
-
-                                <li *ngIf="!this.gerencia"> <a class="has-arrow waves-effect waves-dark d-flex justify-content-start"  aria-expanded="false"> <i class="fas fa-chart-pie  mr-1"></i> <span class="hide-menu"> Gerencia</span></a>
-                                    <ul aria-expanded="false" class="collapse">
-                                        <li><a routerLink="/orden/produccion" class="d-flex align-items-center"><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i>Producción</a></li>
-                                        <li><a routerLink="/produccion/proceso" class="d-flex align-items-center"><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i>Procesos de producción</a></li>
-                                        <li><a routerLink="/control/calidad" class="d-flex align-items-center"><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i>Control de calidad</a></li>
-                                        <li><a routerLink="/control/calidad/produccion" class="d-flex align-items-center"><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i>Controles de realizados</a></li>
-                                        <li><a routerLink="/control/calidad/produccion" class="d-flex align-items-center"><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i>Insumos</a></li>
-                                    </ul>
-                                </li>
-
-                                <li *ngIf="!this.gestion_auditoria"> <a class="has-arrow waves-effect waves-dark d-flex justify-content-start"  aria-expanded="false"><i class="fas fa-vial  mr-1"></i><span class="hide-menu">Auditoria</span></a>
-                                    <ul aria-expanded="false" class="collapse">
-                                        <li><a routerLink="/control/calidad/produccion" class="d-flex align-items-center"><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i>Control de producción</a></li>
-                                        <li>
-                                                <a   class="has-arrow waves-effect waves-dark"  aria-expanded="false">Indicadores</a>
-                                                <ul aria-expanded="false" class="collapse">
-                                                    <li><a routerLink="/control/calidad" class="d-flex align-items-center"><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i>Controles realizados</a></li>
-                                                    <li><a routerLink="/control/linea" class="d-flex align-items-center"><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i>Lineas de producción</a></li>
-                                                </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li *ngIf="!this.movil_calidad"> <a  routerLink="/movil/control/calidad" class=" waves-effect waves-dark d-flex justify-content-start" aria-expanded="false"> <i class="fas fa-mobile-alt  mr-1"></i><span class="hide-menu">Realizar control</span></a></li>
-                                <li *ngIf="!this.movil_insumo" >  <a routerLink="/movil/insumo/stock/ingreso" class=" waves-effect waves-dark d-flex justify-content-start"  aria-expanded="false"> <i class="fas fa-business-time  mr-1"></i><span class="hide-menu">Ingreso de insumo</span></a> </li>
-
-
-                                <li *ngIf="!this.administracion_produccion"> <a class="has-arrow waves-effect waves-dark" aria-expanded="false"><i class="fas fa-archive  mr-1"></i><span class="hide-menu">Ventas</span></a>
-                                    <ul aria-expanded="false" class="collapse">
-                                        <li><a routerLink="/ventas/orden/pedido" class="d-flex align-items-center"><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i>Orden de pedido</a></li>
-                                        <li><a routerLink="/ventas/stock" class="d-flex align-items-center"><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i>Stock en depósito</a></li>
-                                        <li>
-                                                <a   class="has-arrow waves-effect waves-dark"  aria-expanded="false">Estadistica</a>
-                                                <ul aria-expanded="false" class="collapse">
-                                                    <li><a routerLink="/ventas/estadistica/produccion" class="d-flex align-items-center"><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i>Produccción</a></li>
-                                                    <li><a routerLink="/ventas/estadistica/stock" class="d-flex align-items-center"><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i>Stock</a></li>
-                                                </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-
-
-                                <li *ngIf="!mantenimiento"> <a class="has-arrow waves-effect waves-dark"  aria-expanded="false"><i class="fas fa-cogs mr-1"></i><span class="hide-menu">Configuración</span></a>
-                                    <ul aria-expanded="false" class="collapse">
-                                        <li><a   class="has-arrow waves-effect waves-dark"  aria-expanded="false">Calidad</a>
-                                            <ul aria-expanded="false" class="collapse">
-                                                <li><a routerLink="/mantenimiento/calidad/encabezado" class="d-flex align-items-center"><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i>Encabezado</a></li>
-                                                <li><a routerLink="/mantenimiento/calidad/parametro" class="d-flex align-items-center"><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i>Parametros</a></li>
-                                                <li><a routerLink="/mantenimiento/calidad/encabezado/parametro" class="d-flex align-items-center"><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i>Confección de planilla</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a routerLink="/mantenimiento/articulo" class="d-flex align-items-center"><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i>Producto</a></li>
-                                        <li><a routerLink="/mantenimiento/insumo" class="d-flex align-items-center"><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i>Insumo</a></li>
-                                        <li><a routerLink="/mantenimiento/articulo/confeccion" class="d-flex align-items-center"><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i>Confección de producto</a></li>
-                                        <li><a routerLink="/unidad" class="d-flex align-items-center"><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i>Unidad</a></li>
-                                        <li><a routerLink="/mantenimiento/grupo/analisis" class="d-flex align-items-center"><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i>Grupo de insumo</a></li>
-                                        <li><a routerLink="/mantenimiento/grupo" class="d-flex align-items-center"><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i>Grupos</a></li>
-                                        <li><a routerLink="/mantenimiento/lineas/produccion" class="d-flex align-items-center"><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i>Línea de producción</a></li>
-                                        <li><a routerLink="/mantenimiento/deposito" class="d-flex align-items-center"><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i>Depósito</a></li>
-                                        <li><a routerLink="/usuario" class="d-flex align-items-center"><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i>Usuarios</a></li>
-                                        <li><a routerLink="/mantenimiento/notificaciones/personal" class="d-flex align-items-center"><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i>Notificaciones</a></li>
-                                    </ul>
-                                </li>
-
-
-                            </ul>
-                        </nav>
-                        <!-- End Sidebar navigation -->
-                    </div>
-                    <!-- End Sidebar scroll-->
-                </aside>
-                <!-- ============================================================== -->
-                <!-- End Left Sidebar - style you can find in sidebar.scss  -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- Page wrapper  -->
-                <!-- ============================================================== -->
-                <div class="page-wrapper">
-
-                    <!-- ============================================================== -->
-                    <!-- Container fluid  -->
-                    <!-- ============================================================== -->
-                    <div class="container-fluid">
-
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <router-outlet  ></router-outlet>
-                            </div>
-                        </div>
-                        <!-- ============================================================== -->
-                        <!-- End Page Content -->
-                        <!-- ============================================================== -->
-                        <!-- ============================================================== -->
-                        <!-- Right sidebar -->
-                        <!-- ============================================================== -->
-                        <!-- .right-sidebar -->
-                        <div class="right-sidebar">
-                            <div class="slimscrollright">
-                                <div class="rpanel-title"> Service Panel <span><i class="ti-close right-side-toggle"></i></span> </div>
-                                <div class="r-panel-body">
-
-                                </div>
-                            </div>
-                        </div>
-                        <!-- ============================================================== -->
-                        <!-- End Right sidebar -->
-                        <!-- ============================================================== -->
-                    </div>
-                    <!-- ============================================================== -->
-                    <!-- End Container fluid  -->
-                    <!-- ============================================================== -->
-                    <!-- ============================================================== -->
-
-                    <!-- ============================================================== -->
-                </div>
-                <!-- ============================================================== -->
-                <!-- End Page wrapper  -->
-                <!-- ============================================================== -->
-            </div>
-
+      <!-- ============================================================== -->
+      <!-- End Logo -->
+      <!-- ============================================================== -->
+      <div class="navbar-collapse">
         <!-- ============================================================== -->
+        <!-- toggle and nav items -->
+        <!-- ============================================================== -->
+        <ul class="navbar-nav mr-auto">
+          <!-- This is  -->
+          <li class="nav-item">
+            <a
+              class="nav-link nav-toggler hidden-md-up waves-effect waves-dark"
+              href="javascript:void(0)"
+              ><i class="fas fa-ellipsis-v"></i
+            ></a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="
+                nav-link
+                sidebartoggler
+                hidden-sm-down
+                waves-effect waves-dark
+              "
+              href="javascript:void(0)"
+              ><i class="fas fa-ellipsis-v"></i
+            ></a>
+          </li>
+          <li class="nav-item hidden-sm-down"></li>
+        </ul>
+        <!-- ============================================================== -->
+        <!-- User profile and search -->
+        <!-- ============================================================== -->
+        <ul class="navbar-nav my-lg-0">
+          <!-- ============================================================== -->
+          <!-- Profile -->
+          <!-- ============================================================== -->
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle waves-effect waves-dark"
+              href=""
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+              ><img
+                src="./assets/images/icon/staff-w.png"
+                width="32px"
+                height="32px"
+                alt="user"
+            /></a>
+            <div class="dropdown-menu dropdown-menu-right animated flipInY">
+              <ul class="dropdown-user">
+                <li>
+                  <div class="dw-user-box">
+                    <div class="u-img">
+                      <img src="./assets/images/user-default.png" alt="user" />
+                    </div>
+                    <div class="u-text">
+                      <h4>{{ name | titlecase }}</h4>
+                      <h6 class="text-muted">{{ username }}</h6>
+                    </div>
+                  </div>
+                </li>
+                <li role="separator" class="divider"></li>
+                <li>
+                  <a routerLink="/usuario/password"
+                    ><i class="ti-user"></i> Mi perfil</a
+                  >
+                </li>
+
+                <li role="separator" class="divider"></li>
+                <li>
+                  <a (click)="cerrarSesion()"
+                    ><i class="fa fa-power-off"></i> Salir</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <!-- ============================================================== -->
+  <!-- End Topbar header -->
+  <!-- ============================================================== -->
+  <!-- ============================================================== -->
+  <!-- Left Sidebar - style you can find in sidebar.scss  -->
+  <!-- ============================================================== -->
+  <aside class="left-sidebar">
+    <!-- Sidebar scroll-->
+    <div class="scroll-sidebar">
+      <!-- Sidebar navigation-->
+      <nav class="sidebar-nav">
+        <ul id="sidebarnav">
+          <li *ngIf="!this.administracion_produccion">
+            <a
+              class="
+                has-arrow
+                waves-effect waves-dark
+                d-flex
+                justify-content-start
+              "
+              aria-expanded="false"
+              ><i class="fas fa-people-carry mr-1"></i
+              ><span class="hide-menu"> Producción</span></a
+            >
+            <ul aria-expanded="false" class="collapse">
+              <li>
+                <a
+                  class="has-arrow waves-effect waves-dark"
+                  aria-expanded="false"
+                  >Stock de insumos</a
+                >
+                <ul aria-expanded="false" class="collapse">
+                  <li>
+                    <a
+                      routerLink="/insumo/stock/ingreso"
+                      class="d-flex align-items-center"
+                      ><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i
+                      >Ingresar insumos</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      routerLink="/insumo/stock"
+                      class="d-flex align-items-center"
+                      ><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i
+                      >Stock de insumos</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      routerLink="/insumo/indicadores"
+                      class="d-flex align-items-center"
+                      ><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i
+                      >Indicadores de stock insumos</a
+                    >
+                  </li>
+                </ul>
+              </li>
+              <li *ngIf="!this.gestion_produccion">
+                <a
+                  class="has-arrow waves-effect waves-dark"
+                  aria-expanded="false"
+                  >Planificación de producción</a
+                >
+                <ul aria-expanded="false" class="collapse">
+                  <li>
+                    <a
+                      routerLink="/orden/produccion"
+                      class="d-flex align-items-center"
+                      ><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i
+                      >Orden de producción</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      routerLink="/produccion/ingreso"
+                      class="d-flex align-items-center"
+                      ><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i
+                      >Detalle de ordenes de producción</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      routerLink="/produccion/proceso"
+                      class="d-flex align-items-center"
+                      ><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i
+                      >Listado de Producciones</a
+                    >
+                  </li>
+                </ul>
+              </li>
+              <li *ngIf="!this.gestion_produccion">
+                <a
+                  class="has-arrow waves-effect waves-dark"
+                  aria-expanded="false"
+                  >Gestión de producción</a
+                >
+                <ul aria-expanded="false" class="collapse">
+                  <li>
+                    <a
+                      routerLink="/produccion/ingreso"
+                      class="d-flex align-items-center"
+                      ><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i
+                      >Cargar producción</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      routerLink="/produccion/asociar/insumo"
+                      class="d-flex align-items-center"
+                      ><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i
+                      >Asociar insumos a producción</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      routerLink="/produccion/movimientos"
+                      class="d-flex align-items-center"
+                      ><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i
+                      >Movimientos de producción</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      routerLink="/insumo/movimientos"
+                      class="d-flex align-items-center"
+                      ><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i
+                      >Movimientos de insumos</a
+                    >
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+
+          <li *ngIf="!this.gerencia">
+            <a
+              class="
+                has-arrow
+                waves-effect waves-dark
+                d-flex
+                justify-content-start
+              "
+              aria-expanded="false"
+            >
+              <i class="fas fa-chart-pie mr-1"></i>
+              <span class="hide-menu"> Gerencia</span></a
+            >
+            <ul aria-expanded="false" class="collapse">
+              <li>
+                <a
+                  routerLink="/orden/produccion"
+                  class="d-flex align-items-center"
+                  ><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i
+                  >Producción</a
+                >
+              </li>
+              <li>
+                <a
+                  routerLink="/produccion/proceso"
+                  class="d-flex align-items-center"
+                  ><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i
+                  >Procesos de producción</a
+                >
+              </li>
+              <li>
+                <a
+                  routerLink="/control/calidad"
+                  class="d-flex align-items-center"
+                  ><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i
+                  >Control de calidad</a
+                >
+              </li>
+              <li>
+                <a
+                  routerLink="/control/calidad/produccion"
+                  class="d-flex align-items-center"
+                  ><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i
+                  >Controles de realizados</a
+                >
+              </li>
+              <li>
+                <a
+                  routerLink="/control/calidad/produccion"
+                  class="d-flex align-items-center"
+                  ><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i
+                  >Insumos</a
+                >
+              </li>
+            </ul>
+          </li>
+
+          <li *ngIf="!this.gestion_auditoria">
+            <a
+              class="
+                has-arrow
+                waves-effect waves-dark
+                d-flex
+                justify-content-start
+              "
+              aria-expanded="false"
+              ><i class="fas fa-vial mr-1"></i
+              ><span class="hide-menu">Auditoria</span></a
+            >
+            <ul aria-expanded="false" class="collapse">
+              <li>
+                <a
+                  routerLink="/control/calidad/produccion"
+                  class="d-flex align-items-center"
+                  ><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i
+                  >Control de producción</a
+                >
+              </li>
+              <li>
+                <a
+                  class="has-arrow waves-effect waves-dark"
+                  aria-expanded="false"
+                  >Indicadores</a
+                >
+                <ul aria-expanded="false" class="collapse">
+                  <li>
+                    <a
+                      routerLink="/control/calidad"
+                      class="d-flex align-items-center"
+                      ><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i
+                      >Controles realizados</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      routerLink="/control/linea"
+                      class="d-flex align-items-center"
+                      ><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i
+                      >Lineas de producción</a
+                    >
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li *ngIf="!this.movil_calidad">
+            <a
+              routerLink="/movil/control/calidad"
+              class="waves-effect waves-dark d-flex justify-content-start"
+              aria-expanded="false"
+            >
+              <i class="fas fa-mobile-alt mr-1"></i
+              ><span class="hide-menu">Realizar control</span></a
+            >
+          </li>
+          <li *ngIf="!this.movil_insumo">
+            <a
+              routerLink="/movil/insumo/stock/ingreso"
+              class="waves-effect waves-dark d-flex justify-content-start"
+              aria-expanded="false"
+            >
+              <i class="fas fa-business-time mr-1"></i
+              ><span class="hide-menu">Ingreso de insumo</span></a
+            >
+          </li>
+
+          <li *ngIf="!this.administracion_produccion">
+            <a class="has-arrow waves-effect waves-dark" aria-expanded="false"
+              ><i class="fas fa-archive mr-1"></i
+              ><span class="hide-menu">Ventas</span></a
+            >
+            <ul aria-expanded="false" class="collapse">
+              <li>
+                <a
+                  routerLink="/ventas/orden/pedido"
+                  class="d-flex align-items-center"
+                  ><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i>Orden
+                  de pedido</a
+                >
+              </li>
+              <li>
+                <a routerLink="/ventas/stock" class="d-flex align-items-center"
+                  ><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i>Stock
+                  en depósito</a
+                >
+              </li>
+              <li>
+                <a
+                  class="has-arrow waves-effect waves-dark"
+                  aria-expanded="false"
+                  >Estadistica</a
+                >
+                <ul aria-expanded="false" class="collapse">
+                  <li>
+                    <a
+                      routerLink="/ventas/estadistica/produccion"
+                      class="d-flex align-items-center"
+                      ><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i
+                      >Produccción</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      routerLink="/ventas/estadistica/stock"
+                      class="d-flex align-items-center"
+                      ><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i
+                      >Stock</a
+                    >
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+
+          <li *ngIf="!mantenimiento">
+            <a class="has-arrow waves-effect waves-dark" aria-expanded="false"
+              ><i class="fas fa-cogs mr-1"></i
+              ><span class="hide-menu">Configuración</span></a
+            >
+            <ul aria-expanded="false" class="collapse">
+              <li>
+                <a
+                  class="has-arrow waves-effect waves-dark"
+                  aria-expanded="false"
+                  >Calidad</a
+                >
+                <ul aria-expanded="false" class="collapse">
+                  <li>
+                    <a
+                      routerLink="/mantenimiento/calidad/encabezado"
+                      class="d-flex align-items-center"
+                      ><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i
+                      >Encabezado</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      routerLink="/mantenimiento/calidad/parametro"
+                      class="d-flex align-items-center"
+                      ><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i
+                      >Parametros</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      routerLink="/mantenimiento/calidad/encabezado/parametro"
+                      class="d-flex align-items-center"
+                      ><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i
+                      >Confección de planilla</a
+                    >
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a
+                  routerLink="/mantenimiento/articulo"
+                  class="d-flex align-items-center"
+                  ><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i
+                  >Producto</a
+                >
+              </li>
+              <li>
+                <a
+                  routerLink="/mantenimiento/insumo"
+                  class="d-flex align-items-center"
+                  ><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i
+                  >Insumo</a
+                >
+              </li>
+              <li>
+                <a
+                  routerLink="/mantenimiento/articulo/confeccion"
+                  class="d-flex align-items-center"
+                  ><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i
+                  >Confección de producto</a
+                >
+              </li>
+              <li>
+                <a routerLink="/unidad" class="d-flex align-items-center"
+                  ><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i
+                  >Unidad</a
+                >
+              </li>
+              <li>
+                <a
+                  routerLink="/mantenimiento/grupo/analisis"
+                  class="d-flex align-items-center"
+                  ><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i>Grupo
+                  de insumo</a
+                >
+              </li>
+              <li>
+                <a
+                  routerLink="/mantenimiento/grupo"
+                  class="d-flex align-items-center"
+                  ><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i
+                  >Grupos</a
+                >
+              </li>
+              <li>
+                <a
+                  routerLink="/mantenimiento/lineas/produccion"
+                  class="d-flex align-items-center"
+                  ><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i>Línea
+                  de producción</a
+                >
+              </li>
+              <li>
+                <a
+                  routerLink="/mantenimiento/deposito"
+                  class="d-flex align-items-center"
+                  ><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i
+                  >Depósito</a
+                >
+              </li>
+              <li>
+                <a routerLink="/usuario" class="d-flex align-items-center"
+                  ><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i
+                  >Usuarios</a
+                >
+              </li>
+              <li>
+                <a
+                  routerLink="/mantenimiento/notificaciones/personal"
+                  class="d-flex align-items-center"
+                  ><i class="fas fa-circle fa-xs mr-2 icon-color-blue"></i
+                  >Notificaciones</a
+                >
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <!-- End Sidebar navigation -->
+    </div>
+    <!-- End Sidebar scroll-->
+  </aside>
+  <!-- ============================================================== -->
+  <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+  <!-- ============================================================== -->
+  <!-- ============================================================== -->
+  <!-- Page wrapper  -->
+  <!-- ============================================================== -->
+  <div class="page-wrapper">
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-12">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+      <!-- ============================================================== -->
+      <!-- End Page Content -->
+      <!-- ============================================================== -->
+      <!-- ============================================================== -->
+      <!-- Right sidebar -->
+      <!-- ============================================================== -->
+      <!-- .right-sidebar -->
+      <div class="right-sidebar">
+        <div class="slimscrollright">
+          <div class="rpanel-title">
+            Service Panel
+            <span><i class="ti-close right-side-toggle"></i></span>
+          </div>
+          <div class="r-panel-body"></div>
+        </div>
+      </div>
+      <!-- ============================================================== -->
+      <!-- End Right sidebar -->
+      <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Container fluid  -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
 
     <!-- ============================================================== -->
-    <!-- End Wrapper -->
-    <!-- ============================================================== -->
+  </div>
+  <!-- ============================================================== -->
+  <!-- End Page wrapper  -->
+  <!-- ============================================================== -->
+</div>
 
+<!-- ============================================================== -->
 
-
-
-
-
-
-
-
-
-
-
-
-
+<!-- ============================================================== -->
+<!-- End Wrapper -->
+<!-- ============================================================== -->

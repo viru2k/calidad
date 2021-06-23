@@ -1,64 +1,177 @@
-
-<div class=" faq-title text-center pb-1 pt-2 ">
+<div class="faq-title text-center pb-1 pt-2">
   <h5>CONFIGURACION DE INSUMOS</h5>
 </div>
 <div class="card-rounded card-header">
-  
   <div class="ml-2">
-    <button    class="ml-2  btn-cuadrado-info"  (click)="nuevo()" > <i class="fas fa-plus fa-lg mr-2"></i>Insumo</button>
-  </div> 
-</div>
-  <div class="row m-3">
-    <p-table  #dt class="pt-2"  tableStyleClass="prime-table" selectionMode="single" [columns]="cols" [value]="elementos"  [loading]="loading" [(selection)]="selecteditems"   columnResizeMode="expand" [responsive]="true"
-    scrollHeight="500px" [scrollable]="true" loadingIcon="fas fa-spinner fa-2x icon-color-green"   >
-   
-
-               <ng-template pTemplate="header" let-columns >
-              
-                          <tr >
-                               
-                            <th  *ngFor="let col of columns" [pSortableColumn]="col.field"  [ngStyle]="{'width': col.width}">
-                                {{col.header}}
-                                <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
-                            </th> 
-                          
-                        </tr> 
-                        <tr>
-                        <th *ngFor="let col of columns" [ngSwitch]="col.field"  >
-                            <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'nombre'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
-                            <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'descripcion'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
-                            <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'unidad_descripcion'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
-                            <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'cantidad_unitaria'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
-                            <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'cantidad_empaque'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
-                            <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'precio_unitario'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
-                            <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'precio_empaque'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
-                            <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'stock_minimo'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
-                            <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'stock_promedio'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
-                            <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'stock_maximo'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">                            
-                        </th>
-                        <th></th>
-                    </tr>
-                </ng-template>
-              
-        <ng-template pTemplate="body" let-elementos  >
-            <tr style="height:24px"  >
-                   
-              <td style="width: 25%">{{elementos.nombre}}</td>     
-              <td style="width: 30%">{{elementos.descripcion}}</td>
-              <td style="width: 15%">{{elementos.unidad_descripcion}}</td>
-              <td style="width: 15%;  " [ngClass]="setColorColumn(elementos.color)">{{elementos.grupo_nombre}}</td>
-              <td style="width: 15%" class="texto-bold texto-terthiary-soft">{{elementos.cantidad_unitaria}}</td>
-              <td style="width: 15%" class="texto-bold texto-terthiary">{{elementos.cantidad_empaque}}</td>
-              <td style="width: 15%" class="texto-bold texto-info">{{elementos.precio_unitario}}</td>
-              <td style="width: 15%" class="texto-bold texto-info">{{elementos.precio_empaque}}</td>
-              <td style="width: 15%" class="texto-bold texto-danger">{{elementos.stock_minimo}}</td>
-              <td style="width: 15%" class="texto-bold texto-info">{{elementos.stock_promedio}}</td>
-              <td style="width: 15%" class="texto-bold texto-success">{{elementos.stock_maximo}}</td>              
-              <td style="width: 10%">
-                <a  (click)="buscar(elementos)" class="icon-hover"> <i class="fas fa-pen icon-color-info fa-lg"></i></a>     
-              </td>
-            </tr>
-        </ng-template>
-       
-    </p-table>
+    <button class="ml-2 btn-cuadrado-info" (click)="nuevo()">
+      <i class="fas fa-plus fa-lg mr-2"></i>Insumo
+    </button>
   </div>
+</div>
+<div class="row m-3">
+  <p-table
+    #dt
+    class="pt-2"
+    tableStyleClass="prime-table"
+    selectionMode="single"
+    [columns]="cols"
+    [value]="elementos"
+    [loading]="loading"
+    [(selection)]="selecteditems"
+    columnResizeMode="expand"
+    [responsive]="true"
+    scrollHeight="500px"
+    [scrollable]="true"
+    loadingIcon="fas fa-spinner fa-2x icon-color-green"
+  >
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th
+          *ngFor="let col of columns"
+          [pSortableColumn]="col.field"
+          [ngStyle]="{ width: col.width }"
+        >
+          {{ col.header }}
+          <p-sortIcon
+            [field]="col.field"
+            ariaLabel="Activate to sort"
+            ariaLabelDesc="Activate to sort in descending order"
+            ariaLabelAsc="Activate to sort in ascending order"
+          ></p-sortIcon>
+        </th>
+      </tr>
+      <tr>
+        <th *ngFor="let col of columns" [ngSwitch]="col.field">
+          <p-multiSelect
+            [style]="{ height: '28px', width: '100%', 'font-size': '10px' }"
+            [options]="_nombre"
+            appendTo="body"
+            defaultLabel=""
+            showHeader="false"
+            *ngIf="col.field == 'nombre'"
+            (onChange)="dt.filter($event.value, col.field, 'in')"
+          ></p-multiSelect>
+          <p-multiSelect
+            [style]="{ height: '28px', width: '100%', 'font-size': '10px' }"
+            [options]="_nombre"
+            appendTo="body"
+            defaultLabel=""
+            showHeader="false"
+            *ngIf="col.field == 'nombre'"
+            (onChange)="dt.filter($event.value, col.field, 'in')"
+          ></p-multiSelect>
+          <input
+            style="font-size: 12px"
+            class="form-control col-md-12 form-control-sm"
+            *ngSwitchCase="'descripcion'"
+            pInputText
+            type="text"
+            (input)="dt.filter($event.target.value, col.field, 'contains')"
+          />
+          <input
+            style="font-size: 12px"
+            class="form-control col-md-12 form-control-sm"
+            *ngSwitchCase="'unidad_descripcion'"
+            pInputText
+            type="text"
+            (input)="dt.filter($event.target.value, col.field, 'contains')"
+          />
+          <input
+            style="font-size: 12px"
+            class="form-control col-md-12 form-control-sm"
+            *ngSwitchCase="'cantidad_unitaria'"
+            pInputText
+            type="text"
+            (input)="dt.filter($event.target.value, col.field, 'contains')"
+          />
+          <input
+            style="font-size: 12px"
+            class="form-control col-md-12 form-control-sm"
+            *ngSwitchCase="'cantidad_empaque'"
+            pInputText
+            type="text"
+            (input)="dt.filter($event.target.value, col.field, 'contains')"
+          />
+          <input
+            style="font-size: 12px"
+            class="form-control col-md-12 form-control-sm"
+            *ngSwitchCase="'precio_unitario'"
+            pInputText
+            type="text"
+            (input)="dt.filter($event.target.value, col.field, 'contains')"
+          />
+          <input
+            style="font-size: 12px"
+            class="form-control col-md-12 form-control-sm"
+            *ngSwitchCase="'precio_empaque'"
+            pInputText
+            type="text"
+            (input)="dt.filter($event.target.value, col.field, 'contains')"
+          />
+          <input
+            style="font-size: 12px"
+            class="form-control col-md-12 form-control-sm"
+            *ngSwitchCase="'stock_minimo'"
+            pInputText
+            type="text"
+            (input)="dt.filter($event.target.value, col.field, 'contains')"
+          />
+          <input
+            style="font-size: 12px"
+            class="form-control col-md-12 form-control-sm"
+            *ngSwitchCase="'stock_promedio'"
+            pInputText
+            type="text"
+            (input)="dt.filter($event.target.value, col.field, 'contains')"
+          />
+          <input
+            style="font-size: 12px"
+            class="form-control col-md-12 form-control-sm"
+            *ngSwitchCase="'stock_maximo'"
+            pInputText
+            type="text"
+            (input)="dt.filter($event.target.value, col.field, 'contains')"
+          />
+        </th>
+        <th></th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-elementos>
+      <tr style="height: 24px">
+        <td style="width: 25%">{{ elementos.nombre }}</td>
+        <td style="width: 30%">{{ elementos.descripcion }}</td>
+        <td style="width: 15%">{{ elementos.unidad_descripcion }}</td>
+        <td style="width: 15%" [ngClass]="setColorColumn(elementos.color)">
+          {{ elementos.grupo_nombre }}
+        </td>
+        <td style="width: 15%" class="texto-bold texto-terthiary-soft">
+          {{ elementos.cantidad_unitaria }}
+        </td>
+        <td style="width: 15%" class="texto-bold texto-terthiary">
+          {{ elementos.cantidad_empaque }}
+        </td>
+        <td style="width: 15%" class="texto-bold texto-info">
+          {{ elementos.precio_unitario }}
+        </td>
+        <td style="width: 15%" class="texto-bold texto-info">
+          {{ elementos.precio_empaque }}
+        </td>
+        <td style="width: 15%" class="texto-bold texto-danger">
+          {{ elementos.stock_minimo }}
+        </td>
+        <td style="width: 15%" class="texto-bold texto-info">
+          {{ elementos.stock_promedio }}
+        </td>
+        <td style="width: 15%" class="texto-bold texto-success">
+          {{ elementos.stock_maximo }}
+        </td>
+        <td style="width: 10%">
+          <a (click)="buscar(elementos)" class="icon-hover">
+            <i class="fas fa-pen icon-color-info fa-lg"></i
+          ></a>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

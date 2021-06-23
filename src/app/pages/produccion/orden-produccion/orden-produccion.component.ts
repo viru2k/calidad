@@ -161,8 +161,10 @@ export class OrdenProduccionComponent implements OnInit {
       height: "90%",
     });
 
-    ref.onClose.subscribe(() => {
-      this.loadlist();
+    ref.onClose.subscribe((PopOrdenProduccionEditarComponent: any) => {
+      if (!!PopOrdenProduccionEditarComponent) {
+        this.loadlist();
+      }
     });
   }
 
@@ -174,8 +176,10 @@ export class OrdenProduccionComponent implements OnInit {
       width: "98%",
       height: "90%",
     });
-    ref.onClose.subscribe(() => {
-      this.loadlist();
+    ref.onClose.subscribe((PopOrdenProduccionEditarComponent: any) => {
+      if (!!PopOrdenProduccionEditarComponent) {
+        this.loadlist();
+      }
     });
   }
 

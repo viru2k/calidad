@@ -161,7 +161,9 @@ export class CalidadProduccionProcesoComponent implements OnInit {
 
   // tslint:disable-next-line: no-shadowed-variable
   ref.onClose.subscribe((PopupAsociarProduccionComponent: any) => {
+    if(!!PopupAsociarProduccionComponent){
       this.loadlist();
+    }      
   });
 }
 
@@ -178,7 +180,7 @@ export class CalidadProduccionProcesoComponent implements OnInit {
 
   // tslint:disable-next-line: no-shadowed-variable
   ref.onClose.subscribe((PopupCalidadParametroProduccionIngresoComponent: any) => {
-    if (PopupCalidadParametroProduccionIngresoComponent) {
+    if (!!PopupCalidadParametroProduccionIngresoComponent) {
       this.loadlist();
     }
 

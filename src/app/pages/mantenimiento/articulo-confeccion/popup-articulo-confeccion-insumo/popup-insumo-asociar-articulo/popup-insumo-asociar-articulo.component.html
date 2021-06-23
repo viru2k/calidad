@@ -1,58 +1,94 @@
-
-  <div class=" faq-title text-center pb-3 ">
-    <h5>ASOCIAR EL PRODUCTO</h5>
+<div class="faq-title text-center pb-3">
+  <h5>ASOCIAR EL PRODUCTO</h5>
+</div>
+<div class="card-rounded card-header">
+  <div class="ml-2 d-flex justify-content-between">
+    <div class="d-flex justify-content-start">
+      <label class="mt-2">Cantidad</label>
+      <input [(ngModel)]="cantidad" type="number" class="text text-sm ml-2" />
+    </div>
   </div>
-  <div class="card-rounded card-header ">
-    <div class="ml-2 d-flex justify-content-between"> 
-        <div class="d-flex justify-content-start">
-            <label class="mt-2">Cantidad</label> <input [(ngModel)]="cantidad" type="number" class="text text-sm ml-2">
-        </div>
-     
-          
+</div>
+<div class="m-3">
+  <div class="row mt-3">
+    <p-table
+      #dt
+      class=""
+      tableStyleClass="prime-table"
+      selectionMode="single"
+      [columns]="cols"
+      [value]="elementos"
+      [loading]="loading"
+      [(selection)]="selecteditems"
+      columnResizeMode="expand"
+      [responsive]="true"
+      scrollHeight="500px"
+      [scrollable]="true"
+      [loading]="loading"
+      loadingIcon="fas fa-spinner fa-2x icon-color-green"
+    >
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th
+            *ngFor="let col of columns"
+            [pSortableColumn]="col.field"
+            [ngStyle]="{ width: col.width }"
+          >
+            {{ col.header }}
+            <p-sortIcon
+              [field]="col.field"
+              ariaLabel="Activate to sort"
+              ariaLabelDesc="Activate to sort in descending order"
+              ariaLabelAsc="Activate to sort in ascending order"
+            ></p-sortIcon>
+          </th>
+        </tr>
+        <tr>
+          <th *ngFor="let col of columns" [ngSwitch]="col.field">
+            <p-multiSelect
+              [style]="{ height: '28px', width: '100%', 'font-size': '10px' }"
+              [options]="_nombre"
+              appendTo="body"
+              defaultLabel=""
+              showHeader="false"
+              *ngIf="col.field == 'nombre'"
+              (onChange)="dt.filter($event.value, col.field, 'in')"
+            ></p-multiSelect>
+            <input
+              style="font-size: 12px"
+              class="form-control col-md-12 form-control-sm"
+              *ngSwitchCase="'descripcion'"
+              pInputText
+              type="text"
+              (input)="dt.filter($event.target.value, col.field, 'contains')"
+            />
+            <input
+              style="font-size: 12px"
+              class="form-control col-md-12 form-control-sm"
+              *ngSwitchCase="'unidad_descripcion'"
+              pInputText
+              type="text"
+              (input)="dt.filter($event.target.value, col.field, 'contains')"
+            />
+          </th>
+          <th></th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-elementos>
+        <tr style="height: 24px">
+          <td style="width: 40%">{{ elementos.nombre }}</td>
+          <td style="width: 30%">{{ elementos.descripcion }}</td>
+          <td style="width: 20%">{{ elementos.unidad_descripcion }}</td>
+          <td style="width: 10%">
+            <a (click)="guardar(elementos)"
+              ><i
+                class="far fa-check-circle fa-2x icon-color-success my-hover"
+              ></i
+            ></a>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
   </div>
-  </div>
-  <div  class="m-3">
-   
-  <div class="row mt-3  ">
-    <p-table  #dt class=""  tableStyleClass="prime-table" selectionMode="single" [columns]="cols" [value]="elementos"  [loading]="loading" [(selection)]="selecteditems"   columnResizeMode="expand" [responsive]="true"
-    scrollHeight="500px" [scrollable]="true"  [loading]="loading" loadingIcon="fas fa-spinner fa-2x icon-color-green" >
-   
-   
-  
-               <ng-template pTemplate="header" let-columns >
-              
-                          <tr >
-                               
-                            <th  *ngFor="let col of columns" [pSortableColumn]="col.field"  [ngStyle]="{'width': col.width}">
-                                {{col.header}}
-                                <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
-                            </th> 
-                            
-                        </tr> 
-                        <tr>  
-      <th *ngFor="let col of columns" [ngSwitch]="col.field"  >
-        <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'nombre'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
-        <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'descripcion'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
-        <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'unidad_descripcion'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">      
-    </th>
-    <th></th>
-</tr>
-</ng-template>
-
-<ng-template pTemplate="body" let-elementos  >
-<tr style="height:24px">
-
-
-<td style="width: 40%">{{elementos.nombre}}</td>
-<td style="width: 30%">{{elementos.descripcion}}</td>
-<td style="width: 20%">{{elementos.unidad_descripcion}}</td>
-<td style="width: 10%">
-  <a     (click)="guardar(elementos)"    ><i class="far fa-check-circle fa-2x icon-color-success my-hover"></i></a>
-    
-    </td>
-</tr>
-</ng-template>  
-    </p-table> 
-  </div>
-
-  
+</div>

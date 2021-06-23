@@ -1,124 +1,264 @@
+<div class="faq-title text-center pb-1 pt-2">
+  <h5>INSUMOS A INGRESAR</h5>
+</div>
 
-<div class=" faq-title text-center pb-1 pt-2 ">
-    <h5>INSUMOS A INGRESAR </h5>
+<div class="d-flex align-content-center">
+  <div class="d-flex justify-content-start">
+    <button class="ml-2 btn-cuadrado-success" (click)="guardar()">
+      <i class="fas fa-plus fa-lg mr-2"></i>Guardar
+    </button>
+    <button class="ml-2 btn-cuadrado-info" (click)="agregarInsumo()">
+      <i class="fas fa-plus fa-lg mr-2"></i>Agregar insumo
+    </button>
+  </div>
+  <div class="d-flex align-content-center justify-content-center ml-4">
+    <label class="mr-2 mt-2">Fecha de carga :</label>
+    <p-calendar
+      [(ngModel)]="fecha"
+      tabindex="0"
+      [locale]="es"
+      dateFormat="DD dd/mm/yy "
+      [readonlyInput]="true"
+    >
+    </p-calendar>
+  </div>
+</div>
+<div class="row m-3">
+  <p-table
+    #dt
+    class="pt-2"
+    tableStyleClass="prime-table"
+    selectionMode="single"
+    [columns]="cols"
+    [value]="elementos"
+    [loading]="loading"
+    [(selection)]="selecteditems"
+    columnResizeMode="expand"
+    [responsive]="true"
+    scrollHeight="500px"
+    [scrollable]="true"
+    loadingIcon="fas fa-spinner fa-2x icon-color-green"
+  >
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th
+          *ngFor="let col of columns"
+          [pSortableColumn]="col.field"
+          [ngStyle]="{ width: col.width }"
+        >
+          {{ col.header }}
+          <p-sortIcon
+            [field]="col.field"
+            ariaLabel="Activate to sort"
+            ariaLabelDesc="Activate to sort in descending order"
+            ariaLabelAsc="Activate to sort in ascending order"
+          ></p-sortIcon>
+        </th>
+      </tr>
+      <tr>
+        <th *ngFor="let col of columns" [ngSwitch]="col.field">
+          <p-multiSelect
+            [style]="{ height: '28px', width: '100%', 'font-size': '10px' }"
+            [options]="_nombre"
+            appendTo="body"
+            defaultLabel=""
+            showHeader="false"
+            *ngIf="col.field == 'nombre'"
+            (onChange)="dt.filter($event.value, col.field, 'in')"
+          ></p-multiSelect>
+          <input
+            style="font-size: 12px"
+            class="form-control col-md-12 form-control-sm"
+            *ngSwitchCase="'descripcion'"
+            pInputText
+            type="text"
+            (input)="dt.filter($event.target.value, col.field, 'contains')"
+          />
+          <input
+            style="font-size: 12px"
+            class="form-control col-md-12 form-control-sm"
+            *ngSwitchCase="'comprobante'"
+            pInputText
+            type="text"
+            (input)="dt.filter($event.target.value, col.field, 'contains')"
+          />
+          <input
+            style="font-size: 12px"
+            class="form-control col-md-12 form-control-sm"
+            *ngSwitchCase="'lote'"
+            pInputText
+            type="text"
+            (input)="dt.filter($event.target.value, col.field, 'contains')"
+          />
+        </th>
+        <th></th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-elementos>
+      <tr style="height: 24px">
+        <td style="width: 6%">
+          <a (click)="eliminarSeleccionado(elementos)" class="icon-hover">
+            <i class="fas fa-trash icon-color-danger fa-lg"></i
+          ></a>
+        </td>
+        <td style="width: 25%" [ngClass]="iconoColor(elementos.a_ingresar)">
+          {{ elementos.nombre }}
+        </td>
+        <td style="width: 30%" [ngClass]="iconoColor(elementos.a_ingresar)">
+          {{ elementos.descripcion }}
+        </td>
+        <td
+          style="width: 16%"
+          class="texto-bold texto-terthiary"
+          [ngClass]="iconoColor(elementos.a_ingresar)"
+        >
+          {{ elementos.comprobante }}
+        </td>
+        <td
+          style="width: 16%"
+          class="texto-bold texto-terthiary"
+          [ngClass]="iconoColor(elementos.a_ingresar)"
+        >
+          {{ elementos.lote }}
+        </td>
+        <td
+          style="width: 12%"
+          class="texto-bold texto-terthiary"
+          [ngClass]="iconoColor(elementos.a_ingresar)"
+        >
+          {{ elementos.cantidad }}
+        </td>
+        <td style="width: 6%">
+          <a (click)="accion($event, elementos)" class="icon-hover">
+            <i class="fas fa-pen icon-color-info fa-lg"></i
+          ></a>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog
+  header="Carga de valores 2"
+  [(visible)]="display"
+  [style]="{ width: '50%' }"
+  [baseZIndex]="10000"
+  (onHide)="escape()"
+>
+  <div class="d-flex justify-content-start m-2" *ngIf="elemento">
+    Insumo: {{ elemento.nombre }}
+  </div>
+  <div class="d-flex justify-content-start m-2 d-flex align-items-center">
+    <label class="mr-2">Comprobante</label>
+    <p-inputMask
+      mask="a-99999-99999999"
+      class="col-6"
+      [(ngModel)]="comprobante"
+      placeholder="X-00000-00000000"
+    ></p-inputMask>
+  </div>
+  <div class="d-flex justify-content-start m-2 d-flex align-items-center">
+    <label class="mr-2">Lote</label>
+    <input
+      type="text"
+      class="form-control form-control-sm col-6"
+      [(ngModel)]="lote"
+      autofocus
+    />
   </div>
 
-  <div class="d-flex align-content-center">
-    <div class="d-flex justify-content-start">
-        <button    class="ml-2  btn-cuadrado-success"  (click)="guardar()" > <i class="fas fa-plus fa-lg mr-2"></i>Guardar</button>
-        <button    class="ml-2  btn-cuadrado-info"  (click)="agregarInsumo()" > <i class="fas fa-plus fa-lg mr-2"></i>Agregar insumo</button>
+  <div class="d-flex justify-content-start m-2 d-flex align-items-center">
+    <label class="mr-2">Vencimiento</label>
+    <p-calendar
+      [(ngModel)]="fecha_vencimiento"
+      [showTime]="true"
+      tabindex="0"
+      [locale]="es"
+      dateFormat="dd/mm/yy "
+      [readonlyInput]="true"
+    >
+    </p-calendar>
+  </div>
+
+  <div class="d-flex justify-content-start m-2 d-flex align-items-center">
+    <label class="mr-2 mt-1">Deposito :</label>
+    <select
+      [(ngModel)]="selectedDeposito"
+      class="form-control-sm text-sm texto-monserrat texto-secondary icon-hover"
+      (change)="onChangeDeposito($event)"
+    >
+      <option
+        *ngFor="let grupo of deposito"
+        class="text-sm texto-monserrat texto-secondary icon-hover"
+      >
+        <label class="icon-hover">{{ grupo.name }}</label>
+      </option>
+    </select>
+  </div>
+
+  <div class="d-flex justify-content-start m-2 d-flex align-items-center">
+    <label class="mr-2 texto-success texto-bold">Dolar cotización</label>
+    <input
+      type="number"
+      class="form-control form-control-sm col-3 texto-success texto-bold"
+      [(ngModel)]="valor_dolar_cotizacion"
+      (change)="recalcularCotizacion()"
+      autofocus
+    />
+  </div>
+  <div class="d-flex justify-content-start m-2 d-flex align-items-center">
+    <label class="mr-2 texto-success texto-bold">Valor en dolares</label>
+    <input
+      type="number"
+      class="form-control form-control-sm col-3 texto-success texto-bold"
+      [(ngModel)]="valor_dolar"
+      (change)="recalcularCotizacion()"
+      autofocus
+    />
+  </div>
+  <hr />
+  <div class="d-flex justify-content-start m-2 d-flex align-items-center">
+    <label class="mr-2 d-flex texto-info texto-bold">Valor en en pesos</label>
+    <input
+      type="number"
+      class="form-control form-control-sm col-3 texto-info texto-bold"
+      [(ngModel)]="valor_total_pesos"
+      autofocus
+    />
+  </div>
+  <div class="d-flex justify-content-start m-2 mt-3" *ngIf="elemento">
+    <p-selectButton
+      [options]="tipos"
+      [(ngModel)]="selectedTipo"
+      (onChange)="recalcular()"
+    ></p-selectButton>
+  </div>
+  <div class="d-flex justify-content-start m-2 d-flex align-items-center">
+    <label class="mr-2">Cantidad</label>
+    <input
+      type="number"
+      class="form-control form-control-sm col-6"
+      [(ngModel)]="cantidad"
+      (change)="recalcular()"
+      autofocus
+    />
+  </div>
+  <hr />
+  <div class="d-flex justify-content-between m-2 mt-3">
+    <div class="d-flex justify-content-start m-2 mt-3">
+      <h5 class="texto-bold texto-info">CALCULADO: {{ cantidad_calculada }}</h5>
     </div>
-    <div class="  d-flex align-content-center  justify-content-center ml-4">
-     
-      <label class="mr-2 mt-2">Fecha de carga :</label>
-      <p-calendar [(ngModel)]="fecha"   tabindex="0"  [locale]="es" dateFormat="DD dd/mm/yy "   [readonlyInput]="true">   </p-calendar>                
+    <div class="d-flex justify-content-end m-2 mt-3">
+      <h5 class="texto-bold texto-info">
+        TOTAL: $ {{ cantidad_calculada * valor_total_pesos }}
+      </h5>
     </div>
   </div>
-    <div class="row m-3">
-      <p-table  #dt class="pt-2"  tableStyleClass="prime-table" selectionMode="single" [columns]="cols" [value]="elementos"   [loading]="loading" [(selection)]="selecteditems"   columnResizeMode="expand" [responsive]="true"
-      scrollHeight="500px" [scrollable]="true"  loadingIcon="fas fa-spinner fa-2x icon-color-green"  >
-     
-
-                 <ng-template pTemplate="header" let-columns >
-                
-                            <tr >
-                                 
-                              <th  *ngFor="let col of columns" [pSortableColumn]="col.field"  [ngStyle]="{'width': col.width}">
-                                  {{col.header}}
-                                  <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
-                              </th> 
-                            
-                          </tr> 
-                          <tr>
-                          <th *ngFor="let col of columns" [ngSwitch]="col.field"  >
-                            <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'nombre'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">  
-                            <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'descripcion'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">                              
-                              <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'comprobante'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
-                              <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'lote'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">                              
-                          </th>
-                          <th></th>
-                      </tr>
-                  </ng-template>
-                
-          <ng-template pTemplate="body" let-elementos  >
-              <tr style="height:24px"  >
-                <td style="width: 6%">
-                  <a  (click)="eliminarSeleccionado(elementos)" class="icon-hover"> <i class="fas fa-trash icon-color-danger fa-lg"></i></a>     
-                </td>
-                <td style="width: 25%" [ngClass]="iconoColor(elementos.a_ingresar)">{{elementos.nombre}}</td>     
-                <td style="width: 30%" [ngClass]="iconoColor(elementos.a_ingresar)">{{elementos.descripcion}}</td>                                
-                <td style="width: 16%" class="texto-bold texto-terthiary" [ngClass]="iconoColor(elementos.a_ingresar)">{{elementos.comprobante}}</td>    
-                <td style="width: 16%" class="texto-bold texto-terthiary" [ngClass]="iconoColor(elementos.a_ingresar)">{{elementos.lote}}</td>         
-                <td style="width: 12%" class="texto-bold texto-terthiary" [ngClass]="iconoColor(elementos.a_ingresar)">{{elementos.cantidad}}</td>    
-                <td style="width: 6%">
-                  <a  (click)="accion($event,elementos)" class="icon-hover"> <i class="fas fa-pen icon-color-info fa-lg"></i></a>     
-                </td>
-              
-              </tr>
-          </ng-template>
-         
-      </p-table>
-    </div>
-
-    <p-dialog header="Carga de valores 2" [(visible)]="display" [style]="{width: '50%'}" [baseZIndex]="10000" (onHide)="escape()">
-      <div class="d-flex justify-content-start m-2" *ngIf="elemento">Insumo: {{elemento.nombre}}      
-      </div>
-      <div class="d-flex justify-content-start m-2 d-flex align-items-center">
-        <label class="mr-2  ">Comprobante</label>
-        <p-inputMask mask="a-99999-99999999" class=" col-6" [(ngModel)]="comprobante" placeholder="X-00000-00000000" ></p-inputMask>
-        
-      </div> 
-      <div class="d-flex justify-content-start m-2 d-flex align-items-center">
-        <label class="mr-2 ">Lote</label>
-        <input type="text" class="form-control form-control-sm col-6" [(ngModel)]="lote"  autofocus >
-      </div> 
-
-      <div class="d-flex justify-content-start m-2 d-flex align-items-center">
-        <label class="mr-2 ">Vencimiento</label>    
-        <p-calendar [(ngModel)]="fecha_vencimiento" [showTime]="true"   tabindex="0"  [locale]="es" dateFormat="dd/mm/yy "   [readonlyInput]="true">              
-        </p-calendar>
-      </div> 
-
-
-      <div class="d-flex justify-content-start m-2 d-flex align-items-center">
-        <label class="mr-2 mt-1">Deposito :</label>
-        <select [(ngModel)]="selectedDeposito" class="form-control-sm text-sm texto-monserrat texto-secondary icon-hover" (change)="onChangeDeposito($event)" >                        
-          <option  *ngFor="let grupo of deposito" class="text-sm texto-monserrat texto-secondary icon-hover"    >
-            <label class="icon-hover"  >{{grupo.name}}</label>              
-        </option>
-      </select>
-      </div>
-  
-      <div class="d-flex justify-content-start m-2 d-flex align-items-center">
-        <label class="mr-2  texto-success texto-bold ">Dolar cotización</label>
-        <input type="number" class="form-control form-control-sm col-3 texto-success texto-bold" [(ngModel)]="valor_dolar_cotizacion"  (change)="recalcularCotizacion()" autofocus >
-      </div> 
-      <div class="d-flex justify-content-start m-2 d-flex align-items-center">
-        <label class="mr-2  texto-success texto-bold">Valor en dolares</label>
-        <input type="number" class="form-control form-control-sm col-3 texto-success texto-bold" [(ngModel)]="valor_dolar" (change)="recalcularCotizacion()" autofocus >
-      </div> 
-  <hr>
-      <div class="d-flex justify-content-start m-2 d-flex align-items-center">
-        <label class="mr-2 d-flex texto-info texto-bold">Valor en en pesos</label>
-        <input type="number" class="form-control form-control-sm col-3 texto-info texto-bold" [(ngModel)]="valor_total_pesos"  autofocus >
-      </div> 
-      <div class="d-flex justify-content-start m-2 mt-3" *ngIf="elemento">
-        <p-selectButton [options]="tipos" [(ngModel)]="selectedTipo" (onChange)="recalcular()"></p-selectButton>
-      </div>   
-      <div class="d-flex justify-content-start m-2 d-flex align-items-center">
-        <label class="mr-2 ">Cantidad</label>
-        <input type="number" class="form-control form-control-sm col-6" [(ngModel)]="cantidad" (change)="recalcular()" autofocus >
-      </div> 
-      <hr>
-      <div class="d-flex justify-content-between m-2 mt-3" >
-        <div class="d-flex justify-content-start m-2 mt-3" >
-          <h5 class="texto-bold texto-info">CALCULADO: {{cantidad_calculada}} </h5>
-        </div>
-        <div class="d-flex justify-content-end m-2 mt-3" >
-          <h5 class="texto-bold texto-info">TOTAL: $ {{cantidad_calculada * valor_total_pesos}} </h5>
-        </div>      
-      </div>     
-      <div>
-        <button class="btn btn-info btn-block" (click)="confirmarCantidad()">Agregar</button>
-      </div>
-    <p-dialog>
+  <div>
+    <button class="btn btn-info btn-block" (click)="confirmarCantidad()">
+      Agregar
+    </button>
+  </div>
+  <p-dialog></p-dialog
+></p-dialog>

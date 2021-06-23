@@ -1,89 +1,201 @@
-<div class=" faq-title text-center pb-1 pt-2 ">
-    <h5>GESTION DE PRODUCCIONES</h5>
-  </div>
+<div class="faq-title text-center pb-1 pt-2">
+  <h5>GESTION DE PRODUCCIONES</h5>
+</div>
 
-
-  <p-table  #dt   tableStyleClass="prime-table" selectionMode="single" [columns]="cols" [value]="elementos"  [loading]="loading"  columnResizeMode="expand" [responsive]="true"
-  scrollHeight="500px" [scrollable]="true"  [loading]="loading" loadingIcon="fas fa-spinner fa-2x icon-color-green" >
-
-
+<p-table
+  #dt
+  tableStyleClass="prime-table"
+  selectionMode="single"
+  [columns]="cols"
+  [value]="elementos"
+  [loading]="loading"
+  columnResizeMode="expand"
+  [responsive]="true"
+  scrollHeight="500px"
+  [scrollable]="true"
+  [loading]="loading"
+  loadingIcon="fas fa-spinner fa-2x icon-color-green"
+>
   <ng-template pTemplate="caption">
-    <div class=" d-flex justify-content-start">
-      <button  (click)="exportarExcel()" class="btn btn-sm btn- btn-excel "> <i class="fas fa-file-excel fa-lg mr-1"></i> Excel</button>
-      <button  (click)="exportarExcel()" class="btn btn-sm btn-pdf ml-2"> <i class="fas fa-file-pdf fa-lg mr-1"></i>Pdf</button>
-
+    <div class="d-flex justify-content-start">
+      <button (click)="exportarExcel()" class="btn btn-sm btn- btn-excel">
+        <i class="fas fa-file-excel fa-lg mr-1"></i> Excel
+      </button>
+      <button (click)="exportarExcel()" class="btn btn-sm btn-pdf ml-2">
+        <i class="fas fa-file-pdf fa-lg mr-1"></i>Pdf
+      </button>
     </div>
-
   </ng-template>
 
-             <ng-template pTemplate="header" let-columns >
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th
+        *ngFor="let col of columns"
+        [pSortableColumn]="col.field"
+        [ngStyle]="{ width: col.width }"
+      >
+        {{ col.header }}
+        <p-sortIcon
+          [field]="col.field"
+          ariaLabel="Activate to sort"
+          ariaLabelDesc="Activate to sort in descending order"
+          ariaLabelAsc="Activate to sort in ascending order"
+        ></p-sortIcon>
+      </th>
+    </tr>
+    <tr>
+      <th *ngFor="let col of columns" [ngSwitch]="col.field">
+        <input
+          style="font-size: 12px"
+          class="form-control col-md-12 form-control-sm"
+          *ngSwitchCase="'id'"
+          pInputText
+          type="text"
+          (input)="dt.filter($event.target.value, col.field, 'contains')"
+        />
+        <p-multiSelect
+          [style]="{ height: '28px', width: '100%', 'font-size': '10px' }"
+          [options]="_estado"
+          appendTo="body"
+          defaultLabel=" "
+          showHeader="false"
+          *ngIf="col.field == 'estado'"
+          (onChange)="dt.filter($event.value, col.field, 'in')"
+        ></p-multiSelect>
+        <input
+          style="font-size: 12px"
+          class="form-control col-md-12 form-control-sm"
+          *ngSwitchCase="'fecha_produccion'"
+          pInputText
+          type="text"
+          (input)="dt.filter($event.target.value, col.field, 'contains')"
+        />
+        <input
+          style="font-size: 12px"
+          class="form-control col-md-12 form-control-sm"
+          *ngSwitchCase="'nombre'"
+          pInputText
+          type="text"
+          (input)="dt.filter($event.target.value, col.field, 'contains')"
+        />
+        <input
+          style="font-size: 12px"
+          class="form-control col-md-12 form-control-sm"
+          *ngSwitchCase="'cantidad_solicitada'"
+          pInputText
+          type="text"
+          (input)="dt.filter($event.target.value, col.field, 'contains')"
+        />
+        <input
+          style="font-size: 12px"
+          class="form-control col-md-12 form-control-sm"
+          *ngSwitchCase="'cantidad_usada'"
+          pInputText
+          type="text"
+          (input)="dt.filter($event.target.value, col.field, 'contains')"
+        />
+        <input
+          style="font-size: 12px"
+          class="form-control col-md-12 form-control-sm"
+          *ngSwitchCase="'cantidad_existente'"
+          pInputText
+          type="text"
+          (input)="dt.filter($event.target.value, col.field, 'contains')"
+        />
+      </th>
+      <th></th>
+    </tr>
+  </ng-template>
 
-                        <tr >
+  <ng-template pTemplate="body" let-elementos>
+    <tr style="height: 24px" [ngClass]="colorRow(elementos.estado)">
+      <td
+        style="width: 7%; font-size: 14px; font-weight: bold"
+        [ngClass]="iconoColor(elementos.estado)"
+      >
+        {{ elementos.id }}
+      </td>
+      <td style="width: 8%" [ngClass]="iconoColor(elementos.estado)">
+        {{ elementos.estado }}
+      </td>
+      <td style="width: 13%">
+        {{ elementos.fecha_produccion | date: "EEEE dd/MM/yyyy" }}
+      </td>
+      <td style="width: 20%">{{ elementos.nombre }}</td>
+      <td style="width: 17%; font-size: 10px" class="texto-secondary">
+        Pisos:{{ elementos.pallet_pisos }} - Pack: {{ elementos.pallet_pack }} -
+        Unidad: {{ elementos.unidades }}
+      </td>
+      <td
+        style="width: 14%; font-weight: bold"
+        class="texto-secondary-soft texto-bold"
+      >
+        <div>
+          <label style="font-size: 10px; font-weight: bold"
+            ><i class="fas fa-box-open mr-1 fa-lg"></i
+            >{{ elementos.cantidad_solicitada | number: "1.0-2" }}
+            <i class="fas fa-boxes mr-1 ml-1 fa-lg"></i
+            >{{
+              elementos.cantidad_solicitada / elementos.unidades
+                | number: "1.0-2"
+            }}</label
+          >
+        </div>
+      </td>
+      <td style="width: 14%; font-weight: bold" class="text-success texto-bold">
+        <div>
+          <label style="font-size: 10px; font-weight: bold"
+            ><i class="fas fa-box-open mr-1 fa-lg"></i
+            >{{ elementos.cantidad_usada | number: "1.0-2" }}
+            <i class="fas fa-boxes mr-1 ml-1 fa-lg"></i
+            >{{
+              elementos.cantidad_usada / elementos.unidades | number: "1.0-2"
+            }}</label
+          >
+        </div>
+      </td>
+      <td style="width: 14%; font-weight: bold" class="texto-danger-soft">
+        <div>
+          <label style="font-size: 10px; font-weight: bold"
+            ><i class="fas fa-box-open mr-1 fa-lg"></i
+            >{{ elementos.cantidad_existente | number: "1.0-2" }}
+            <i class="fas fa-boxes mr-1 ml-1 fa-lg"></i>
+            {{
+              elementos.cantidad_existente / elementos.unidades
+                | number: "1.0-2"
+            }}</label
+          >
+        </div>
+      </td>
+      <td style="width: 6%">
+        <a
+          *ngIf="this.userData['access_list'][5]"
+          (click)="accion($event, op, elementos)"
+          class="icon-hover"
+        >
+          <i class="fas fa-ellipsis-h icon-color-info fa-md"></i
+        ></a>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
 
-                          <th  *ngFor="let col of columns" [pSortableColumn]="col.field"  [ngStyle]="{'width': col.width}">
-                              {{col.header}}
-                              <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
-                          </th>
-
-                      </tr>
-                      <tr >
-                      <th *ngFor="let col of columns" [ngSwitch]="col.field"  >
-                           <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'id'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
-                           <p-multiSelect [style]="{'height':'28px', 'width': '100%', 'font-size': '10px'}" [options]="_estado" appendTo="body" defaultLabel=" "  showHeader="false"  *ngIf='col.field =="estado"' (onChange)="dt.filter($event.value,col.field,'in')"></p-multiSelect>
-                          <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'fecha_produccion'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
-                          <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'nombre'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
-                          <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'cantidad_solicitada'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
-                          <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'cantidad_usada'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
-                          <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'cantidad_existente'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
-                      </th>
-                      <th></th>
-                  </tr>
-              </ng-template>
-
-      <ng-template pTemplate="body" let-elementos  >
-          <tr style="height:24px"  [ngClass]="colorRow(elementos.estado)">
-                  <td style="width: 7%; font-size: 14px;font-weight: bold;" [ngClass]="iconoColor(elementos.estado)">{{elementos.id}}</td>
-                  <td style="width: 8%"  [ngClass]="iconoColor(elementos.estado)">{{elementos.estado}}</td>
-                  <td style="width: 13%">{{elementos.fecha_produccion | date: 'EEEE dd/MM/yyyy'}}</td>
-                  <td style="width: 20%">{{elementos.nombre}}</td>
-                  <td style="width: 17%; font-size: 10px;" class="texto-secondary">Pisos:{{elementos.pallet_pisos}} - Pack: {{elementos.pallet_pack}} - Unidad: {{elementos.unidades}}</td>
-                  <td style="width: 14%; font-weight: bold;" class="texto-secondary-soft texto-bold">
-                    <div>
-                     <label style="font-size: 10px;font-weight: bold;"><i class="fas fa-box-open mr-1 fa-lg"></i>{{elementos.cantidad_solicitada |  number : '1.0-2'}}  <i class="fas fa-boxes mr-1 ml-1 fa-lg"></i>{{(elementos.cantidad_solicitada/ elementos.unidades) |  number : '1.0-2'}}</label>
-                    </div>
-
-                  </td>
-                  <td style="width: 14%; font-weight: bold;" class="text-success texto-bold">
-                    <div>
-                      <label style="font-size: 10px;font-weight: bold;"><i class="fas fa-box-open mr-1 fa-lg"></i>{{elementos.cantidad_usada |  number : '1.0-2'}}  <i class="fas fa-boxes mr-1 ml-1 fa-lg"></i>{{(elementos.cantidad_usada/ elementos.unidades) |  number : '1.0-2'}}</label>
-                    </div>
-                  </td>
-                  <td style="width: 14%; font-weight: bold" class="texto-danger-soft">
-                    <div>
-                     <label style="font-size: 10px;font-weight: bold;"><i class="fas fa-box-open mr-1 fa-lg"></i>{{elementos.cantidad_existente |  number : '1.0-2'}}  <i class="fas fa-boxes mr-1 ml-1 fa-lg"></i> {{(elementos.cantidad_existente/ elementos.unidades) |  number : '1.0-2'}}</label>
-                  </div>
-
-                </td>
-                  <td style="width: 6%">
-                    <a *ngIf="this.userData['access_list'][5]"  (click)="accion($event,op,elementos)"  class="icon-hover"> <i class="fas fa-bars icon-color-info fa-md"></i></a>
-                  </td>
-          </tr>
-
-
-
-      </ng-template>
-
-
-
-  </p-table>
-
-
-  <p-overlayPanel #op appendTo="body"  [showTransitionOptions]="'400ms'" [hideTransitionOptions]="'300ms'"  [dismissable]="true" [showCloseIcon]="true" >
-    <div class=" faq-title text-center pb-2  ">
-      <h5>ACCION</h5>
-    </div>
-       <button class="btn-cuadrado-info btn--block texto-bold mb-2" (click)="nuevaProduccion(elemento)"  >Nueva producción</button>
-      <!-- <button class="btn-cuadrado-success  btn--block " (click)="detalleProduccion(elemento)"  >Detalle  producción</button>      -->
-  </p-overlayPanel>
-
-
+<p-overlayPanel
+  #op
+  appendTo="body"
+  [showTransitionOptions]="'400ms'"
+  [hideTransitionOptions]="'300ms'"
+  [dismissable]="true"
+  [showCloseIcon]="true"
+>
+  <div class="faq-title text-center pb-2">
+    <h5>ACCION</h5>
+  </div>
+  <button
+    class="btn-cuadrado-info btn--block texto-bold mb-2"
+    (click)="nuevaProduccion(elemento)"
+  >
+    Nueva producción
+  </button>
+  <!-- <button class="btn-cuadrado-success  btn--block " (click)="detalleProduccion(elemento)"  >Detalle  producción</button>      -->
+</p-overlayPanel>

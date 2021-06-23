@@ -1,79 +1,144 @@
+<div class="faq-title text-center pb-1 pt-2">
+  <h5>ASOCIAR INSUMOS A PRODUCCION</h5>
+</div>
 
-<div class=" faq-title text-center pb-1 pt-2 ">
-    <h5>ASOCIAR INSUMOS A PRODUCCION </h5>   
+<div class="card-rounded card-header">
+  <div class="row d-flex justify-content-between">
+    <div class="d-flex justify-content-start">
+      <h6 class="mr-4 texto-sdecondary texto-bold">
+        PRODUCCION Nº: {{ filtar(config.data.orden_produccion_detalle_id) }}
+      </h6>
+      <h6 class="mr-2 texto-info texto-bold">
+        PRODUCTO: {{ config.data.nombre }}
+      </h6>
+      <h6 class="mr-5 texto-danger texto-bold">
+        PROYECTADO: {{ config.data.cantidad_solicitada }}
+      </h6>
+      <h6 class="mr-2 texto-success texto-bold">
+        REALIZADO: {{ config.data.cantidad_producida }}
+      </h6>
+    </div>
   </div>
+</div>
 
-  <div class="card-rounded card-header"> 
-    <div class=" row d-flex justify-content-between">  
-        <div class="d-flex justify-content-start">
-            <h6 class="mr-4 texto-sdecondary texto-bold ">PRODUCCION Nº: {{ filtar(config.data.orden_produccion_detalle_id)}}</h6>
-            <h6 class="mr-2 texto-info texto-bold">PRODUCTO: {{config.data.nombre}}</h6>
-            <h6 class="mr-5 texto-danger texto-bold">PROYECTADO: {{config.data.cantidad_solicitada}}</h6>
-            <h6 class="mr-2 texto-success texto-bold">REALIZADO: {{config.data.cantidad_producida}}</h6>
-        </div></div></div>
+<div class="m-3">
+  <p-table
+    #dt
+    class=""
+    tableStyleClass="prime-table"
+    selectionMode="single"
+    [columns]="cols"
+    [value]="elementos"
+    [(selection)]="selecteditems"
+    [loading]="loading"
+    columnResizeMode="expand"
+    [responsive]="true"
+    scrollHeight="500px"
+    [scrollable]="true"
+    [loading]="loading"
+    loadingIcon="fas fa-spinner fa-2x icon-color-green"
+  >
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th
+          *ngFor="let col of columns"
+          [pSortableColumn]="col.field"
+          [ngStyle]="{ width: col.width }"
+        >
+          {{ col.header }}
+          <p-sortIcon
+            [field]="col.field"
+            ariaLabel="Activate to sort"
+            ariaLabelDesc="Activate to sort in descending order"
+            ariaLabelAsc="Activate to sort in ascending order"
+          ></p-sortIcon>
+        </th>
+      </tr>
+      <tr>
+        <th *ngFor="let col of columns" [ngSwitch]="col.field">
+          <input
+            style="font-size: 12px"
+            class="form-control col-md-12 form-control-sm"
+            *ngSwitchCase="'nombre'"
+            pInputText
+            type="text"
+            (input)="dt.filter($event.target.value, col.field, 'contains')"
+          />
+          <input
+            style="font-size: 12px"
+            class="form-control col-md-12 form-control-sm"
+            *ngSwitchCase="'cantidad_unitaria'"
+            pInputText
+            type="text"
+            (input)="dt.filter($event.target.value, col.field, 'contains')"
+          />
+        </th>
+        <th></th>
+      </tr>
+    </ng-template>
 
-<div  class="m-3">
-   
-     
-    
-    <p-table  #dt class=""  tableStyleClass="prime-table" selectionMode="single" [columns]="cols" [value]="elementos" [(selection)]="selecteditems"  [loading]="loading"  columnResizeMode="expand" [responsive]="true"
-    scrollHeight="500px" [scrollable]="true"  [loading]="loading" loadingIcon="fas fa-spinner fa-2x icon-color-green" >
-   
- 
- 
-               <ng-template pTemplate="header" let-columns >
-              
-                          <tr >
-                               
-                            <th  *ngFor="let col of columns" [pSortableColumn]="col.field"  [ngStyle]="{'width': col.width}">
-                                {{col.header}}
-                                <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
-                            </th> 
-                         
-                        </tr> 
-                        <tr>
-                        <th *ngFor="let col of columns" [ngSwitch]="col.field"  >
-                            <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'nombre'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">  
-                            <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'cantidad_unitaria'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">                          
-                        </th>
-                        <th></th>
-                    </tr>
-                </ng-template>
-              
-        <ng-template pTemplate="body" let-elementos  >
-            <tr style="height:24px">
-                <td style="width: 6%" >                   
-                    <a  (click)="editarInsumo(elementos)"  class="icon-hover"> <i class="fas fa-pen icon-color-warning fa-lg"></i></a>               
-                </td>
-                    <td style="width: 40%">{{elementos.nombre}}</td>                 
-                    <td style="width: 12%" >{{elementos.cantidad_unitaria}}</td>                    
-                    <td style="width: 18%">{{elementos.cantidad}}</td>                      
-                    <td style="width: 18%" class="texto-danger texto-bold" >{{elementos.cantidad_proyectada}}</td>
-                    <td style="width: 18%"  class="texto-success texto-bold">{{elementos.cantidad_estimada }}  </td>
-                    <td style="width: 18%" class="texto-info texto-bold" >{{elementos.cantidad_afectada}}</td>
-                    <td style="width: 6%" >                   
-                        <a  (click)="afectarStock(elementos)"  class="icon-hover"> <i class="fas fa-tasks icon-color-info fa-lg"></i></a>               
-                    </td>
-            </tr>
-        </ng-template>
-        <p-overlayPanel  #op appendTo="body"  [showTransitionOptions]="'400ms'" [hideTransitionOptions]="'300ms'"  [dismissable]="true" [showCloseIcon]="true" (onHide)="cerrarVentanta()" >                          
-
-            <!-- <span>   <a class="nav-link azul text-info  my-hover" (click)="asociarInsumo()">Asociar insumo</a></span> -->
-            <div class=" d-flex justify-content-center">
-                <div class="row m-2">
-                    <label class="texto-bold mr-4"> Cantidad</label>
-                    <label class="texto-bold texto-info">Realizado: {{cantidadEstimada }}</label>
-                    <input type="number"  #input [(ngModel)]="cantidad_ingresada" class="form-control  form-control-sm" (keyup.enter)="agregarValor($event, op)">
-                    <button class="btn btn-info btn-block mt-2" (click)="agregarValor($event, op)"><i class="fas fa-check mr-1"></i> Guardar</button>
-                </div>
-              
-            </div>
-            
-          </p-overlayPanel> 
-       
-    </p-table>
-
-  </div>
-  <div class="m-1">
-    <button class="btn btn-info btn-md btn-block" (click)="verDetalleTodos()">Confirmar insumos en produccion</button>
+    <ng-template pTemplate="body" let-elementos>
+      <tr style="height: 24px">
+        <td style="width: 6%">
+          <a (click)="editarInsumo(elementos)" class="icon-hover">
+            <i class="fas fa-pen icon-color-warning fa-lg"></i
+          ></a>
+        </td>
+        <td style="width: 40%">{{ elementos.nombre }}</td>
+        <td style="width: 12%">{{ elementos.cantidad_unitaria }}</td>
+        <td style="width: 18%">{{ elementos.cantidad }}</td>
+        <td style="width: 18%" class="texto-danger texto-bold">
+          {{ elementos.cantidad_proyectada }}
+        </td>
+        <td style="width: 18%" class="texto-success texto-bold">
+          {{ elementos.cantidad_estimada }}
+        </td>
+        <td style="width: 18%" class="texto-info texto-bold">
+          {{ elementos.cantidad_afectada }}
+        </td>
+        <td style="width: 6%">
+          <a (click)="afectarStock(elementos)" class="icon-hover">
+            <i class="fas fa-ellipsis-h icon-color-info fa-lg"></i
+          ></a>
+        </td>
+      </tr>
+    </ng-template>
+    <p-overlayPanel
+      #op
+      appendTo="body"
+      [showTransitionOptions]="'400ms'"
+      [hideTransitionOptions]="'300ms'"
+      [dismissable]="true"
+      [showCloseIcon]="true"
+      (onHide)="cerrarVentanta()"
+    >
+      <!-- <span>   <a class="nav-link azul text-info  my-hover" (click)="asociarInsumo()">Asociar insumo</a></span> -->
+      <div class="d-flex justify-content-center">
+        <div class="row m-2">
+          <label class="texto-bold mr-4"> Cantidad</label>
+          <label class="texto-bold texto-info"
+            >Realizado: {{ cantidadEstimada }}</label
+          >
+          <input
+            type="number"
+            #input
+            [(ngModel)]="cantidad_ingresada"
+            class="form-control form-control-sm"
+            (keyup.enter)="agregarValor($event, op)"
+          />
+          <button
+            class="btn btn-info btn-block mt-2"
+            (click)="agregarValor($event, op)"
+          >
+            <i class="fas fa-check mr-1"></i> Guardar
+          </button>
+        </div>
+      </div>
+    </p-overlayPanel>
+  </p-table>
+</div>
+<div class="m-1">
+  <button class="btn btn-info btn-md btn-block" (click)="verDetalleTodos()">
+    Confirmar insumos en produccion
+  </button>
 </div>

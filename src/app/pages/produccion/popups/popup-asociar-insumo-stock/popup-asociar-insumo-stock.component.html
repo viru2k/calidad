@@ -1,76 +1,126 @@
+<div class="faq-title text-center pb-1 pt-2">
+  <h5>INSUMOS DISPONIBLES</h5>
+</div>
 
-<div class=" faq-title text-center pb-1 pt-2 ">
-    <h5>INSUMOS DISPONIBLES</h5>
-  </div>
-
-  <div class="card-rounded card-header"> 
-    <div class="ml-2 row d-flex justify-content-between">  
-        <div class="d-flex justify-content-start">
-            <h6 class="mr-2 texto-info texto-bold">PRODUCTO: {{config.data.nombre}}</h6>
-            
-        </div>
-        <div class="d-flex justify-content-end">
-            <h6 class="mr-5 texto-danger texto-bold">REQUERIDO: {{config.data.cantidad_estimada}}</h6>
-         </div>
-    </div>     
+<div class="card-rounded card-header">
+  <div class="ml-2 row d-flex justify-content-between">
+    <div class="d-flex justify-content-start">
+      <h6 class="mr-2 texto-info texto-bold">
+        PRODUCTO: {{ config.data.nombre }}
+      </h6>
     </div>
+    <div class="d-flex justify-content-end">
+      <h6 class="mr-5 texto-danger texto-bold">
+        REQUERIDO: {{ config.data.cantidad_estimada }}
+      </h6>
+    </div>
+  </div>
+</div>
 
-<div  class="m-3">
-   
-     
-    
-    <p-table  #dt class=""  tableStyleClass="prime-table" selectionMode="single" [columns]="cols" [value]="elementos" [(selection)]="selecteditems"  [loading]="loading"  columnResizeMode="expand" [responsive]="true"
-    scrollHeight="500px" [scrollable]="true"  [loading]="loading" loadingIcon="fas fa-spinner fa-2x icon-color-green" >
-   
- 
- 
-               <ng-template pTemplate="header" let-columns >
-              
-                          <tr >
-                               
-                            <th  *ngFor="let col of columns" [pSortableColumn]="col.field"  [ngStyle]="{'width': col.width}">
-                                {{col.header}}
-                                <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
-                            </th> 
-                         
-                        </tr> 
-                        <tr>
-                        <th *ngFor="let col of columns" [ngSwitch]="col.field"  >
-                            <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'nombre'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">  
-                            <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'descripcion'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">                          
-                            <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'descomprobantecripcion'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">                          
-                            <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'lote'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">      
-                        </th>
-                        <th></th>
-                    </tr>
-                </ng-template>
-              
-        <ng-template pTemplate="body" let-elementos  let-editing="editing"  >
-            <tr style="height:24px" [pEditableRow]="elementos">
-                
-                <td style="width: 36%">{{elementos.nombre}}</td>                 
-                <td style="width: 26%" >{{elementos.descripcion}}</td>                    
-                <td style="width: 18%">{{elementos.comprobante}}</td>                      
-                <td style="width: 18%" >{{elementos.lote}}</td>
-                <td style="width: 18%"  >{{elementos.fecha_ingreso | date : 'dd/MM/yyyy'}}  </td>
-                <td style="width: 18%" class="texto-info texto-bold" >{{elementos.cantidad_existente}}</td>                
-                <td style="width: 18%" class="texto-info texto-bold" >    <input type="number" class="form-control  texto-success form-control-sm col-11" (change)="changeValor($event, elementos)" >       </td>
+<div class="m-3">
+  <p-table
+    #dt
+    class=""
+    tableStyleClass="prime-table"
+    selectionMode="single"
+    [columns]="cols"
+    [value]="elementos"
+    [(selection)]="selecteditems"
+    [loading]="loading"
+    columnResizeMode="expand"
+    [responsive]="true"
+    scrollHeight="500px"
+    [scrollable]="true"
+    [loading]="loading"
+    loadingIcon="fas fa-spinner fa-2x icon-color-green"
+  >
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th
+          *ngFor="let col of columns"
+          [pSortableColumn]="col.field"
+          [ngStyle]="{ width: col.width }"
+        >
+          {{ col.header }}
+          <p-sortIcon
+            [field]="col.field"
+            ariaLabel="Activate to sort"
+            ariaLabelDesc="Activate to sort in descending order"
+            ariaLabelAsc="Activate to sort in ascending order"
+          ></p-sortIcon>
+        </th>
+      </tr>
+      <tr>
+        <th *ngFor="let col of columns" [ngSwitch]="col.field">
+          <p-multiSelect
+            [style]="{ height: '28px', width: '100%', 'font-size': '10px' }"
+            [options]="_nombre"
+            appendTo="body"
+            defaultLabel=""
+            showHeader="false"
+            *ngIf="col.field == 'nombre'"
+            (onChange)="dt.filter($event.value, col.field, 'in')"
+          ></p-multiSelect>
+          <input
+            style="font-size: 12px"
+            class="form-control col-md-12 form-control-sm"
+            *ngSwitchCase="'descripcion'"
+            pInputText
+            type="text"
+            (input)="dt.filter($event.target.value, col.field, 'contains')"
+          />
+          <input
+            style="font-size: 12px"
+            class="form-control col-md-12 form-control-sm"
+            *ngSwitchCase="'descomprobantecripcion'"
+            pInputText
+            type="text"
+            (input)="dt.filter($event.target.value, col.field, 'contains')"
+          />
+          <input
+            style="font-size: 12px"
+            class="form-control col-md-12 form-control-sm"
+            *ngSwitchCase="'lote'"
+            pInputText
+            type="text"
+            (input)="dt.filter($event.target.value, col.field, 'contains')"
+          />
+        </th>
+        <th></th>
+      </tr>
+    </ng-template>
 
-                   
-                    
-            </tr>
-        </ng-template>
+    <ng-template pTemplate="body" let-elementos let-editing="editing">
+      <tr style="height: 24px" [pEditableRow]="elementos">
+        <td style="width: 36%">{{ elementos.nombre }}</td>
+        <td style="width: 26%">{{ elementos.descripcion }}</td>
+        <td style="width: 18%">{{ elementos.comprobante }}</td>
+        <td style="width: 18%">{{ elementos.lote }}</td>
+        <td style="width: 18%">
+          {{ elementos.fecha_ingreso | date: "dd/MM/yyyy" }}
+        </td>
+        <td style="width: 18%" class="texto-info texto-bold">
+          {{ elementos.cantidad_existente }}
+        </td>
+        <td style="width: 18%" class="texto-info texto-bold">
+          <input
+            type="number"
+            class="form-control texto-success form-control-sm col-11"
+            (change)="changeValor($event, elementos)"
+          />
+        </td>
+      </tr>
+    </ng-template>
 
-        <ng-template pTemplate="footer">
-            <tr>                
-                <td style="width: 116%"  class="text-info"></td>
-                <td style="width: 18%"  class="text-info text-bold">ACUMULADO</td>
-                <td style="width: 18%"  class="text-info">{{acumulado}}</td>
-                <td style="width: 6%"  class="text-info"></td>
-            
-            </tr>
-        </ng-template>
-<!-- 
+    <ng-template pTemplate="footer">
+      <tr>
+        <td style="width: 116%" class="text-info"></td>
+        <td style="width: 18%" class="text-info text-bold">ACUMULADO</td>
+        <td style="width: 18%" class="text-info">{{ acumulado }}</td>
+        <td style="width: 6%" class="text-info"></td>
+      </tr>
+    </ng-template>
+    <!-- 
         <p-overlayPanel  #op appendTo="body"  [showTransitionOptions]="'400ms'" [hideTransitionOptions]="'300ms'"  [dismissable]="true" [showCloseIcon]="true" (onHide)="cerrarVentanta()" >                          
 
 
@@ -88,9 +138,10 @@
             </div>
           </p-overlayPanel> 
         -->
-    </p-table>
-
-  </div>
-  <div class="m-1">
-    <button class="btn btn-info btn-md btn-block" (click)="guardar()">Asociar insumos</button>
+  </p-table>
+</div>
+<div class="m-1">
+  <button class="btn btn-info btn-md btn-block" (click)="guardar()">
+    Asociar insumos
+  </button>
 </div>
