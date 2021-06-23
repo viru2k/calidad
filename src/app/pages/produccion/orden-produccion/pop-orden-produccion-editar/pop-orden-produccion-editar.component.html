@@ -53,10 +53,10 @@
     </div>
 
   </div>
-  <p-scrollPanel [style]="{width: '100%', height: '400%'}">
+
     <div  class="m-3">
       <p-table  #dt class=""  tableStyleClass="prime-table" selectionMode="single" [columns]="cols" [value]="elementos"  [loading]="loading" [(selection)]="selecteditems"   columnResizeMode="expand" [responsive]="true"
-      scrollHeight="500px" [scrollable]="true"  [loading]="loading" loadingIcon="fas fa-spinner fa-2x icon-color-green" >
+      scrollHeight="300px" [scrollable]="true"  [loading]="loading" loadingIcon="fas fa-spinner fa-2x icon-color-green" >
 
       <ng-template pTemplate="caption">
         <div class=" row">
@@ -64,27 +64,8 @@
 
 
               <button *ngIf = "!editar" class="btn-cuadrado-info  texto-bold mb-1" (click)="buscarArticulo()"  > <i class="fa fa-plus fa-lg mr-2"></i>Agregar producto a planificación</button>
-                <!-- <a  (click)="buscarArticulo()" *ngIf="!editar" class="icon-hover  icon-color-info mt-2 ml-2"> <i class="fa fa-plus fa-lg mr-2"></i>Agregar producto</a> -->
             </div>
-<!-- ------------------------ INFORMACION DE CARGA ------------------------- -->
-     <!--     <div class="col-8 mt-2" style="text-align: right">
 
-
-
-
-           <i class="far fa-question-circle icono-info ml-2 mt-2" (mouseenter)="op2.show($event)"  style="font-size:24px"></i>
-          <p-overlayPanel #op2 [showCloseIcon]="true" [dismissable]="false" appendTo="body">
-            <p class="texto-info texto-bold">Desde aquí se selecciona el producto asociando sus parametos de :</p>
-            <p> - Dia en que se planifica la producción</p>
-            <p> - El periodo que durara la producción</p>
-            <p> - Una descripción de la producción y observaciones sobre la producción</p>
-            <p> - El estado -- por defecto activo , y podra cambiarse segun se avance</p>
-            <p> - Agregar un producto a producir</p>
-            <p class="texto-secondary">----------------------------------------</p>
-            <p><b class="texto-warning"> Recordar que  se debe repetir el proceso para cada producto para completar la producción planificada</b></p>
-          </p-overlayPanel>
-
-          </div>-->
         </div>
 
       </ng-template>
@@ -101,9 +82,9 @@
                           </tr>
                           <tr>
                           <th *ngFor="let col of columns" [ngSwitch]="col.field"  >
-                               <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'fecha_produccion'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
-                              <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'nombre'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
-                              <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'descripcion'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
+                               <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'fecha_produccion'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">                            
+                              <p-multiSelect  [style]="{'height':'28px', 'width': '100%', 'font-size': '10px'}"  [options]="_nombre" appendTo="body" defaultLabel=""   showHeader="false"  *ngIf='col.field =="nombre"' (onChange)="dt.filter($event.value,col.field,'in')"></p-multiSelect>
+                              <p-multiSelect  [style]="{'height':'28px', 'width': '100%', 'font-size': '10px'}"  [options]="_descripcion" appendTo="body" defaultLabel=""   showHeader="false"  *ngIf='col.field =="descripcion"' (onChange)="dt.filter($event.value,col.field,'in')"></p-multiSelect>
                               <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'pallet_pack'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
                               <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'pallet_pisos'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
                               <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'unidad_hora'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
@@ -111,7 +92,7 @@
                               <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'cantidad_solicitada'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
                               <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'cantidad_usada'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
                               <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'cantidad_existente'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
-                              <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'estado'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
+                              <p-multiSelect  [style]="{'height':'28px', 'width': '100%', 'font-size': '10px'}"  [options]="_estado" appendTo="body" defaultLabel=""   showHeader="false"  *ngIf='col.field =="estado"' (onChange)="dt.filter($event.value,col.field,'in')"></p-multiSelect>
                           </th>
                           <th></th>
                       </tr>
@@ -179,4 +160,4 @@
 
       </p-overlayPanel>
     </div>
-  </p-scrollPanel>
+

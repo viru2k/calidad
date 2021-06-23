@@ -8,6 +8,7 @@ import { OrdenProduccionDetalle } from './../../../../models/orden-produccion-de
 import { OrdenProduccion } from './../../../../models/orden-produccion.model';
 import { formatDate } from '@angular/common';
 import { OverlayPanel } from 'primeng/overlaypanel';
+import { Filter } from '../../../../shared/filter';
 
 
 @Component({
@@ -46,9 +47,12 @@ export class PopOrdenProduccionEditarComponent implements OnInit {
   selectedEstadoRenglon : string = 'ACTIVO' ;
   selectedRow:any = null;
   position: string;
+  _estado: any[] = [];  
+  _nombre: any[] = [];
+  _descripcion: any[] = [];
 
    // tslint:disable-next-line: max-line-length
-   constructor(private alertServiceService: AlertServiceService, private produccionService: ProduccionService, public dialogService: DialogService, private config: DynamicDialogConfig,  public ref: DynamicDialogRef) {
+   constructor(private alertServiceService: AlertServiceService, private produccionService: ProduccionService, public dialogService: DialogService, private config: DynamicDialogConfig,  public ref: DynamicDialogRef,  private filter: Filter) {
 
     this.cols = [
       { field: 'fecha_produccion', header: 'Generado',  width: '15%' },
@@ -81,8 +85,7 @@ export class PopOrdenProduccionEditarComponent implements OnInit {
     this.fecha_desde = new Date();
     this.fecha_hasta = new Date();
     this.fecha = new Date();
-    this.es = calendarioIdioma  ;
-   // this.fecha_produccion = new Date();
+    this.es = calendarioIdioma;
 
     console.log(this.config.data);
     if (this.config.data) {
@@ -99,8 +102,7 @@ export class PopOrdenProduccionEditarComponent implements OnInit {
 
     this.userData = JSON.parse(localStorage.getItem('userData'));
     console.log(this.userData);
-    // this.alertServiceService.throwAlert('success','Articulo guardado','','201');
-  //  this.loadlist();
+
    }
 
 
@@ -118,7 +120,7 @@ export class PopOrdenProduccionEditarComponent implements OnInit {
     this.cantidad_existente = elem.cantidad_existente;
     this.hora =  elem.hora;
 
-    console.log(elem.cantidad_solicitada);
+                console.log(elem.cantidad_solicitada);
     console.log(this.selectedRow);
     //this.fecha_produccion = this.selectedRow['fecha_produccion'];
     this.position = 'top';
@@ -162,6 +164,7 @@ export class PopOrdenProduccionEditarComponent implements OnInit {
          .subscribe(resp => {
            if (resp[0]) {
              this.elementos = resp;
+             this.realizarFiltroBusqueda(resp);
              console.log(this.elementos);
                } else {
                  this.elementos = null;
@@ -272,6 +275,7 @@ export class PopOrdenProduccionEditarComponent implements OnInit {
       if (resp) {
         this.elementos = resp;
         console.log(this.elementos);
+        this.realizarFiltroBusqueda(resp);
         this.alertServiceService.throwAlert('success', 'Estado de orden de producción modificado a  ' +  produccion.estado, '', '200');
         this.ref.close();
           } else {
@@ -330,6 +334,27 @@ export class PopOrdenProduccionEditarComponent implements OnInit {
      return {'es-finalizado'  : 'null' };
    }
  }
+
+ 
+
+realizarFiltroBusqueda(resp: any[]){
+  // FILTRO LOS ELEMENTOS QUE SE VAN USAR PARA FILTRAR LA LISTA
+  this._estado = [];  
+  this._nombre = [];
+  this._descripcion = [];
+
+  resp.forEach(element => {
+    this._estado.push(element.estado);    
+    this._nombre.push(element.nombre);
+    this._descripcion.push(element.descripcion);
+  });
+
+  // ELIMINO DUPLICADOS
+  this._estado = this.filter.filterArray(this._estado);  
+  this._nombre = this.filter.filterArray(this._nombre);
+  this._descripcion = this.filter.filterArray(this._descripcion);
+}
+
  }
 
 
