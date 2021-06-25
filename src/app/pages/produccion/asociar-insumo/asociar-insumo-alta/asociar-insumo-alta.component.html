@@ -53,16 +53,6 @@
   </div>
 </div>
 
-<!--   <p-overlayPanel #op2 [showCloseIcon]="true" [dismissable]="false" appendTo="body">
-      <p class="texto-info texto-bold">Desde aquí se gestionan los datos relacionados con cada producción :</p>
-      <p> - Finalizar una producción</p>
-      <p> - Cargar datos de auditoria</p>
-      <p> - Asociar insumos  a cada producción</p>
-      <p> - Consultar producciones por estado</p>
-      <p> - Consultar producciones por periodo de fechas de producción</p>
-      <p class="texto-secondary">----------------------------------------</p>
-      <p><b class="texto-warning"> Recordar que  se debe repetir el proceso para cada producto para completar la producción planificada</b></p>
-    </p-overlayPanel> -->
 <div class="m-3">
   <p-table
     #dt
@@ -127,6 +117,14 @@
             type="text"
             (input)="dt.filter($event.target.value, col.field, 'contains')"
           />
+          <input
+            style="font-size: 12px"
+            class="form-control col-md-12 form-control-sm"
+            *ngSwitchCase="'lote'"
+            pInputText
+            type="text"
+            (input)="dt.filter($event.target.value, col.field, 'contains')"
+          />
           <p-multiSelect
             [style]="{ height: '28px', width: '100%', 'font-size': '10px' }"
             [options]="_nombre"
@@ -138,11 +136,11 @@
           ></p-multiSelect>
           <p-multiSelect
             [style]="{ height: '28px', width: '100%', 'font-size': '10px' }"
-            [options]="_nombre"
+            [options]="_maquina_nombre"
             appendTo="body"
             defaultLabel=""
             showHeader="false"
-            *ngIf="col.field == 'nombre'"
+            *ngIf="col.field == 'maquina_nombre'"
             (onChange)="dt.filter($event.value, col.field, 'in')"
           ></p-multiSelect>
           <input

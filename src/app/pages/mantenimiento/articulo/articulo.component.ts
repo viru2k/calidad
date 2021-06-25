@@ -53,6 +53,7 @@ export class ArticuloComponent implements OnInit {
           if (resp[0]) {
             this.elementos = resp;
             console.log(this.elementos);
+            this.realizarFiltroBusqueda(resp);
           } else {
             this.elementos = null;
           }
