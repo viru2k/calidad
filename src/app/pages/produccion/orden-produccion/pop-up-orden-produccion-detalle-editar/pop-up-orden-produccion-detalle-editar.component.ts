@@ -102,6 +102,7 @@ export class PopUpOrdenProduccionDetalleEditarComponent implements OnInit {
         (resp) => {
           if (resp[0]) {
             this.elementos = resp;
+            this.realizarFiltroBusqueda(resp);
             console.log(this.elementos);
           } else {
             this.elementos = null;
