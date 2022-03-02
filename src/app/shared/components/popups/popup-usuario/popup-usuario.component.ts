@@ -1,16 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { DynamicDialogConfig, DialogService, MessageService, DynamicDialogRef } from 'primeng/api';
-import { UserService } from './../../../../services/user.service';
-import { AlertServiceService } from './../../../../services/alert-service.service';
+import { Component, OnInit } from "@angular/core";
+import { MessageService } from "primeng-lts/api";
+import {
+  DialogService,
+  DynamicDialogRef,
+  DynamicDialogConfig,
+} from "primeng-lts/dynamicdialog";
+import { UserService } from "./../../../../services/user.service";
+import { AlertServiceService } from "./../../../../services/alert-service.service";
 
 @Component({
-  selector: 'app-popup-usuario',
-  templateUrl: './popup-usuario.component.html',
-  styleUrls: ['./popup-usuario.component.css']
+  selector: "app-popup-usuario",
+  templateUrl: "./popup-usuario.component.html",
+  styleUrls: ["./popup-usuario.component.css"],
 })
 export class PopupUsuarioComponent implements OnInit {
-
-  
   cols: any[];
   columns: any[];
   elementos: any[];
@@ -18,21 +21,23 @@ export class PopupUsuarioComponent implements OnInit {
   loading;
 
   // tslint:disable-next-line: max-line-length
-  constructor(public config: DynamicDialogConfig ,private userService: UserService, private alertServiceService: AlertServiceService, 
-              public dialogService: DialogService, private ref: DynamicDialogRef,
-              private messageService: MessageService) {
-
+  constructor(
+    public config: DynamicDialogConfig,
+    private userService: UserService,
+    private alertServiceService: AlertServiceService,
+    public dialogService: DialogService,
+    private ref: DynamicDialogRef,
+    private messageService: MessageService
+  ) {
     this.cols = [
-
-      { field: 'email', header: 'Usuario',  width: '40%' },
-      { field: 'nombreyapellido', header: 'Nombre y apellido',  width: '40%' },
-      { field: '', header: 'Acción',  width: '20%' },
-
-   ];
+      { field: "email", header: "Usuario", width: "40%" },
+      { field: "nombreyapellido", header: "Nombre y apellido", width: "40%" },
+      { field: "", header: "Acción", width: "20%" },
+    ];
   }
 
   ngOnInit() {
-    console.log('cargando insumo');
+    console.log("cargando insumo");
     this.loadlist();
   }
 
@@ -40,33 +45,40 @@ export class PopupUsuarioComponent implements OnInit {
     //console.log(this.config.data.id);
     this.loading = true;
     try {
-        this.userService.getUsers()
-        .subscribe(resp => {
+      this.userService.getUsers().subscribe(
+        (resp) => {
           if (resp[0]) {
             this.elementos = resp;
             console.log(this.elementos);
-              } else {
-                this.elementos = null;
-              }
+          } else {
+            this.elementos = null;
+          }
           this.loading = false;
           console.log(resp);
         },
-        error => { // error path
-            console.log(error);
+        (error) => {
+          // error path
+          console.log(error);
 
-            this.alertServiceService.throwAlert('error', 'Error: ' + error.status + '  Error al cargar los registros', '', '500');
-         });
+          this.alertServiceService.throwAlert(
+            "error",
+            "Error: " + error.status + "  Error al cargar los registros",
+            "",
+            "500"
+          );
+        }
+      );
     } catch (error) {
-      this.alertServiceService.throwAlert('error', 'Error: ' + error.status + '  Error al cargar los registros', '', '500');
+      this.alertServiceService.throwAlert(
+        "error",
+        "Error: " + error.status + "  Error al cargar los registros",
+        "",
+        "500"
+      );
     }
-}
+  }
 
-
-seleccionar(elemento) {
-
-  this.ref.close(elemento);
-
-}
-
-
+  seleccionar(elemento) {
+    this.ref.close(elemento);
+  }
 }

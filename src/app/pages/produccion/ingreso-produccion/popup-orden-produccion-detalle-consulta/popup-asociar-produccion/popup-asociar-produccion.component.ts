@@ -1,10 +1,10 @@
 import { Component, OnInit } from "@angular/core";
+
 import {
-  MessageService,
   DialogService,
   DynamicDialogConfig,
   DynamicDialogRef,
-} from "primeng/api";
+} from "primeng-lts/dynamicdialog";
 
 import { calendarioIdioma } from "./../../../../../config/config";
 import { AlertServiceService } from "./../../../../../services/alert-service.service";
@@ -44,7 +44,6 @@ export class PopupAsociarProduccionComponent implements OnInit {
     private alertServiceService: AlertServiceService,
     private produccionService: ProduccionService,
     public dialogService: DialogService,
-    private messageService: MessageService,
     private config: DynamicDialogConfig,
     public ref: DynamicDialogRef
   ) {

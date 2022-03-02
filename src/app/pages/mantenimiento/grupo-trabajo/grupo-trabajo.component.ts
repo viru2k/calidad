@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { InsumoService } from "../../../services/insumo.service";
 import { AlertServiceService } from "../../../services/alert-service.service";
-import { MessageService, DialogService } from "primeng/api";
+import { MessageService } from "primeng-lts/api";
+import { DialogService } from "primeng-lts/dynamicdialog";
 import { GrupoTrabajoEditarComponent } from "./../grupo-trabajo-editar/grupo-trabajo-editar.component";
 import { SectorService } from "../../../services/sector.service";
 import { GrupoTrabajoAsociarComponent } from "./../grupo-trabajo-asociar/grupo-trabajo-asociar.component";

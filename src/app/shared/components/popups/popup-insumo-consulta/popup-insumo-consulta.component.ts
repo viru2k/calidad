@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { DynamicDialogRef } from "primeng/api";
+
+import { DynamicDialogRef } from "primeng-lts/dynamicdialog";
 import { ArticuloService } from "./../../../../services/articulo.service";
 import { AlertServiceService } from "./../../../../services/alert-service.service";
 import { InsumoService } from "./../../../../services/insumo.service";

@@ -1,7 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { AlertServiceService } from "../../../services/alert-service.service";
 import { ArticuloService } from "./../../../services/articulo.service";
-import { MessageService, DialogService } from "primeng/api";
+import { MessageService } from "primeng-lts/api";
+import {
+  DialogService,
+  DynamicDialogRef,
+  DynamicDialogConfig,
+} from "primeng-lts/dynamicdialog";
 import { PopOrdenProduccionEditarComponent } from "./pop-orden-produccion-editar/pop-orden-produccion-editar.component";
 import { ProduccionService } from "../../../services/produccion.service";
 import { calendarioIdioma } from "./../../../config/config";

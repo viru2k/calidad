@@ -1,12 +1,13 @@
 import { Component, OnInit } from "@angular/core";
 import { AlertServiceService } from "../../../services/alert-service.service";
 import { ArticuloService } from "./../../../services/articulo.service";
+import { MessageService } from "primeng-lts/api";
 import {
-  MessageService,
   DialogService,
-  DynamicDialogRef,
   DynamicDialogConfig,
-} from "primeng/api";
+  DynamicDialogModule,
+  DynamicDialogRef,
+} from "primeng-lts/dynamicdialog";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { PopupInsumoConsultaComponent } from "./../../../shared/components/popups/popup-insumo-consulta/popup-insumo-consulta.component";
 @Component({

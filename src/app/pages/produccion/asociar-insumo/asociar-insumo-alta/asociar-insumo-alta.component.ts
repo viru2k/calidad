@@ -1,12 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 
-import {
-  MessageService,
-  DynamicDialogConfig,
-  DialogService,
-} from "primeng/api";
-
-import { OverlayPanel } from "primeng/overlaypanel";
+import { MessageService } from "primeng-lts/api";
+import { DialogService } from "primeng-lts/dynamicdialog";
+import { OverlayPanel } from "primeng-lts/overlaypanel";
 
 import { formatDate } from "@angular/common";
 import { AlertServiceService } from "./../../../../services/alert-service.service";

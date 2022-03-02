@@ -1,10 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { ArticuloConfeccionEditarComponent } from "./../../articulo-confeccion-editar/articulo-confeccion-editar.component";
-import {
-  MessageService,
-  DialogService,
-  DynamicDialogConfig,
-} from "primeng/api";
+
+import { MessageService } from "primeng-lts/api";
+import { DialogService, DynamicDialogConfig } from "primeng-lts/dynamicdialog";
+
 import { ArticuloService } from "./../../../../services/articulo.service";
 import { AlertServiceService } from "./../../../../services/alert-service.service";
 import { PopupInsumoConsultaComponent } from "../../../../shared/components/popups/popup-insumo-consulta/popup-insumo-consulta.component";

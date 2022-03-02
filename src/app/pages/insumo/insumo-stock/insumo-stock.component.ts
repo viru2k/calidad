@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { InsumoService } from "../../../services/insumo.service";
 import { AlertServiceService } from "../../../services/alert-service.service";
-import { DialogService } from "primeng/components/common/api";
-import { MessageService } from "primeng/api";
+import { DialogService } from "primeng-lts/dynamicdialog";
+import { MessageService } from "primeng-lts/api";
 import { PopUpInsumoStockComponent } from "./popup-insumo-stock/popup-insumo-stock.component";
 import { formatDate } from "@angular/common";
 import { ExporterService } from "./../../../services/exporter.service";

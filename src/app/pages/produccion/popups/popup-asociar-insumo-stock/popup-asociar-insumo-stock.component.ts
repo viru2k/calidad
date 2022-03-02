@@ -2,13 +2,14 @@ import { Component, OnInit } from "@angular/core";
 import { InsumoService } from "../../../../services/insumo.service";
 import { ProduccionService } from "../../../../services/produccion.service";
 import { AlertServiceService } from "../../../../services/alert-service.service";
+
+import { MessageService } from "primeng-lts/api";
 import {
-  MessageService,
   DialogService,
   DynamicDialogConfig,
   DynamicDialogRef,
-} from "primeng/api";
-import { OverlayPanel } from "primeng/overlaypanel";
+} from "primeng-lts/dynamicdialog";
+import { OverlayPanel } from "primeng-lts/overlaypanel";
 import swal from "sweetalert2";
 import { Filter } from "../../../../shared/filter";
 

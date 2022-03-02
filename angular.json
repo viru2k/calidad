@@ -1,5 +1,8 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": false
+  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
@@ -8,6 +11,9 @@
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
         }
       },
       "root": "",
@@ -22,78 +28,77 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "aot": false,
+            "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets",
-              "src/manifest.webmanifest"
+              "src/assets"
             ],
             "styles": [
-              "src/styles.scss",
-              "src/assets/css/bootstrap.min.css",
-              "node_modules/primeicons/primeicons.css",
-              "node_modules/primeng/resources/themes/omega/theme.scss",
-              "node_modules/animate.css/animate.css",
-              "node_modules/hover.css/css/hover-min.css",
-              "node_modules/primeng/resources/primeng.min.css",
-              "node_modules/fullcalendar/dist/fullcalendar.min.css",
-              "node_modules/font-awesome/scss/font-awesome.scss"
+              "./node_modules/animate.css/animate.css",
+              "./node_modules/hover.css/css/hover-min.css",
+              "./node_modules/font-awesome/scss/font-awesome.scss",
+              "./node_modules/primeicons/primeicons.css",
+              "./node_modules/primeng-lts/resources/themes/rhea/theme.css",
+              "./node_modules/primeng-lts/resources/primeng.min.css",                       
+              "./node_modules/fullcalendar/main.min.css",
+              "./src/styles.scss",              
+              "./src/assets/sass/now-ui-kit.scss",
+              "./src/assets/css/demo.css",              
+              "./src/assets/sass/mis-estilos/notificaciones.scss"
             ],
             "scripts": [
+              "./node_modules/bootstrap/dist/js/bootstrap.min.js",         
               "node_modules/chart.js/dist/Chart.js",
               "node_modules/quill/dist/quill.js",
               "./node_modules/jspdf/dist/jspdf.min.js",
               "./node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.js",
-              "./node_modules/popper.js/dist/esm/popper.min.js",
-              "./node_modules/bootstrap/dist/js/bootstrap.min.js",
-
               "node_modules/hammerjs/hammer.min.js"
             ]
           },
           "configurations": {
             "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "10mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "100kb",
+                  "maximumError": "100kb"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "aot": true,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "20mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
-                }
-              ],
-              "serviceWorker": true,
-              "ngswConfigPath": "ngsw-config.json"
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
             }
-          }
+          },
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "calidad:build"
-          },
           "configurations": {
             "production": {
               "browserTarget": "calidad:build:production"
+            },
+            "development": {
+              "browserTarget": "calidad:build:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",

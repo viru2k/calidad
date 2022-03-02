@@ -1,12 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { InsumoService } from "../../../../services/insumo.service";
 import { AlertServiceService } from "../../../../services/alert-service.service";
-import { DialogService } from "primeng/components/common/api";
 import {
-  MessageService,
-  DynamicDialogConfig,
+  DialogService,
   DynamicDialogRef,
-} from "primeng/api";
+  DynamicDialogConfig,
+} from "primeng-lts/dynamicdialog";
+import { MessageService } from "primeng-lts/api";
 import { PopupInsumoStockDetalleProduccionComponent } from "../popup-insumo-stock-detalle-produccion/popup-insumo-stock-detalle-produccion.component";
 import { Filter } from "./../../../../shared/filter";
 import { formatDate } from "@angular/common";

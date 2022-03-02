@@ -3,21 +3,18 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { OrdenProduccion } from "./../../../models/orden-produccion.model";
 import { OrdenProduccionDetalle } from "./../../../models/orden-produccion-detalle.model";
 import { AlertServiceService } from "./../../../services/alert-service.service";
-import {
-  MessageService,
-  DynamicDialogConfig,
-  DialogService,
-} from "primeng/api";
+import { MessageService } from "primeng-lts/api";
+import { DialogService, DynamicDialogConfig } from "primeng-lts/dynamicdialog";
 import { ProduccionService } from "./../../../services/produccion.service";
 import { calendarioIdioma } from "./../../../config/config";
-import { OverlayPanel } from "primeng/overlaypanel";
+import { OverlayPanel } from "primeng-lts/overlaypanel";
 import { PopupAsociarProduccionComponent } from "./../ingreso-produccion/popup-orden-produccion-detalle-consulta/popup-asociar-produccion/popup-asociar-produccion.component";
 import { formatDate } from "@angular/common";
 import { PopupCalidadParametroProduccionIngresoComponent } from "./../../calidad/popup-calidad-parametro-produccion-ingreso/popup-calidad-parametro-produccion-ingreso.component";
-import { element } from "protractor";
+
 import { Filter } from "./../../../shared/filter";
 import { ExporterService } from "./../../../services/exporter.service";
-import { Table } from "primeng/table";
+import { Table } from "primeng-lts/table";
 import date from "date-and-time";
 import { PopupChartLineComponent } from "../../../shared/popups/popup-chart-line/popup-chart-line.component";
 

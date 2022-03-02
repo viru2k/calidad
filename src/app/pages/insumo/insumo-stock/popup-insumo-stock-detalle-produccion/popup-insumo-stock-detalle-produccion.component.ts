@@ -1,12 +1,14 @@
 import { Component, OnInit } from "@angular/core";
 import { InsumoService } from "../../../../services/insumo.service";
 import { AlertServiceService } from "../../../../services/alert-service.service";
-import { DialogService } from "primeng/components/common/api";
+
+import { MessageService } from "primeng-lts/api";
+
 import {
-  MessageService,
-  DynamicDialogConfig,
+  DialogService,
   DynamicDialogRef,
-} from "primeng/api";
+  DynamicDialogConfig,
+} from "primeng-lts/dynamicdialog";
 
 @Component({
   selector: "app-popup-insumo-stock-detalle-produccion",
@@ -24,8 +26,7 @@ export class PopupInsumoStockDetalleProduccionComponent implements OnInit {
     private alertServiceService: AlertServiceService,
     public ref: DynamicDialogRef,
     public config: DynamicDialogConfig,
-    public dialogService: DialogService,
-    private messageService: MessageService
+    public dialogService: DialogService
   ) {
     this.cols = [
       { field: "articulo_nombre", header: "Producto", width: "30%" },

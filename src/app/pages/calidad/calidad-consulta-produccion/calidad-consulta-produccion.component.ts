@@ -1,10 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { CalidadService } from "../../../services/calidad.service";
 import { AlertServiceService } from "../../../services/alert-service.service";
-import { DynamicDialogRef, MessageService, DialogService } from "primeng/api";
+import { MessageService } from "primeng-lts/api";
+import { DialogService } from "primeng-lts/dynamicdialog";
 import { calendarioIdioma } from "../../../config/config";
 import { formatDate } from "@angular/common";
-import { OverlayPanel } from "primeng/overlaypanel";
+import { OverlayPanel } from "primeng-lts/overlaypanel";
 import { PopupCalidadAsociadaProduccionComponent } from "../popup-calidad-asociada-produccion/popup-calidad-asociada-produccion.component";
 import { PopupCalidadDetalleProcesoComponent } from "./../popup-calidad-detalle-proceso/popup-calidad-detalle-proceso.component";
 import { ProduccionService } from "../../../services/produccion.service";

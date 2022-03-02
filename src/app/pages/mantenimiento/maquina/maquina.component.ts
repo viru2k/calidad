@@ -1,7 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { InsumoService } from "../../../services/insumo.service";
 import { AlertServiceService } from "../../../services/alert-service.service";
-import { MessageService, DialogService } from "primeng/api";
+import { MessageService } from "primeng-lts/api";
+import {
+  DialogService,
+  DynamicDialogRef,
+  DynamicDialogConfig,
+} from "primeng-lts/dynamicdialog";
 import { MaquinaEditarComponent } from "./../maquina-editar/maquina-editar.component";
 import { ProduccionService } from "./../../../services/produccion.service";
 

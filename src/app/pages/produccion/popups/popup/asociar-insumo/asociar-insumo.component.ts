@@ -1,12 +1,13 @@
 import { Component, OnInit } from "@angular/core";
 import { AlertServiceService } from "./../../../../../services/alert-service.service";
+
+import { MessageService } from "primeng-lts/api";
 import {
-  DynamicDialogRef,
-  DynamicDialogConfig,
-  MessageService,
   DialogService,
-} from "primeng/api";
-import { OverlayPanel } from "primeng/overlaypanel";
+  DynamicDialogConfig,
+  DynamicDialogRef,
+} from "primeng-lts/dynamicdialog";
+import { OverlayPanel } from "primeng-lts/overlaypanel";
 import { AsociarInsumoAltaComponent } from "../../../asociar-insumo/asociar-insumo-alta/asociar-insumo-alta.component";
 import { InsumoService } from "src/app/services/insumo.service";
 import { ProduccionService } from "../../../../../services/produccion.service";
