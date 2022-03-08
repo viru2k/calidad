@@ -33,7 +33,6 @@
             "styles": [
               "./node_modules/animate.css/animate.css",
               "./node_modules/hover.css/css/hover-min.css",
-              "./node_modules/font-awesome/scss/font-awesome.scss",
               "./node_modules/primeicons/primeicons.css",
               "./node_modules/primeng-lts/resources/themes/saga-blue/theme.css",
               "./node_modules/primeng-lts/resources/primeng.min.css",
@@ -54,13 +53,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
+                  "maximumWarning": "10mb",
                   "maximumError": "10mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "100kb",
-                  "maximumError": "100kb"
+                  "maximumWarning": "10mb",
+                  "maximumError": "10mb"
                 }
               ],
               "fileReplacements": [
