@@ -1,7 +1,4 @@
-<app-custom-preloader *ngIf="loading"></app-custom-preloader>
-<div class="faq-title text-center pb-1 pt-2">
-  <h5>DETALLE DE ORDENES DE PRODUCCION</h5>
-</div>
+<p-breadcrumb [model]="breadCrumbItems"></p-breadcrumb>
 
 <div class="card-rounded card-header mb-3">
   <div
@@ -9,7 +6,7 @@
   >
     <div class="d-flex justify-content-start d-flex align-items-center">
       <button
-        class="btn-cuadrado-success btn-sm mr-2 texto-bold"
+        class="btn btn-success btn-sm mr-2 texto-bold"
         (click)="loadlist()"
       >
         Buscar ordenes producción activas
@@ -35,7 +32,7 @@
       >
       </p-calendar>
       <button
-        class="btn-cuadrado-info btn-sm ml-2 texto-bold"
+        class="btn btn-info btn-sm ml-2 texto-bold"
         (click)="buscarProduccion()"
       >
         Buscar entre fechas

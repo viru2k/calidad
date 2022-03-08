@@ -1,11 +1,15 @@
 import { Component, OnInit } from "@angular/core";
 import { AlertServiceService } from "../../../services/alert-service.service";
 import { ArticuloService } from "./../../../services/articulo.service";
-import { MessageService, DialogService } from "primeng/api";
-
+import { MessageService, MenuItem } from "primeng-lts/api";
+import {
+  DialogService,
+  DynamicDialogRef,
+  DynamicDialogConfig,
+} from "primeng-lts/dynamicdialog";
 import { ProduccionService } from "./../../../services/produccion.service";
 
-import { OverlayPanel } from "primeng/overlaypanel";
+import { OverlayPanel } from "primeng-lts/overlaypanel";
 import { Produccion } from "src/app/models/produccion.model";
 import { AsociarInsumoComponent } from "../popups/popup/asociar-insumo/asociar-insumo.component";
 import { AsociarInsumoDetalleComponent } from "./../popups/popup/asociar-insumo-detalle/asociar-insumo-detalle.component";
@@ -49,6 +53,9 @@ export class IngresoProduccionComponent implements OnInit {
   _fecha_hasta: string;
   _estado: any[] = [];
   _nombreyapellido: any[] = [];
+  // breadcrumb
+  home: MenuItem = { icon: "pi pi-home", routerLink: "/" };
+  breadCrumbItems: MenuItem[];
 
   constructor(
     private alertServiceService: AlertServiceService,
@@ -58,6 +65,11 @@ export class IngresoProduccionComponent implements OnInit {
     private messageService: MessageService,
     private filter: Filter
   ) {
+    this.breadCrumbItems = [
+      this.home,
+      { label: "Panifiación de Producción" },
+      { label: "Detalle de Ordenes de Producción" },
+    ];
     this.cols = [
       { field: "id", header: "Prod Nº", width: "7.5%" },
       { field: "estado", header: "Estado", width: "8%" },

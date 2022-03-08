@@ -1,63 +1,122 @@
-<div class=" faq-title text-center pb-1 pt-2 ">
-      <h5 *ngIf="data">CONTROLES REALIZADOS AL PRODUCTO {{data.nombre}} CON LA PRODUCCION NUMERO:  <label class="texto-info">{{data.id}}</label></h5>
+<div class="faq-title text-center pb-1 pt-2">
+  <h5 *ngIf="data">
+    CONTROLES REALIZADOS AL PRODUCTO {{ data.nombre }} CON LA PRODUCCION NUMERO:
+    <label class="texto-info">{{ data.id }}</label>
+  </h5>
+</div>
+<div class="card-rounded card-header">
+  <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-end align-items-center">
+      <label class="mt-2 ml-1 mr-1">Producciones entre el </label>
+      <p-calendar
+        [(ngModel)]="fecha_desde"
+        [showTime]="true"
+        tabindex="0"
+        [locale]="es"
+        dateFormat="D dd/mm/yy "
+        [readonlyInput]="true"
+      >
+      </p-calendar>
+      <label class="mt-2 ml-1 mr-1"> al </label>
+      <p-calendar
+        [(ngModel)]="fecha_hasta"
+        [showTime]="true"
+        tabindex="0"
+        [locale]="es"
+        dateFormat="D dd/mm/yy "
+        [readonlyInput]="true"
+        class="ml-2"
+      >
+      </p-calendar>
+      <button class="ml-2 mr-3 btn-sm btn btn-info" (click)="buscarByDates()">
+        Buscar producciones
+      </button>
     </div>
-    <div class="card-rounded card-header ">
-      <div class="d-flex justify-content-between ">
-        <div class="d-flex justify-content-end align-items-center">
-            <label class="mt-2 ml-1 mr-1">Producciones entre el </label>
-            <p-calendar [(ngModel)]="fecha_desde" [showTime]="true"   tabindex="0"  [locale]="es" dateFormat="D dd/mm/yy "   [readonlyInput]="true">              
-            </p-calendar>
-            <label class="mt-2 ml-1 mr-1"> al </label>
-            <p-calendar [(ngModel)]="fecha_hasta"  [showTime]="true"   tabindex="0"  [locale]="es" dateFormat="D dd/mm/yy "   [readonlyInput]="true" class="ml-2">              
-            </p-calendar>
-            <button class=" ml-2 mr-3 btn-sm btn-cuadrado-info" (click)="buscarByDates()">Buscar producciones </button>
-          </div>
-        <div class="d-flex justify-content-end align-items-end">              
-          <a class=" texto-info icon-hover" (click)="verEstadistica()"><i class="icon-chart-color mr-4"></i><label class="texto-info icon-hover">Estadistica</label> </a>
-        </div>
-      </div>
+    <div class="d-flex justify-content-end align-items-end">
+      <a class="texto-info icon-hover" (click)="verEstadistica()"
+        ><i class="icon-chart-color mr-4"></i
+        ><label class="texto-info icon-hover">Estadistica</label>
+      </a>
     </div>
-    <!-- <div  id="chartContainer" style="width: 100%; height: 400px;"></div> -->
-    <div  class="m-3">
-        <p-table  #dt class=""  tableStyleClass="prime-table" selectionMode="single" [columns]="cols" [value]="elementos"  [loading]="loading"    columnResizeMode="expand" [responsive]="true"
-        scrollHeight="500px" [scrollable]="true"  [loading]="loading" loadingIcon="fas fa-spinner fa-2x icon-color-green" >
-       
+  </div>
+</div>
+<!-- <div  id="chartContainer" style="width: 100%; height: 400px;"></div> -->
+<div class="m-3">
+  <p-table
+    #dt
+    class=""
+    tableStyleClass="prime-table"
+    selectionMode="single"
+    [columns]="cols"
+    [value]="elementos"
+    [loading]="loading"
+    columnResizeMode="expand"
+    [responsive]="true"
+    scrollHeight="500px"
+    [scrollable]="true"
+    [loading]="loading"
+    loadingIcon="fas fa-spinner fa-2x icon-color-green"
+  >
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th
+          *ngFor="let col of columns"
+          [pSortableColumn]="col.field"
+          [ngStyle]="{ width: col.width }"
+        >
+          {{ col.header }}
 
-      
-                   <ng-template pTemplate="header" let-columns >
-             
-                              <tr >
-                                   
-                                <th  *ngFor="let col of columns" [pSortableColumn]="col.field"  [ngStyle]="{'width': col.width}">
-                                    {{col.header}}
-                                    
-                                    <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
-                                </th> 
-                                
-                            </tr> 
-                            <tr>
-                            <th *ngFor="let col of columns" [ngSwitch]="col.field"  >
-                                <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'calidad_titulo'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">  
-                                <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'calidad_descripcion'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
-                                <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'ficha_nro'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">                                
-                            </th>
-                            <th></th>
-                        </tr>
-                    </ng-template>
-                  
-                    <ng-template pTemplate="body" let-elementos  >
-                      <tr style="height:25px"  >                              
-                              <td style="width: 36%">{{elementos.calidad_titulo }}</td>
-                              <td style="width: 40%">{{elementos.calidad_descripcion}}</td>
-                              <td style="width: 16%">{{elementos.ficha_nro}}</td>                                                                                
-                              <td style="width: 10%">
-                                <a class="  icon-hover" (click)="detalle(elementos)"><i class="icon-account mr-1"></i><label class="texto-menu icon-hover">Detalle</label> </a>
-                              </td>
-                      </tr>
-                  </ng-template>
-       
-      
-        </p-table>
-  
-          
-    </div>
+          <p-sortIcon
+            [field]="col.field"
+            ariaLabel="Activate to sort"
+            ariaLabelDesc="Activate to sort in descending order"
+            ariaLabelAsc="Activate to sort in ascending order"
+          ></p-sortIcon>
+        </th>
+      </tr>
+      <tr>
+        <th *ngFor="let col of columns" [ngSwitch]="col.field">
+          <input
+            style="font-size: 12px"
+            class="form-control col-md-12 form-control-sm"
+            *ngSwitchCase="'calidad_titulo'"
+            pInputText
+            type="text"
+            (input)="dt.filter($event.target.value, col.field, 'contains')"
+          />
+          <input
+            style="font-size: 12px"
+            class="form-control col-md-12 form-control-sm"
+            *ngSwitchCase="'calidad_descripcion'"
+            pInputText
+            type="text"
+            (input)="dt.filter($event.target.value, col.field, 'contains')"
+          />
+          <input
+            style="font-size: 12px"
+            class="form-control col-md-12 form-control-sm"
+            *ngSwitchCase="'ficha_nro'"
+            pInputText
+            type="text"
+            (input)="dt.filter($event.target.value, col.field, 'contains')"
+          />
+        </th>
+        <th></th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-elementos>
+      <tr style="height: 25px">
+        <td style="width: 36%">{{ elementos.calidad_titulo }}</td>
+        <td style="width: 40%">{{ elementos.calidad_descripcion }}</td>
+        <td style="width: 16%">{{ elementos.ficha_nro }}</td>
+        <td style="width: 10%">
+          <a class="icon-hover" (click)="detalle(elementos)"
+            ><i class="icon-account mr-1"></i
+            ><label class="texto-menu icon-hover">Detalle</label>
+          </a>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

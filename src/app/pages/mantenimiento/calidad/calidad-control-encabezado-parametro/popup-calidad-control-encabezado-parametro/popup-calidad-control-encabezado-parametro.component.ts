@@ -2,11 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { PopupFindCalidadParametroComponent } from "./../popup-find-calidad-parametro/popup-find-calidad-parametro.component";
 import { AlertServiceService } from "./../../../../../services/alert-service.service";
 import { CalidadService } from "./../../../../../services/calidad.service";
-import {
-  MessageService,
-  DialogService,
-  DynamicDialogConfig,
-} from "primeng/api";
+import { MessageService } from "primeng-lts/api";
+import { DialogService, DynamicDialogConfig } from "primeng-lts/dynamicdialog";
 
 @Component({
   selector: "app-popup-calidad-control-encabezado-parametro",

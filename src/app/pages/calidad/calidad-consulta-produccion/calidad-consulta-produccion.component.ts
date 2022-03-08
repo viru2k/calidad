@@ -1,10 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { CalidadService } from "../../../services/calidad.service";
 import { AlertServiceService } from "../../../services/alert-service.service";
-import { DynamicDialogRef, MessageService, DialogService } from "primeng/api";
+import { MessageService, MenuItem } from "primeng-lts/api";
+import { DialogService } from "primeng-lts/dynamicdialog";
 import { calendarioIdioma } from "../../../config/config";
 import { formatDate } from "@angular/common";
-import { OverlayPanel } from "primeng/overlaypanel";
+import { OverlayPanel } from "primeng-lts/overlaypanel";
 import { PopupCalidadAsociadaProduccionComponent } from "../popup-calidad-asociada-produccion/popup-calidad-asociada-produccion.component";
 import { PopupCalidadDetalleProcesoComponent } from "./../popup-calidad-detalle-proceso/popup-calidad-detalle-proceso.component";
 import { ProduccionService } from "../../../services/produccion.service";
@@ -26,6 +27,9 @@ export class CalidadConsultaProduccionComponent implements OnInit {
   elementos: any[];
   selecteditems: any;
   loading;
+  // breadcrumb
+  home: MenuItem = { icon: "pi pi-home", routerLink: "/" };
+  breadCrumbItems: MenuItem[];
 
   constructor(
     private produccionService: ProduccionService,
@@ -33,6 +37,12 @@ export class CalidadConsultaProduccionComponent implements OnInit {
     public dialogService: DialogService,
     private messageService: MessageService
   ) {
+    this.breadCrumbItems = [
+      this.home,
+      { label: "Auditoria" },
+      { label: "Indicadores" },
+      { label: "Controles Realizados" },
+    ];
     this.cols = [
       { field: "orden_produccion_id", header: "Prod Nº", width: "7.5%" },
       { field: "estado", header: "Estado", width: "12%" },

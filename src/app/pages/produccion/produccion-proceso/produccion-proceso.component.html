@@ -1,13 +1,8 @@
-<div class="faq-title text-center pb-1 pt-2">
-  <h5>LISTADO DE PRODUCCIONES</h5>
-</div>
+<p-breadcrumb [model]="breadCrumbItems"></p-breadcrumb>
 <div class="card-rounded card-header">
   <div class="d-flex justify-content-between">
     <div class="d-flex justify-content-start align-items-center">
-      <button
-        class="ml-2 mr-3 btn-sm btn-cuadrado-success"
-        (click)="loadlist()"
-      >
+      <button class="ml-2 mr-3 btn-sm btn btn-success" (click)="loadlist()">
         Listar producciones activas
       </button>
       <!--         <select [(ngModel)]="selectedEstado" class="form-control-sm text-sm texto-monserrat texto-secondary icon-hover" (change)="onChangeEstado($event)" >
@@ -41,10 +36,7 @@
         class="ml-2"
       >
       </p-calendar>
-      <button
-        class="ml-2 mr-3 btn-sm btn-cuadrado-info"
-        (click)="buscarByDates()"
-      >
+      <button class="ml-2 mr-3 btn-sm btn btn-info" (click)="buscarByDates()">
         Buscar
       </button>
     </div>
@@ -321,13 +313,13 @@
     </div>
     <button
       *ngIf="this.userData['access_list'][4]"
-      class="btn-cuadrado-warning btn--block texto-bold mb-2"
+      class="btn btn-warning btn--block texto-bold mb-2"
       (click)="finalizarProduccion()"
     >
       Finalizar producción
     </button>
     <button
-      class="btn-cuadrado-success btn--block texto-bold mb-2"
+      class="btn btn-success btn--block texto-bold mb-2"
       (click)="stockProduccion()"
     >
       Stock de producción

@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { MessageService, DialogService } from "primeng/api";
+import { MessageService, MenuItem } from "primeng-lts/api";
+import { DialogService } from "primeng-lts/dynamicdialog";
 
 import { CalidadService } from "./../../../../services/calidad.service";
 import { PopupControlEncabezadoComponent } from "./popup-control-encabezado/popup-control-encabezado.component";
@@ -16,13 +17,21 @@ export class CalidadControlEncabezadoComponent implements OnInit {
   elementos: any[];
   selecteditems: any;
   loading;
+  // breadcrumb
+  home: MenuItem = { icon: "pi pi-home", routerLink: "/" };
+  breadCrumbItems: MenuItem[];
 
   constructor(
     private calidadService: CalidadService,
     private alertServiceService: AlertServiceService,
-    public dialogService: DialogService,
-    private messageService: MessageService
+    public dialogService: DialogService
   ) {
+    this.breadCrumbItems = [
+      this.home,
+      { label: "Auditoria" },
+      { label: "Indicadores" },
+      { label: "Controles Realizados" },
+    ];
     this.cols = [
       { field: "calidad_titulo", header: "Título", width: "30%" },
       { field: "calidad_descripcion", header: "Descripción", width: "40%" },

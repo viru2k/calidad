@@ -1,8 +1,6 @@
-<div class="d-flex justify-content-center mt-3">
-    <label>MOVER PRODUCCION A SECTOR</label>
-  </div>
-    <div  class="m-3">
-<!--       <div class="row ml-1 mr-1">
+<p-breadcrumb [model]="breadCrumbItems"></p-breadcrumb>
+<div class="m-3">
+  <!--       <div class="row ml-1 mr-1">
         <span class="pr-1 pt-1"><h6>fecha de pedido:</h6></span>
         <p-calendar [inputStyle]="{'height':'29.1px'}"    class="mr-2 " [(ngModel)]="fecha"  (onSelect)="actualizarFecha($event)" tabindex="0"  [locale]="es" dateFormat="dd/mm/yy"   [readonlyInput]="true" showButtonBar="true"[monthNavigator]="true" [yearNavigator]="true" yearRange="1950:2100">
           <ng-template pTemplate="date" let-date>
@@ -12,62 +10,113 @@
           <button    class="ml-2 btn  btn-info btn-sm float-right btn-block"  (click)="nuevo()" >Guardar orden de pedido</button>
       </div> -->
 
-      <p-overlayPanel #op [showTransitionOptions]="'400ms'" [hideTransitionOptions]="'300ms'"  [dismissable]="true" >                          
- 
-        <span>   <a class="nav-link azul text-success  my-hover" (click)="verDetalle()">Agregar producción</a></span>
-        <span>   <a class="nav-link azul text-warning  my-hover" (click)="verDetalle()">Editar producción</a></span>        
-        <span> <hr></span>
-        <span>   <a class="nav-link azul text-success  my-hover"   (click)="verDetalle()">Ver producción</a></span>
-      
-      </p-overlayPanel>  
-      <p-table  #dt class=""  tableStyleClass="prime-table" selectionMode="single" [columns]="cols" [value]="elementos"  [loading]="loading" [(selection)]="selecteditems"   columnResizeMode="expand" [responsive]="true"
-      scrollHeight="500px" [scrollable]="true"  [loading]="loading" loadingIcon="fas fa-spinner fa-2x icon-color-green" >
-     
-  
-    
-                 <ng-template pTemplate="header" let-columns >
-                
-                            <tr >
-                                 
-                              <th  *ngFor="let col of columns" [pSortableColumn]="col.field"  [ngStyle]="{'width': col.width}">
-                                  {{col.header}}
-                                  <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
-                              </th> 
-                              <th style="width: 3em">
-                                <p-tableHeaderCheckbox  ></p-tableHeaderCheckbox>
-                              </th>
-                          </tr> 
-                          <tr>
-                          <th *ngFor="let col of columns" [ngSwitch]="col.field"  >
-                              <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'descripcion'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
-                              <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'unidad_descripcion'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
-                              <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'cantidad'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
-                          </th>
-                          <th></th>
-                      </tr>
-                  </ng-template>
-                
-          <ng-template pTemplate="body" let-elementos  >
-              <tr style="height:24px">
-                     
-                <td style="width: 6%" >                   
-                    <a     (click)="accion($event,op,elementos)"    ><i class="far fa-edit fa-2x icon-color-purple my-hover"></i></a>
-                 
-                </td>
-                <td style="width: 6%">{{elementos.id}}</td>
-                      <td style="width: 10%">{{elementos.fecha_pedido | date: 'dd/MM/yyyy'}}</td>
-                      <td style="width: 40%">{{elementos.descripcion}}</td>
-                       <td style="width: 10%" >{{elementos.cantidad}}</td>
-                       <td style="width: 40%" >{{elementos.nombreyapellido}}</td>
-                       <td style="width: 3em">
-                         <p-tableCheckbox [value]="elementos" ></p-tableCheckbox>
-                       </td>
-              </tr>
-          </ng-template>
-    
-         
-      </p-table>
+  <p-overlayPanel
+    #op
+    [showTransitionOptions]="'400ms'"
+    [hideTransitionOptions]="'300ms'"
+    [dismissable]="true"
+  >
+    <span>
+      <a class="nav-link azul text-success my-hover" (click)="verDetalle()"
+        >Agregar producción</a
+      ></span
+    >
+    <span>
+      <a class="nav-link azul text-warning my-hover" (click)="verDetalle()"
+        >Editar producción</a
+      ></span
+    >
+    <span> <hr /></span>
+    <span>
+      <a class="nav-link azul text-success my-hover" (click)="verDetalle()"
+        >Ver producción</a
+      ></span
+    >
+  </p-overlayPanel>
+  <p-table
+    #dt
+    class=""
+    tableStyleClass="prime-table"
+    selectionMode="single"
+    [columns]="cols"
+    [value]="elementos"
+    [loading]="loading"
+    [(selection)]="selecteditems"
+    columnResizeMode="expand"
+    [responsive]="true"
+    scrollHeight="500px"
+    [scrollable]="true"
+    [loading]="loading"
+    loadingIcon="fas fa-spinner fa-2x icon-color-green"
+  >
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th
+          *ngFor="let col of columns"
+          [pSortableColumn]="col.field"
+          [ngStyle]="{ width: col.width }"
+        >
+          {{ col.header }}
+          <p-sortIcon
+            [field]="col.field"
+            ariaLabel="Activate to sort"
+            ariaLabelDesc="Activate to sort in descending order"
+            ariaLabelAsc="Activate to sort in ascending order"
+          ></p-sortIcon>
+        </th>
+        <th style="width: 3em">
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
+      </tr>
+      <tr>
+        <th *ngFor="let col of columns" [ngSwitch]="col.field">
+          <input
+            style="font-size: 12px"
+            class="form-control col-md-12 form-control-sm"
+            *ngSwitchCase="'descripcion'"
+            pInputText
+            type="text"
+            (input)="dt.filter($event.target.value, col.field, 'contains')"
+          />
+          <input
+            style="font-size: 12px"
+            class="form-control col-md-12 form-control-sm"
+            *ngSwitchCase="'unidad_descripcion'"
+            pInputText
+            type="text"
+            (input)="dt.filter($event.target.value, col.field, 'contains')"
+          />
+          <input
+            style="font-size: 12px"
+            class="form-control col-md-12 form-control-sm"
+            *ngSwitchCase="'cantidad'"
+            pInputText
+            type="text"
+            (input)="dt.filter($event.target.value, col.field, 'contains')"
+          />
+        </th>
+        <th></th>
+      </tr>
+    </ng-template>
 
-  
-    </div>
- 
+    <ng-template pTemplate="body" let-elementos>
+      <tr style="height: 24px">
+        <td style="width: 6%">
+          <a (click)="accion($event, op, elementos)"
+            ><i class="far fa-edit fa-2x icon-color-purple my-hover"></i
+          ></a>
+        </td>
+        <td style="width: 6%">{{ elementos.id }}</td>
+        <td style="width: 10%">
+          {{ elementos.fecha_pedido | date: "dd/MM/yyyy" }}
+        </td>
+        <td style="width: 40%">{{ elementos.descripcion }}</td>
+        <td style="width: 10%">{{ elementos.cantidad }}</td>
+        <td style="width: 40%">{{ elementos.nombreyapellido }}</td>
+        <td style="width: 3em">
+          <p-tableCheckbox [value]="elementos"></p-tableCheckbox>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

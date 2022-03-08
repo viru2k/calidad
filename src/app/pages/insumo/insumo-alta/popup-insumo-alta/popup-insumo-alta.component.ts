@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { InsumoService } from "src/app/services/insumo.service";
 import { AlertServiceService } from "../../../../services/alert-service.service";
-import { DialogService, MessageService, DynamicDialogRef } from "primeng/api";
+import { DialogService, DynamicDialogRef } from 'primeng-lts/dynamicdialog';
+import {  MessageService } from "primeng-lts/api";
 import { calendarioIdioma } from "../../../../config/config";
 import { formatDate } from "@angular/common";
 import { StockMovimiento } from "../../../../models/stock-movimiento.model";

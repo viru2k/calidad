@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { MessageService, DialogService } from "primeng/api";
+import { MessageService } from "primeng-lts/api";
+import { DialogService } from "primeng-lts/dynamicdialog";
 
 import { CalidadService } from "./../../../../services/calidad.service";
 import { AlertServiceService } from "./../../../../services/alert-service.service";

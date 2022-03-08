@@ -1,7 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { AlertServiceService } from "../../../services/alert-service.service";
 import { ArticuloService } from "./../../../services/articulo.service";
-import { MessageService, DialogService } from "primeng/api";
+import { MessageService, MenuItem } from "primeng-lts/api";
+import {
+  DialogService,
+  DynamicDialogRef,
+  DynamicDialogConfig,
+} from "primeng-lts/dynamicdialog";
 import { PopOrdenProduccionEditarComponent } from "./pop-orden-produccion-editar/pop-orden-produccion-editar.component";
 import { ProduccionService } from "../../../services/produccion.service";
 import { calendarioIdioma } from "./../../../config/config";
@@ -30,8 +35,9 @@ export class OrdenProduccionComponent implements OnInit {
   _estado: any[] = [];
   _nombreyapellido: any[] = [];
   _fecha_creacion: any[] = [];
-
-  // tslint:disable-next-line: max-line-length
+  // breadcrumb
+  home: MenuItem = { icon: "pi pi-home", routerLink: "/" };
+  breadCrumbItems: MenuItem[];
   constructor(
     private alertServiceService: AlertServiceService,
     private produccionService: ProduccionService,
@@ -39,6 +45,12 @@ export class OrdenProduccionComponent implements OnInit {
     private messageService: MessageService,
     private filter: Filter
   ) {
+    this.breadCrumbItems = [
+      this.home,
+      { label: "Panifiación de Producción" },
+      { label: "Orden de Producción" },
+    ];
+
     this.cols = [
       { field: "id", header: "Prod Nº", width: "7.5%" },
       { field: "estado", header: "Estado", width: "8%" },

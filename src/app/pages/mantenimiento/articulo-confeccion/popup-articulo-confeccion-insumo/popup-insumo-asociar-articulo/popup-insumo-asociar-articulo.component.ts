@@ -1,6 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { AlertServiceService } from "./../../../../../services/alert-service.service";
-import { DynamicDialogRef, DynamicDialogConfig } from "primeng/api";
+import {
+  DialogService,
+  DynamicDialogConfig,
+  DynamicDialogModule,
+  DynamicDialogRef,
+} from "primeng-lts/dynamicdialog";
 import { InsumoService } from "./../../../../../services/insumo.service";
 import { ArticuloService } from "../../../../../services/articulo.service";
 import { Filter } from "../../../../../shared/filter";

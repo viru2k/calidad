@@ -25,16 +25,11 @@
             ></a>
           </li>
           <li class="nav-item">
-            <a
-              class="
-                nav-link
-                sidebartoggler
-                hidden-sm-down
-                waves-effect waves-dark
-              "
+            <!--         <a
+              class="nav-link sidebartoggler hidden-sm-down waves-effect waves-dark"
               href="javascript:void(0)"
               ><i class="fas fa-ellipsis-v"></i
-            ></a>
+            ></a> -->
           </li>
           <li class="nav-item hidden-sm-down"></li>
         </ul>
@@ -45,15 +40,18 @@
           <!-- ============================================================== -->
           <!-- Profile -->
           <!-- ============================================================== -->
+          <a (click)="cerrarSesion()"
+            ><i class="fa fa-power-off"></i> Cerrar Sesión</a
+          >
           <li class="nav-item dropdown">
-            <a
+            <!--             <a
               class="nav-link dropdown-toggle waves-effect waves-dark"
               href=""
               data-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false"
               ><img
-                src="./assets/images/icon/staff-w.png"
+                src="./../../../../assets/images/user-default.png"
                 width="32px"
                 height="32px"
                 alt="user"
@@ -62,12 +60,9 @@
               <ul class="dropdown-user">
                 <li>
                   <div class="dw-user-box">
-                    <div class="u-img">
-                      <img src="./assets/images/user-default.png" alt="user" />
-                    </div>
                     <div class="u-text">
-                      <h4>{{ name? | titlecase }}</h4>
-                      <h6 class="text-muted">{{ username? }}</h6>
+                      <h4>{{ name }}</h4>
+                      <h6 class="text-muted">{{ username }}</h6>
                     </div>
                   </div>
                 </li>
@@ -85,7 +80,7 @@
                   >
                 </li>
               </ul>
-            </div>
+            </div> -->
           </li>
         </ul>
       </div>
@@ -102,15 +97,15 @@
     <div class="scroll-sidebar">
       <!-- Sidebar navigation-->
       <nav class="sidebar-nav">
-        <ul id="sidebarnav">
+        <p-panelMenu
+          [model]="general"
+          [style]="{ width: '100%', maxwidth: '100px' }"
+        ></p-panelMenu>
+
+        <!--       <ul id="sidebarnav">
           <li *ngIf="!this.administracion_produccion">
             <a
-              class="
-                has-arrow
-                waves-effect waves-dark
-                d-flex
-                justify-content-start
-              "
+              class="has-arrow waves-effect waves-dark d-flex justify-content-start"
               aria-expanded="false"
               ><i class="fas fa-people-carry mr-1"></i
               ><span class="hide-menu"> Producción</span></a
@@ -228,12 +223,7 @@
 
           <li *ngIf="!this.gerencia">
             <a
-              class="
-                has-arrow
-                waves-effect waves-dark
-                d-flex
-                justify-content-start
-              "
+              class="has-arrow waves-effect waves-dark d-flex justify-content-start"
               aria-expanded="false"
             >
               <i class="fas fa-chart-pie mr-1"></i>
@@ -285,12 +275,7 @@
 
           <li *ngIf="!this.gestion_auditoria">
             <a
-              class="
-                has-arrow
-                waves-effect waves-dark
-                d-flex
-                justify-content-start
-              "
+              class="has-arrow waves-effect waves-dark d-flex justify-content-start"
               aria-expanded="false"
               ><i class="fas fa-vial mr-1"></i
               ><span class="hide-menu">Auditoria</span></a
@@ -331,7 +316,7 @@
               </li>
             </ul>
           </li>
-          <li *ngIf="!this.movil_calidad">
+          <li *ngIf="!movil_calidad">
             <a
               routerLink="/movil/control/calidad"
               class="waves-effect waves-dark d-flex justify-content-start"
@@ -341,7 +326,7 @@
               ><span class="hide-menu">Realizar control</span></a
             >
           </li>
-          <li *ngIf="!this.movil_insumo">
+          <li *ngIf="!movil_insumo">
             <a
               routerLink="/movil/insumo/stock/ingreso"
               class="waves-effect waves-dark d-flex justify-content-start"
@@ -517,7 +502,7 @@
               </li>
             </ul>
           </li>
-        </ul>
+        </ul> -->
       </nav>
       <!-- End Sidebar navigation -->
     </div>

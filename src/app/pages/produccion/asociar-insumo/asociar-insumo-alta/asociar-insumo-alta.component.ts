@@ -1,12 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 
-import {
-  MessageService,
-  DynamicDialogConfig,
-  DialogService,
-} from "primeng/api";
-
-import { OverlayPanel } from "primeng/overlaypanel";
+import { MessageService, MenuItem } from "primeng-lts/api";
+import { DialogService } from "primeng-lts/dynamicdialog";
+import { OverlayPanel } from "primeng-lts/overlaypanel";
 
 import { formatDate } from "@angular/common";
 import { AlertServiceService } from "./../../../../services/alert-service.service";
@@ -54,7 +50,9 @@ export class AsociarInsumoAltaComponent implements OnInit {
   _maquina_nombre: any[] = [];
   _nombre: any[] = [];
   elementosFiltrados: any[] = null;
-
+  // breadcrumb
+  home: MenuItem = { icon: "pi pi-home", routerLink: "/" };
+  breadCrumbItems: MenuItem[];
   constructor(
     private alertServiceService: AlertServiceService,
     private produccionService: ProduccionService,
@@ -63,6 +61,11 @@ export class AsociarInsumoAltaComponent implements OnInit {
     private exporterService: ExporterService,
     private filter: Filter
   ) {
+    this.breadCrumbItems = [
+      this.home,
+      { label: "Gestión de Producción" },
+      { label: "Asociar Insumos a Producción" },
+    ];
     this.cols = [
       {
         field: "orden_produccion_detalle_id",

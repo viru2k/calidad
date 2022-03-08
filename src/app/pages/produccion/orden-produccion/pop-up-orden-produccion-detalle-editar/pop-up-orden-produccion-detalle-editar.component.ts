@@ -1,17 +1,18 @@
 import { Component, OnInit } from "@angular/core";
 import { calendarioIdioma } from "./../../../../config/config";
+
+import { MessageService } from "primeng-lts/api";
 import {
-  DynamicDialogRef,
-  MessageService,
   DialogService,
   DynamicDialogConfig,
-} from "primeng/api";
+  DynamicDialogRef,
+} from "primeng-lts/dynamicdialog";
 import { ArticuloService } from "./../../../../services/articulo.service";
 import { AlertServiceService } from "./../../../../services/alert-service.service";
 import { PopupCalculdorPalletsComponent } from "./../../../../shared/components/popups/popup-calculdor-pallets/popup-calculdor-pallets.component";
 import { SectorService } from "../../../../services/sector.service";
 import { formatDate } from "@angular/common";
-import { OverlayPanel } from "primeng/overlaypanel";
+import { OverlayPanel } from "primeng-lts/overlaypanel";
 import { Filter } from "../../../../shared/filter";
 
 @Component({
