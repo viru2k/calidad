@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { AlertServiceService } from "../../../services/alert-service.service";
 import { ArticuloService } from "./../../../services/articulo.service";
-import { MessageService } from "primeng-lts/api";
+import { MessageService, MenuItem } from "primeng-lts/api";
 import {
   DialogService,
   DynamicDialogRef,
@@ -53,6 +53,9 @@ export class IngresoProduccionComponent implements OnInit {
   _fecha_hasta: string;
   _estado: any[] = [];
   _nombreyapellido: any[] = [];
+  // breadcrumb
+  home: MenuItem = { icon: "pi pi-home", routerLink: "/" };
+  breadCrumbItems: MenuItem[];
 
   constructor(
     private alertServiceService: AlertServiceService,
@@ -62,6 +65,11 @@ export class IngresoProduccionComponent implements OnInit {
     private messageService: MessageService,
     private filter: Filter
   ) {
+    this.breadCrumbItems = [
+      this.home,
+      { label: "Panifiación de Producción" },
+      { label: "Detalle de Ordenes de Producción" },
+    ];
     this.cols = [
       { field: "id", header: "Prod Nº", width: "7.5%" },
       { field: "estado", header: "Estado", width: "8%" },

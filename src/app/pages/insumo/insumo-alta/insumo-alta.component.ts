@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { InsumoService } from "../../../services/insumo.service";
 import { AlertServiceService } from "../../../services/alert-service.service";
-import { MessageService } from "primeng-lts/api";
+import { MessageService, MenuItem } from "primeng-lts/api";
 import { DialogService } from "primeng-lts/dynamicdialog";
 import { PopupInsumoAltaComponent } from "./popup-insumo-alta/popup-insumo-alta.component";
 import { Filter } from "./../../../shared/filter";
@@ -28,8 +28,10 @@ export class InsumoAltaComponent implements OnInit {
   totalExistencia = 0;
   elementosFiltrados: any[] = null;
   _nombre: any[] = [];
+  // breadcrumb
+  home: MenuItem = { icon: "pi pi-home", routerLink: "/" };
+  breadCrumbItems: MenuItem[];
 
-  // tslint:disable-next-line: max-line-length
   constructor(
     private insumoService: InsumoService,
     private alertServiceService: AlertServiceService,
@@ -38,6 +40,11 @@ export class InsumoAltaComponent implements OnInit {
     private exporterService: ExporterService,
     private filter: Filter
   ) {
+    this.breadCrumbItems = [
+      this.home,
+      { label: "Producción" },
+      { label: "Ingreso de insumos" },
+    ];
     this.cols = [
       { field: "nombre", header: "Insumo", width: "30%" },
       { field: "comprobante", header: "Comp. nº", width: "18%" },

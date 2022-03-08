@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { InsumoService } from "../../../services/insumo.service";
 import { AlertServiceService } from "../../../services/alert-service.service";
 import { DialogService } from "primeng-lts/dynamicdialog";
-import { MessageService } from "primeng-lts/api";
+import { MessageService, MenuItem } from "primeng-lts/api";
 import { PopUpInsumoStockComponent } from "./popup-insumo-stock/popup-insumo-stock.component";
 import { formatDate } from "@angular/common";
 import { ExporterService } from "./../../../services/exporter.service";
@@ -21,8 +21,10 @@ export class InsumoStockComponent implements OnInit {
   estado: any[] = [];
   selectedEstado = "ACTIVO";
   elementosFiltrados: any[] = null;
+  // breadcrumb
+  home: MenuItem = { icon: "pi pi-home", routerLink: "/" };
+  breadCrumbItems: MenuItem[];
 
-  // tslint:disable-next-line: max-line-length
   constructor(
     private insumoService: InsumoService,
     private alertServiceService: AlertServiceService,
@@ -30,6 +32,11 @@ export class InsumoStockComponent implements OnInit {
     private messageService: MessageService,
     private exporterService: ExporterService
   ) {
+    this.breadCrumbItems = [
+      this.home,
+      { label: "Gestión de Producción" },
+      { label: "Movimientos de Insumos" },
+    ];
     this.cols = [
       { field: "nombre", header: "Insumo", width: "30%" },
       { field: "descripcion", header: "Descripción", width: "30%" },

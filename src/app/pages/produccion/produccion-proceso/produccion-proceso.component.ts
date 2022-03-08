@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { OrdenProduccion } from "./../../../models/orden-produccion.model";
 import { OrdenProduccionDetalle } from "./../../../models/orden-produccion-detalle.model";
 import { AlertServiceService } from "./../../../services/alert-service.service";
-import { MessageService } from "primeng-lts/api";
+import { MessageService, MenuItem } from "primeng-lts/api";
 import { DialogService, DynamicDialogConfig } from "primeng-lts/dynamicdialog";
 import { ProduccionService } from "./../../../services/produccion.service";
 import { calendarioIdioma } from "./../../../config/config";
@@ -57,7 +57,9 @@ export class ProduccionProcesoComponent implements OnInit {
   _maquina_nombre: any[] = [];
   _nombre: any[] = [];
   @ViewChild("dt", { static: false }) table: Table;
-
+  // breadcrumb
+  home: MenuItem = { icon: "pi pi-home", routerLink: "/" };
+  breadCrumbItems: MenuItem[];
   constructor(
     private alertServiceService: AlertServiceService,
     private produccionService: ProduccionService,
@@ -66,6 +68,11 @@ export class ProduccionProcesoComponent implements OnInit {
     private exporterService: ExporterService,
     private filter: Filter
   ) {
+    this.breadCrumbItems = [
+      this.home,
+      { label: "Panifiación de Producción" },
+      { label: "Listado de Producciones" },
+    ];
     this.cols = [
       {
         field: "orden_produccion_detalle_id",

@@ -1,163 +1,362 @@
 <!-- SE AGREGAN LOS ARTICULOS Y ATRIBUTOS DE PRODUCCION-->
-<div class=" faq-title text-center pb-1 pt-2 ">
-    <h5>ASOCIAR PRODUCTOS A PRODUCCION</h5>
+<div class="faq-title text-center pb-1 pt-2">
+  <h5>ASOCIAR PRODUCTOS A PRODUCCION</h5>
+</div>
+
+<div class="card-rounded card-header">
+  <div class="ml-2 row">
+    <button
+      *ngIf="!editar"
+      class="btn btn-success btn--block mb-1"
+      (click)="nuevo()"
+    >
+      <i class="fas fa-check fa-lg mr-2 mt-1"></i>CONFIRMAR PRODUCCION
+    </button>
+    <button
+      *ngIf="editar"
+      class="btn btn-warning btn-block mb-1"
+      (click)="cambiarEstado()"
+    >
+      <i class="fas fa-pen fa-lg mr-2 mt-1"></i>GUARDAR ESTADO
+    </button>
   </div>
-
-  <div class="card-rounded card-header">
-    <div class="ml-2 row">
-
-        <button *ngIf = "!editar" class="btn-cuadrado-success btn--block  mb-1" (click)="nuevo()"  > <i class="fas fa-check fa-lg mr-2 mt-1"></i>CONFIRMAR PRODUCCION</button>
-        <button *ngIf = "editar" class="btn-cuadrado-warning btn--block  mb-1" (click)="cambiarEstado()"  > <i class="fas fa-pen fa-lg mr-2 mt-1"></i>GUARDAR ESTADO</button>
-    </div>
-  </div>
-  <div class="card-rounded card-header">
-    <div class="ml-2 row d-flex justify-content-between">
-
-        <div class="d-flex justify-content-center">
-            <label class="mt-2 ml-1 mr-1">Producción</label>
-            <p-calendar [(ngModel)]="fecha_creacion"  (onSelect)="actualizarFecha($event)" [disabled] = "editar" tabindex="0"  [locale]="es" dateFormat="dd/mm/yy "   [readonlyInput]="true">
-            </p-calendar>
-        </div>
-
-        <div class="d-flex justify-content-end">
-            <label class="mt-2 ml-1 mr-1">Periodo Desde</label>
-            <p-calendar [(ngModel)]="fecha_desde"  (onSelect)="actualizarFecha($event)" [disabled] = "editar" tabindex="0"  [locale]="es" dateFormat="dd/mm/yy "   [readonlyInput]="true">
-            </p-calendar>
-            <label class="mt-2 ml-1 mr-1">hasta</label>
-            <p-calendar [(ngModel)]="fecha_hasta"  (onSelect)="actualizarFecha($event)" [disabled] = "editar" tabindex="0"  [locale]="es" dateFormat="dd/mm/yy "   [readonlyInput]="true" class="ml-2">
-            </p-calendar>
-        </div>
-     </div>
-  </div>
-  <div class="card-rounded card-header">
-    <div class="ml-2 row d-flex justify-content-between">
-        <div class="d-flex justify-content-start">
-            <label class="mt-1 ml-1 mr-1">Descripción</label> <input type="text" [disabled] = "editar"  class="form-control-sm col-12 texto-monserrat texto-secondary" [(ngModel)]="descripcion">
-        </div>
-        <div class="d-flex justify-content-center">
-            <label class="mt-1 ml-1 mr-1 ">Observación</label> <input type="text" [disabled] = "editar" class="form-control-sm col-12 texto-monserrat texto-secondary" [(ngModel)]="obesrvacion">
-        </div>
-
-         <div class="d-flex justify-content-end">
-          <label class="mt-1 ml-1 mr-1 ">Estado :</label>
-          <select [(ngModel)]="selectedEstado" class="form-control-sm text-sm texto-monserrat texto-secondary" (change)="onChangeEstado($event)" >
-            <option *ngFor="let grupo of estado" class="text-sm texto-monserrat texto-secondary"    >
-              <label >{{grupo.name}}</label>
-          </option>
-        </select>
-       <!--    <p-dropdown [options]="estado" [(ngModel)]="selectedEstado"  optionLabel="name" [showClear]="false"></p-dropdown> -->
-
-         </div>
-
-
+</div>
+<div class="card-rounded card-header">
+  <div class="ml-2 row d-flex justify-content-between">
+    <div class="d-flex justify-content-center">
+      <label class="mt-2 ml-1 mr-1">Producción</label>
+      <p-calendar
+        [(ngModel)]="fecha_creacion"
+        (onSelect)="actualizarFecha($event)"
+        [disabled]="editar"
+        tabindex="0"
+        [locale]="es"
+        dateFormat="dd/mm/yy"
+        [readonlyInput]="true"
+        [hideOnDateTimeSelect]="false"
+        [monthNavigator]="true"
+        [yearNavigator]="true"
+      >
+      </p-calendar>
     </div>
 
+    <div class="d-flex justify-content-end">
+      <label class="mt-2 ml-1 mr-1">Periodo Desde</label>
+      <p-calendar
+        [(ngModel)]="fecha_desde"
+        (onSelect)="actualizarFecha($event)"
+        [disabled]="editar"
+        tabindex="0"
+        [locale]="es"
+        dateFormat="dd/mm/yy "
+        [readonlyInput]="true"
+      >
+      </p-calendar>
+      <label class="mt-2 ml-1 mr-1">hasta</label>
+      <p-calendar
+        [(ngModel)]="fecha_hasta"
+        (onSelect)="actualizarFecha($event)"
+        [disabled]="editar"
+        tabindex="0"
+        [locale]="es"
+        dateFormat="dd/mm/yy "
+        [readonlyInput]="true"
+        class="ml-2"
+      >
+      </p-calendar>
+    </div>
   </div>
+</div>
+<div class="card-rounded card-header">
+  <div class="ml-2 row d-flex justify-content-between">
+    <div class="d-flex justify-content-start">
+      <label class="mt-1 ml-1 mr-1">Descripción</label>
+      <input
+        type="text"
+        [disabled]="editar"
+        class="form-control-sm col-12 texto-monserrat texto-secondary"
+        [(ngModel)]="descripcion"
+      />
+    </div>
+    <div class="d-flex justify-content-center">
+      <label class="mt-1 ml-1 mr-1">Observación</label>
+      <input
+        type="text"
+        [disabled]="editar"
+        class="form-control-sm col-12 texto-monserrat texto-secondary"
+        [(ngModel)]="obesrvacion"
+      />
+    </div>
 
-    <div  class="m-3">
-      <p-table  #dt class=""  tableStyleClass="prime-table" selectionMode="single" [columns]="cols" [value]="elementos"  [loading]="loading" [(selection)]="selecteditems"   columnResizeMode="expand" [responsive]="true"
-      scrollHeight="300px" [scrollable]="true"  [loading]="loading" loadingIcon="fas fa-spinner fa-2x icon-color-green" >
+    <div class="d-flex justify-content-end">
+      <label class="mt-1 ml-1 mr-1">Estado :</label>
+      <select
+        [(ngModel)]="selectedEstado"
+        class="form-control-sm text-sm texto-monserrat texto-secondary"
+        (change)="onChangeEstado($event)"
+      >
+        <option
+          *ngFor="let grupo of estado"
+          class="text-sm texto-monserrat texto-secondary"
+        >
+          <label>{{ grupo.name }}</label>
+        </option>
+      </select>
+      <!--    <p-dropdown [options]="estado" [(ngModel)]="selectedEstado"  optionLabel="name" [showClear]="false"></p-dropdown> -->
+    </div>
+  </div>
+</div>
 
-      <ng-template pTemplate="caption">
-        <div class=" row">
-            <div class="col-4" style="text-align: left"  >
-
-
-              <button *ngIf = "!editar" class="btn-cuadrado-info  texto-bold mb-1" (click)="buscarArticulo()"  > <i class="fa fa-plus fa-lg mr-2"></i>Agregar producto a planificación</button>
-            </div>
-
+<div class="m-3">
+  <p-table
+    #dt
+    class=""
+    tableStyleClass="prime-table"
+    selectionMode="single"
+    [columns]="cols"
+    [value]="elementos"
+    [loading]="loading"
+    [(selection)]="selecteditems"
+    columnResizeMode="expand"
+    [responsive]="true"
+    scrollHeight="300px"
+    [scrollable]="true"
+    [loading]="loading"
+    loadingIcon="fas fa-spinner fa-2x icon-color-green"
+  >
+    <ng-template pTemplate="caption">
+      <div class="row">
+        <div class="col-4" style="text-align: left">
+          <button
+            *ngIf="!editar"
+            class="btn btn-info texto-bold mb-1"
+            (click)="buscarArticulo()"
+          >
+            <i class="fa fa-plus fa-lg mr-2"></i>Agregar producto a
+            planificación
+          </button>
         </div>
+      </div>
+    </ng-template>
 
-      </ng-template>
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th
+          *ngFor="let col of columns"
+          [pSortableColumn]="col.field"
+          [ngStyle]="{ width: col.width }"
+        >
+          {{ col.header }}
+          <p-sortIcon
+            [field]="col.field"
+            ariaLabel="Activate to sort"
+            ariaLabelDesc="Activate to sort in descending order"
+            ariaLabelAsc="Activate to sort in ascending order"
+          ></p-sortIcon>
+        </th>
+      </tr>
+      <tr>
+        <th *ngFor="let col of columns" [ngSwitch]="col.field">
+          <input
+            style="font-size: 12px"
+            class="form-control col-md-12 form-control-sm"
+            *ngSwitchCase="'fecha_produccion'"
+            pInputText
+            type="text"
+            (input)="dt.filter($event.target.value, col.field, 'contains')"
+          />
+          <p-multiSelect
+            [style]="{ height: '28px', width: '100%', 'font-size': '10px' }"
+            [options]="_nombre"
+            appendTo="body"
+            defaultLabel=""
+            showHeader="false"
+            *ngIf="col.field == 'nombre'"
+            (onChange)="dt.filter($event.value, col.field, 'in')"
+          ></p-multiSelect>
+          <p-multiSelect
+            [style]="{ height: '28px', width: '100%', 'font-size': '10px' }"
+            [options]="_descripcion"
+            appendTo="body"
+            defaultLabel=""
+            showHeader="false"
+            *ngIf="col.field == 'descripcion'"
+            (onChange)="dt.filter($event.value, col.field, 'in')"
+          ></p-multiSelect>
+          <input
+            style="font-size: 12px"
+            class="form-control col-md-12 form-control-sm"
+            *ngSwitchCase="'pallet_pack'"
+            pInputText
+            type="text"
+            (input)="dt.filter($event.target.value, col.field, 'contains')"
+          />
+          <input
+            style="font-size: 12px"
+            class="form-control col-md-12 form-control-sm"
+            *ngSwitchCase="'pallet_pisos'"
+            pInputText
+            type="text"
+            (input)="dt.filter($event.target.value, col.field, 'contains')"
+          />
+          <input
+            style="font-size: 12px"
+            class="form-control col-md-12 form-control-sm"
+            *ngSwitchCase="'unidad_hora'"
+            pInputText
+            type="text"
+            (input)="dt.filter($event.target.value, col.field, 'contains')"
+          />
+          <input
+            style="font-size: 12px"
+            class="form-control col-md-12 form-control-sm"
+            *ngSwitchCase="'unidades'"
+            pInputText
+            type="text"
+            (input)="dt.filter($event.target.value, col.field, 'contains')"
+          />
+          <input
+            style="font-size: 12px"
+            class="form-control col-md-12 form-control-sm"
+            *ngSwitchCase="'cantidad_solicitada'"
+            pInputText
+            type="text"
+            (input)="dt.filter($event.target.value, col.field, 'contains')"
+          />
+          <input
+            style="font-size: 12px"
+            class="form-control col-md-12 form-control-sm"
+            *ngSwitchCase="'cantidad_usada'"
+            pInputText
+            type="text"
+            (input)="dt.filter($event.target.value, col.field, 'contains')"
+          />
+          <input
+            style="font-size: 12px"
+            class="form-control col-md-12 form-control-sm"
+            *ngSwitchCase="'cantidad_existente'"
+            pInputText
+            type="text"
+            (input)="dt.filter($event.target.value, col.field, 'contains')"
+          />
+          <p-multiSelect
+            [style]="{ height: '28px', width: '100%', 'font-size': '10px' }"
+            [options]="_estado"
+            appendTo="body"
+            defaultLabel=""
+            showHeader="false"
+            *ngIf="col.field == 'estado'"
+            (onChange)="dt.filter($event.value, col.field, 'in')"
+          ></p-multiSelect>
+        </th>
+        <th></th>
+      </tr>
+    </ng-template>
 
-                 <ng-template pTemplate="header" let-columns >
-
-                            <tr >
-
-                              <th  *ngFor="let col of columns" [pSortableColumn]="col.field"  [ngStyle]="{'width': col.width}">
-                                  {{col.header}}
-                                  <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
-                              </th>
-
-                          </tr>
-                          <tr>
-                          <th *ngFor="let col of columns" [ngSwitch]="col.field"  >
-                               <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'fecha_produccion'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">                            
-                              <p-multiSelect  [style]="{'height':'28px', 'width': '100%', 'font-size': '10px'}"  [options]="_nombre" appendTo="body" defaultLabel=""   showHeader="false"  *ngIf='col.field =="nombre"' (onChange)="dt.filter($event.value,col.field,'in')"></p-multiSelect>
-                              <p-multiSelect  [style]="{'height':'28px', 'width': '100%', 'font-size': '10px'}"  [options]="_descripcion" appendTo="body" defaultLabel=""   showHeader="false"  *ngIf='col.field =="descripcion"' (onChange)="dt.filter($event.value,col.field,'in')"></p-multiSelect>
-                              <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'pallet_pack'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
-                              <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'pallet_pisos'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
-                              <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'unidad_hora'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
-                              <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'unidades'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
-                              <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'cantidad_solicitada'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
-                              <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'cantidad_usada'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
-                              <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'cantidad_existente'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
-                              <p-multiSelect  [style]="{'height':'28px', 'width': '100%', 'font-size': '10px'}"  [options]="_estado" appendTo="body" defaultLabel=""   showHeader="false"  *ngIf='col.field =="estado"' (onChange)="dt.filter($event.value,col.field,'in')"></p-multiSelect>
-                          </th>
-                          <th></th>
-                      </tr>
-                  </ng-template>
-
-          <ng-template pTemplate="body" let-elementos  >
-              <tr style="height:24px"  [ngClass]="colorRow(elementos.estado)">
-                      <td style="width: 15%">{{elementos.fecha_produccion | date:' EEEE dd/MM/yyyy'}}</td>
-                      <td style="width: 25%">{{elementos.nombre}}</td>
-                      <td style="width: 30%">{{elementos.descripcion}}</td>
-                      <td style="width: 8%">{{elementos.pallet_pack}}</td>
-                      <td style="width: 8%">{{elementos.pallet_pisos}}</td>
-                      <td style="width: 8%">{{elementos.unidad_hora}}</td>
-                      <td style="width: 10%">{{elementos.unidades}}</td>
-                      <td style="width: 12%"><b>{{elementos.cantidad_solicitada |  number : '1.0-2'}}</b></td>
-                      <td style="width: 12%"><b>{{elementos.cantidad_usada |  number : '1.0-2'}}</b></td>
-                      <td style="width: 12%"><b>{{elementos.cantidad_existente |  number : '1.0-2'}}</b></td>
-                      <td style="width: 15%">{{elementos.estado}}</td>
-                      <td style="width: 6%">
-                        <a *ngIf="this.userData['access_list'][4]" (click)="editarProduccion($event,op3,elementos)" class="icon-hover"> <i class="fas fa-pen icon-color-info fa-lg"></i></a>
-                      </td>
-              </tr>
-          </ng-template>
-
-
-      </p-table>
-      <p-overlayPanel #op3 [showCloseIcon]="true" [dismissable]="false" appendTo="body">
-        <div class="d-flex justify-content-center">
-          <p-card >
-            <div >
-              <label class="mt-2 ml-1 mr-1">Fecha de producción :</label>
-              <p-calendar [(ngModel)]=" fecha_produccion" appendTo="body"  tabindex="0"  [locale]="es" dateFormat="DD dd/mm/yy "   [readonlyInput]="true">
-              </p-calendar>
-          </div>
-            <div>
-              <label class="mt-1 ml-1 mr-1 ">Solicitado :</label>
-              <input class="form-control col-md-8 form-control-sm" [(ngModel)]="cantidad_solicitada" >
-            </div>
-            <div>
-              <label class="mt-1 ml-1 mr-1 ">Usado :</label>
-              <input class="form-control col-md-8 form-control-sm" [(ngModel)]="cantidad_usada" >
-            </div>
-            <div>
-              <label class="mt-1 ml-1 mr-1 ">Producido :</label>
-              <input class="form-control col-md-8 form-control-sm" [(ngModel)]="cantidad_existente" >
-            </div>
-            <div class="row">
-              <label class="mt-1 ml-1 mr-1 ">Horas :</label>
-              <input class="form-control col-md-8 form-control-sm" [(ngModel)]="hora" >
-
-            </div>
-            <div>
-            <label class="mt-2 ml-1 mr-1 ">Estado :</label>
-            <select [(ngModel)]="selectedEstadoRenglon" class="form-control-sm text-sm texto-monserrat texto-secondary" >
-              <option *ngFor="let grupo of estado" class="text-sm texto-monserrat texto-secondary"    >
-                <label >{{grupo.name}}</label>
+    <ng-template pTemplate="body" let-elementos>
+      <tr style="height: 24px" [ngClass]="colorRow(elementos.estado)">
+        <td style="width: 15%">
+          {{ elementos.fecha_produccion | date: " EEEE dd/MM/yyyy" }}
+        </td>
+        <td style="width: 25%">{{ elementos.nombre }}</td>
+        <td style="width: 30%">{{ elementos.descripcion }}</td>
+        <td style="width: 8%">{{ elementos.pallet_pack }}</td>
+        <td style="width: 8%">{{ elementos.pallet_pisos }}</td>
+        <td style="width: 8%">{{ elementos.unidad_hora }}</td>
+        <td style="width: 10%">{{ elementos.unidades }}</td>
+        <td style="width: 12%">
+          <b>{{ elementos.cantidad_solicitada | number: "1.0-2" }}</b>
+        </td>
+        <td style="width: 12%">
+          <b>{{ elementos.cantidad_usada | number: "1.0-2" }}</b>
+        </td>
+        <td style="width: 12%">
+          <b>{{ elementos.cantidad_existente | number: "1.0-2" }}</b>
+        </td>
+        <td style="width: 15%">{{ elementos.estado }}</td>
+        <td style="width: 6%">
+          <a
+            *ngIf="this.userData['access_list'][4]"
+            (click)="editarProduccion($event, op3, elementos)"
+            class="icon-hover"
+          >
+            <i class="fas fa-pen icon-color-info fa-lg"></i
+          ></a>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <p-overlayPanel
+    #op3
+    [showCloseIcon]="true"
+    [dismissable]="false"
+    appendTo="body"
+  >
+    <div class="d-flex justify-content-center">
+      <p-card>
+        <div>
+          <label class="mt-2 ml-1 mr-1">Fecha de producción :</label>
+          <p-calendar
+            [(ngModel)]="fecha_produccion"
+            appendTo="body"
+            tabindex="0"
+            [locale]="es"
+            dateFormat="DD dd/mm/yy "
+            [readonlyInput]="true"
+          >
+          </p-calendar>
+        </div>
+        <div>
+          <label class="mt-1 ml-1 mr-1">Solicitado :</label>
+          <input
+            class="form-control col-md-8 form-control-sm"
+            [(ngModel)]="cantidad_solicitada"
+          />
+        </div>
+        <div>
+          <label class="mt-1 ml-1 mr-1">Usado :</label>
+          <input
+            class="form-control col-md-8 form-control-sm"
+            [(ngModel)]="cantidad_usada"
+          />
+        </div>
+        <div>
+          <label class="mt-1 ml-1 mr-1">Producido :</label>
+          <input
+            class="form-control col-md-8 form-control-sm"
+            [(ngModel)]="cantidad_existente"
+          />
+        </div>
+        <div class="row">
+          <label class="mt-1 ml-1 mr-1">Horas :</label>
+          <input
+            class="form-control col-md-8 form-control-sm"
+            [(ngModel)]="hora"
+          />
+        </div>
+        <div>
+          <label class="mt-2 ml-1 mr-1">Estado :</label>
+          <select
+            [(ngModel)]="selectedEstadoRenglon"
+            class="form-control-sm text-sm texto-monserrat texto-secondary"
+          >
+            <option
+              *ngFor="let grupo of estado"
+              class="text-sm texto-monserrat texto-secondary"
+            >
+              <label>{{ grupo.name }}</label>
             </option>
           </select>
-          </div>
-          <div>
-            <button class="btn btn-info btn-block btn-md" (click)="onChangeEstadoRenglon($event)"> Modificar registro</button>
-          </div>
+        </div>
+        <div>
+          <button
+            class="btn btn-info btn-block btn-md"
+            (click)="onChangeEstadoRenglon($event)"
+          >
+            Modificar registro
+          </button>
+        </div>
       </p-card>
-          </div>
-
-      </p-overlayPanel>
     </div>
-
+  </p-overlayPanel>
+</div>

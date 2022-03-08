@@ -93,7 +93,6 @@ export class PopOrdenProduccionEditarComponent implements OnInit {
     this.fecha_desde = new Date();
     this.fecha_hasta = new Date();
     this.fecha = new Date();
-    this.es = calendarioIdioma;
 
     console.log(this.config.data);
     if (this.config.data) {

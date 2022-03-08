@@ -16,7 +16,14 @@ import {
   CurrencyPipe,
   DecimalPipe,
 } from "@angular/common";
-import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
+import {
+  HTTP_INTERCEPTORS,
+  HttpClientModule,
+  HttpClient,
+} from "@angular/common/http";
+
+import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 
 /* -------------------------------------------------------------------------- */
 /*                                  SERVICIOS                                 */
@@ -60,6 +67,7 @@ import { DataViewModule } from "primeng-lts/dataview";
 import { RatingModule } from "primeng-lts/rating";
 import { ChartModule } from "primeng-lts/chart";
 import { BreadcrumbModule } from "primeng-lts/breadcrumb";
+import { PanelMenuModule } from "primeng-lts/panelmenu";
 
 /* -------------------------------------------------------------------------- */
 /*                            LIBRERIAS DE TERCEROS                           */
@@ -145,8 +153,7 @@ import { PopupCalidadParametroProduccionIngresoComponent } from "./pages/calidad
 import { GrupoAnalisisComponent } from "./pages/mantenimiento/grupo-analisis/grupo-analisis.component";
 import { GrupoAnalisisEditarComponent } from "./pages/mantenimiento/grupo-analisis-editar/grupo-analisis-editar.component";
 import { PopupCalidadAsociadaProduccionComponent } from "./pages/calidad/popup-calidad-asociada-produccion/popup-calidad-asociada-produccion.component";
-import { ServiceWorkerModule } from "@angular/service-worker";
-import { environment } from "../environments/environment";
+
 import { CalidadProduccionProcesoComponent } from "./pages/calidad/calidad-produccion-proceso/calidad-produccion-proceso.component";
 import { PopupCalidadDetalleProcesoComponent } from "./pages/calidad/popup-calidad-detalle-proceso/popup-calidad-detalle-proceso.component";
 import { PopupCalidadDetalleProcesoControlComponent } from "./pages/calidad/popup-calidad-detalle-proceso/popup-calidad-detalle-proceso-control/popup-calidad-detalle-proceso-control.component";
@@ -173,6 +180,11 @@ import { PopupAsociarInsumoStockComponent } from "./pages/produccion/popups/popu
 import { UsuarioPasswordComponent } from "./pages/mantenimiento/usuario-password/usuario-password.component";
 import { PopupChartBarComponent } from "./shared/popups/popup-chart-bar/popup-chart-bar.component";
 import { PopupChartLineComponent } from "./shared/popups/popup-chart-line/popup-chart-line.component";
+
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(httpClient: HttpClient) {
+  return new TranslateHttpLoader(httpClient);
+}
 
 @NgModule({
   declarations: [
@@ -300,8 +312,16 @@ import { PopupChartLineComponent } from "./shared/popups/popup-chart-line/popup-
     ChartModule,
     BreadcrumbModule,
     ToggleButtonModule,
+    PanelMenuModule,
     AutoCompleteModule,
     AppRoutingModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+    }),
 
     /*     ServiceWorkerModule.register("ngsw-worker.js", {
       enabled: environment.production,
@@ -404,6 +424,7 @@ import { PopupChartLineComponent } from "./shared/popups/popup-chart-line/popup-
       deps: [Injector],
     },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
   ],
   bootstrap: [AppComponent],
 })

@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { MessageService } from "primeng-lts/api";
+import { MessageService, MenuItem } from "primeng-lts/api";
 import { DialogService } from "primeng-lts/dynamicdialog";
 
 import { CalidadService } from "./../../../../services/calidad.service";
@@ -17,12 +17,21 @@ export class CalidadControlEncabezadoComponent implements OnInit {
   elementos: any[];
   selecteditems: any;
   loading;
+  // breadcrumb
+  home: MenuItem = { icon: "pi pi-home", routerLink: "/" };
+  breadCrumbItems: MenuItem[];
 
   constructor(
     private calidadService: CalidadService,
     private alertServiceService: AlertServiceService,
     public dialogService: DialogService
   ) {
+    this.breadCrumbItems = [
+      this.home,
+      { label: "Auditoria" },
+      { label: "Indicadores" },
+      { label: "Controles Realizados" },
+    ];
     this.cols = [
       { field: "calidad_titulo", header: "Título", width: "30%" },
       { field: "calidad_descripcion", header: "Descripción", width: "40%" },
