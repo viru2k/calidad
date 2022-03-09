@@ -194,6 +194,7 @@ export class NavbarComponent implements OnInit {
       },
       {
         label: "Gerencia",
+        icon: "fas fa-chart-pie",
         visible: !this.gerencia,
         items: [
           { label: "Producción", routerLink: "orden/produccion" },
@@ -212,6 +213,7 @@ export class NavbarComponent implements OnInit {
 
       {
         label: "Auditoria",
+        icon: "fas fa-vial",
         visible: !this.gestion_auditoria,
         items: [
           {
@@ -238,17 +240,20 @@ export class NavbarComponent implements OnInit {
 
       {
         label: "Realizar control",
+        icon: " fa-mobile-alt",
         visible: !this.movil_calidad,
         routerLink: "/movil/control/calidad",
       },
       {
         label: "Ingreso de insumo",
+        icon: "fas fa-business-time",
         visible: !this.movil_insumo,
         routerLink: "/movil/insumo/stock/ingreso",
       },
 
       {
         label: "Ventas",
+        icon: "fas fa-archive",
         visible: !this.administracion_produccion,
         items: [
           { label: "Orden de pedido", routerLink: "/ventas/orden/pedido" },
@@ -273,6 +278,7 @@ export class NavbarComponent implements OnInit {
 
       {
         label: "Mantenimiento",
+        icon: "fas fa-cogs",
         items: [
           {
             label: "Parametros",
