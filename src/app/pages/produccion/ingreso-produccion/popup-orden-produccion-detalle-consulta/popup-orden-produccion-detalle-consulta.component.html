@@ -192,6 +192,7 @@
     <h5>ACCION</h5>
   </div>
   <button
+    [disabled]="!creator_role"
     class="btn btn-info btn--block texto-bold mb-2"
     (click)="nuevaProduccion(elemento)"
   >

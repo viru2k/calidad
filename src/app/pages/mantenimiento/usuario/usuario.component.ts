@@ -87,7 +87,6 @@ export class UsuarioComponent implements OnInit {
       height: "90%",
     });
 
-    // tslint:disable-next-line: no-shadowed-variable
     ref.onClose.subscribe((UsuarioEditarComponent: any) => {
       if (UsuarioEditarComponent) {
         this.loadlist();
@@ -106,7 +105,6 @@ export class UsuarioComponent implements OnInit {
       height: "90%",
     });
 
-    // tslint:disable-next-line: no-shadowed-variable
     ref.onClose.subscribe((UsuarioEditarComponent: any) => {
       if (UsuarioEditarComponent) {
         this.loadlist();
@@ -120,11 +118,10 @@ export class UsuarioComponent implements OnInit {
     const ref = this.dialogService.open(UsuarioModuloComponent, {
       data,
       header: "Editar módulo usuario",
-      width: "50%",
-      height: "60%",
+      width: "90%",
+      height: "70%",
     });
 
-    // tslint:disable-next-line: no-shadowed-variable
     ref.onClose.subscribe((UsuarioModulo: any) => {
       if (UsuarioModulo) {
         this.loadlist();
@@ -141,7 +138,6 @@ export class UsuarioComponent implements OnInit {
       height: "90%",
     });
 
-    // tslint:disable-next-line: no-shadowed-variable
     ref.onClose.subscribe((UsuarioEditarComponent: any) => {
       if (UsuarioEditarComponent) {
         this.loadlist();

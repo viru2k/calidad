@@ -106,11 +106,11 @@ export class UsuarioModuloComponent implements OnInit {
   }
 
   borrar(e: any) {
-    console.log(e.value);
+    console.log(e.user_modulo_id);
 
     this.loading = true;
     try {
-      this.userService.delModulo(e.value.user_modulo_id).subscribe(
+      this.userService.delModulo(e.user_modulo_id).subscribe(
         (resp) => {
           this.loadlistModuloUsuario();
           console.log(resp);

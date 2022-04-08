@@ -8,6 +8,7 @@ import { Filter } from "./../../../shared/filter";
 
 import { formatDate } from "@angular/common";
 import { ExporterService } from "./../../../services/exporter.service";
+import { CalculosService } from "../../../services/calculos.service";
 
 @Component({
   selector: "app-insumo-alta",
@@ -32,13 +33,18 @@ export class InsumoAltaComponent implements OnInit {
   home: MenuItem = { icon: "pi pi-home", routerLink: "/" };
   breadCrumbItems: MenuItem[];
 
+  // action permission
+  editable_role: boolean;
+  creator_role: boolean;
+
   constructor(
     private insumoService: InsumoService,
     private alertServiceService: AlertServiceService,
     public dialogService: DialogService,
     private messageService: MessageService,
     private exporterService: ExporterService,
-    private filter: Filter
+    private filter: Filter,
+    private calculosService: CalculosService
   ) {
     this.breadCrumbItems = [
       this.home,
@@ -66,6 +72,16 @@ export class InsumoAltaComponent implements OnInit {
 
   ngOnInit() {
     console.log("cargando insumo");
+
+    const permissions = JSON.parse(localStorage.getItem("userData"));
+    this.editable_role = this.calculosService.tienePermiso(
+      "administracion_stock_editar",
+      permissions["access_list"]
+    );
+    this.creator_role = this.calculosService.tienePermiso(
+      "administracion_stock_alta",
+      permissions["access_list"]
+    );
     this.loadlist();
   }
 

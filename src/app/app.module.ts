@@ -68,6 +68,7 @@ import { RatingModule } from "primeng-lts/rating";
 import { ChartModule } from "primeng-lts/chart";
 import { BreadcrumbModule } from "primeng-lts/breadcrumb";
 import { PanelMenuModule } from "primeng-lts/panelmenu";
+import { BadgeModule } from "primeng-lts/badge";
 
 /* -------------------------------------------------------------------------- */
 /*                            LIBRERIAS DE TERCEROS                           */
@@ -180,6 +181,8 @@ import { PopupAsociarInsumoStockComponent } from "./pages/produccion/popups/popu
 import { UsuarioPasswordComponent } from "./pages/mantenimiento/usuario-password/usuario-password.component";
 import { PopupChartBarComponent } from "./shared/popups/popup-chart-bar/popup-chart-bar.component";
 import { PopupChartLineComponent } from "./shared/popups/popup-chart-line/popup-chart-line.component";
+import { NotificationComponent } from "./shared/components/notification/notification.component";
+import { SiteUnderConstructionComponent } from "./shared/components/site-under-construction/site-under.construction.component";
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(httpClient: HttpClient) {
@@ -275,6 +278,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     UsuarioPasswordComponent,
     PopupChartBarComponent,
     PopupChartLineComponent,
+    NotificationComponent,
+    SiteUnderConstructionComponent,
   ],
   imports: [
     FormsModule,
@@ -313,6 +318,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     BreadcrumbModule,
     ToggleButtonModule,
     PanelMenuModule,
+    BadgeModule,
     AutoCompleteModule,
     AppRoutingModule,
     TranslateModule.forRoot({

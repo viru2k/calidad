@@ -237,15 +237,15 @@ export class NavbarComponent implements OnInit {
           },
         ],
       },
-
-      {
+      // BLOQUEADO HASTA QUE SE DEFINA  SU USO
+      /*    {
         label: "Realizar control",
-        icon: " fa-mobile-alt",
+        icon: " fas fa-mobile-alt",
         visible: !this.movil_calidad,
         routerLink: "/movil/control/calidad",
-      },
+      }, */
       {
-        label: "Ingreso de insumo",
+        label: "Insumos",
         icon: "fas fa-business-time",
         visible: !this.movil_insumo,
         routerLink: "/movil/insumo/stock/ingreso",

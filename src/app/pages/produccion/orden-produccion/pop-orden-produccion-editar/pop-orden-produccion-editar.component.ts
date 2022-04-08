@@ -14,6 +14,7 @@ import { OrdenProduccion } from "./../../../../models/orden-produccion.model";
 import { formatDate } from "@angular/common";
 import { OverlayPanel } from "primeng-lts/overlaypanel";
 import { Filter } from "../../../../shared/filter";
+import { CalculosService } from "../../../../services/calculos.service";
 
 @Component({
   selector: "app-pop-orden-produccion-editar",
@@ -55,14 +56,18 @@ export class PopOrdenProduccionEditarComponent implements OnInit {
   _nombre: any[] = [];
   _descripcion: any[] = [];
 
-  // tslint:disable-next-line: max-line-length
+  // action permission
+  editable_role: boolean;
+  creator_role: boolean;
+
   constructor(
     private alertServiceService: AlertServiceService,
     private produccionService: ProduccionService,
     public dialogService: DialogService,
     private config: DynamicDialogConfig,
     public ref: DynamicDialogRef,
-    private filter: Filter
+    private filter: Filter,
+    private calculosService: CalculosService
   ) {
     this.cols = [
       { field: "fecha_produccion", header: "Generado", width: "15%" },
@@ -108,7 +113,16 @@ export class PopOrdenProduccionEditarComponent implements OnInit {
     }
 
     this.userData = JSON.parse(localStorage.getItem("userData"));
-    console.log(this.userData);
+
+    const permissions = JSON.parse(localStorage.getItem("userData"));
+    this.editable_role = this.calculosService.tienePermiso(
+      "editar_produccion_planificacion_editar",
+      permissions["access_list"]
+    );
+    this.creator_role = this.calculosService.tienePermiso(
+      "editar_produccion_planificacion_alta",
+      permissions["access_list"]
+    );
   }
 
   editarProduccion(event: any, overlaypanel: OverlayPanel, elem: any) {

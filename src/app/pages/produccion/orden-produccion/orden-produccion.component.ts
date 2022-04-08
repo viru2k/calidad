@@ -12,6 +12,8 @@ import { ProduccionService } from "../../../services/produccion.service";
 import { calendarioIdioma } from "./../../../config/config";
 import { Filter } from "../../../shared/filter";
 import { formatDate } from "@angular/common";
+import { map } from "rxjs/operators";
+import { CalculosService } from "../../../services/calculos.service";
 
 @Component({
   selector: "app-orden-produccion",
@@ -27,7 +29,7 @@ export class OrdenProduccionComponent implements OnInit {
   elementos: any[];
   selecteditems: any;
   loading;
-  userData: any;
+  userData: any[];
   es: any;
   checked;
   items: any[];
@@ -38,12 +40,18 @@ export class OrdenProduccionComponent implements OnInit {
   // breadcrumb
   home: MenuItem = { icon: "pi pi-home", routerLink: "/" };
   breadCrumbItems: MenuItem[];
+
+  // action permission
+  editable_role: boolean;
+  creator_role: boolean;
+
   constructor(
     private alertServiceService: AlertServiceService,
     private produccionService: ProduccionService,
     public dialogService: DialogService,
     private messageService: MessageService,
-    private filter: Filter
+    private filter: Filter,
+    private calculosService: CalculosService
   ) {
     this.breadCrumbItems = [
       this.home,
@@ -71,7 +79,17 @@ export class OrdenProduccionComponent implements OnInit {
       { label: "Step 3" },
     ];
     this.userData = JSON.parse(localStorage.getItem("userData"));
-    // this.alertServiceService.throwAlert('success','Articulo guardado','','201');
+
+    const permissions = JSON.parse(localStorage.getItem("userData"));
+    this.editable_role = this.calculosService.tienePermiso(
+      "editar_produccion_planificacion_editar",
+      permissions["access_list"]
+    );
+    this.creator_role = this.calculosService.tienePermiso(
+      "editar_produccion_planificacion_alta",
+      permissions["access_list"]
+    );
+
     this.es = calendarioIdioma;
     this.fechaHoy = new Date();
     this.fecha = new Date();

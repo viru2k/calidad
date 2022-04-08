@@ -39,6 +39,7 @@ import { InsumoStockComponent } from "./pages/insumo/insumo-stock/insumo-stock.c
 import { DepositoComponent } from "./pages/mantenimiento/deposito/deposito.component";
 import { NotificacionPersonalComponent } from "./pages/mantenimiento/notificacion-personal/notificacion-personal.component";
 import { UsuarioPasswordComponent } from "./pages/mantenimiento/usuario-password/usuario-password.component";
+import { SiteUnderConstructionComponent } from "./shared/components/site-under-construction/site-under.construction.component";
 
 const routes: Routes = [
   /* -------------------------------------------------------------------------- */
@@ -88,9 +89,13 @@ const routes: Routes = [
         path: "mantenimiento/calidad/encabezado/parametro",
         component: CalidadControlEncabezadoParametroComponent,
       },
-      {
+      /*       {
         path: "mantenimiento/notificaciones/personal",
         component: NotificacionPersonalComponent,
+      }, */
+      {
+        path: "mantenimiento/notificaciones/personal",
+        component: SiteUnderConstructionComponent,
       },
 
       /* -------------------------------------------------------------------------- */
@@ -101,25 +106,31 @@ const routes: Routes = [
         path: "calidad/indicadores",
         component: CalidadindicadoresComponent,
         canActivate: [AuthGuard],
-        data: { role: "administarcion_auditoria" },
+        data: { role: "administracion_auditoria" },
       },
       {
         path: "control/calidad",
         component: CalidadConsultaProduccionComponent,
         canActivate: [AuthGuard],
-        data: { role: "administarcion_auditoria" },
+        data: { role: "administracion_auditoria" },
       },
-      {
+      /*       {
         path: "control/linea",
         component: CalidadConsultaLineaComponent,
         canActivate: [AuthGuard],
-        data: { role: "administarcion_auditoria" },
+        data: { role: "administracion_auditoria" },
+      }, */
+      {
+        path: "control/linea",
+        component: SiteUnderConstructionComponent,
+        canActivate: [AuthGuard],
+        data: { role: "administracion_auditoria" },
       },
       {
         path: "control/calidad/produccion",
         component: CalidadProduccionProcesoComponent,
         canActivate: [AuthGuard],
-        data: { role: "administarcion_auditoria" },
+        data: { role: "administracion_auditoria" },
       },
 
       /* -------------------------------------------------------------------------- */
@@ -147,18 +158,30 @@ const routes: Routes = [
       /* -------------------------------------------------------------------------- */
       { path: "insumo/stock/ingreso", component: InsumoAltaComponent },
       { path: "insumo/stock", component: InsumoStockComponent },
+      { path: "insumo/indicadores", component: SiteUnderConstructionComponent },
+      { path: "insumo/movimientos", component: SiteUnderConstructionComponent },
+      { path: "gerencia/insumo", component: SiteUnderConstructionComponent },
 
       /* -------------------------------------------------------------------------- */
       /*                                    MOVIL                                   */
       /* -------------------------------------------------------------------------- */
 
-      {
+      /*       {
         path: "movil/control/calidad",
         component: MobilControlCalidadConsultaComponent,
       },
       {
         path: "movil/insumo/stock/ingreso",
         component: MobilInsumoDetalleComponent,
+      }, */
+      {
+        path: "movil/control/calidad",
+        component: SiteUnderConstructionComponent,
+      },
+
+      {
+        path: "movil/insumo/stock/ingreso",
+        component: SiteUnderConstructionComponent,
       },
 
       /* -------------------------------------------------------------------------- */
@@ -166,7 +189,17 @@ const routes: Routes = [
       /* -------------------------------------------------------------------------- */
 
       { path: "ventas/orden/pedido", component: OrdenPedidoComponent },
-      { path: "ventas/stock", component: OrdenPedidoConsultaStockComponent },
+      //  { path: "ventas/stock", component: OrdenPedidoConsultaStockComponent },
+      { path: "ventas/stock", component: SiteUnderConstructionComponent },
+      {
+        path: "ventas/estadistica/produccion",
+        component: SiteUnderConstructionComponent,
+      },
+      {
+        path: "ventas/estadistica/stock",
+        component: SiteUnderConstructionComponent,
+      },
+
       {
         path: "movil/insumo/stock/ingreso",
         component: MobilInsumoDetalleComponent,

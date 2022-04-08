@@ -1,8 +1,12 @@
 <p-breadcrumb [model]="breadCrumbItems"></p-breadcrumb>
-<div class="card-rounded card-header">
+<div class="card-rounded card-header mt-3">
   <div class="ml-2 row d-flex justify-content-between">
     <div class="d-flex justify-content-start">
-      <button class="btn btn-info btn-block mb-1" (click)="nuevo()">
+      <button
+        *ngIf="creator_role"
+        class="btn btn-info btn-block mb-1"
+        (click)="nuevo()"
+      >
         <i class="fas fa-plus fa-lg mr-2 mt-1"></i>PLANIFICACION DE PRODUCCION
       </button>
     </div>

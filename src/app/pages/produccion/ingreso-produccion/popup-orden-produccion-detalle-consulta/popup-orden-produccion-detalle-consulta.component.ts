@@ -16,6 +16,7 @@ import { OverlayPanel } from "primeng-lts/overlaypanel";
 import { formatDate } from "@angular/common";
 import { ExporterService } from "./../../../../services/exporter.service";
 import { Filter } from "./../../../../shared/filter";
+import { CalculosService } from "src/app/services/calculos.service";
 
 @Component({
   selector: "app-popup-orden-produccion-detalle-consulta",
@@ -32,6 +33,10 @@ export class PopupOrdenProduccionDetalleConsultaComponent implements OnInit {
   elementosFiltrados: any[] = null;
   _estado: any[] = [];
 
+  // action permission
+  editable_role: boolean;
+  creator_role: boolean;
+
   constructor(
     private alertServiceService: AlertServiceService,
     private produccionService: ProduccionService,
@@ -39,7 +44,8 @@ export class PopupOrdenProduccionDetalleConsultaComponent implements OnInit {
     private messageService: MessageService,
     private config: DynamicDialogConfig,
     private exporterService: ExporterService,
-    private filter: Filter
+    private filter: Filter,
+    private calculosService: CalculosService
   ) {
     this.cols = [
       { field: "id", header: "Prod Nº", width: "7.5%" },
@@ -58,6 +64,16 @@ export class PopupOrdenProduccionDetalleConsultaComponent implements OnInit {
     console.log(this.config.data);
     this.userData = JSON.parse(localStorage.getItem("userData"));
     this.loadlist(this.config.data.id);
+
+    const permissions = JSON.parse(localStorage.getItem("userData"));
+    this.editable_role = this.calculosService.tienePermiso(
+      "editar_produccion_planificacion_editar",
+      permissions["access_list"]
+    );
+    this.creator_role = this.calculosService.tienePermiso(
+      "editar_produccion_planificacion_alta",
+      permissions["access_list"]
+    );
   }
 
   accion(evt: any, overlaypanel: OverlayPanel, event: any) {

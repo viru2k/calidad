@@ -13,7 +13,7 @@
       <i class="fas fa-check fa-lg mr-2 mt-1"></i>CONFIRMAR PRODUCCION
     </button>
     <button
-      *ngIf="editar"
+      *ngIf="editable_role"
       class="btn btn-warning btn-block mb-1"
       (click)="cambiarEstado()"
     >
@@ -45,7 +45,7 @@
       <p-calendar
         [(ngModel)]="fecha_desde"
         (onSelect)="actualizarFecha($event)"
-        [disabled]="editar"
+        [disabled]="!editable_role"
         tabindex="0"
         [locale]="es"
         dateFormat="dd/mm/yy "
@@ -56,7 +56,7 @@
       <p-calendar
         [(ngModel)]="fecha_hasta"
         (onSelect)="actualizarFecha($event)"
-        [disabled]="editar"
+        [disabled]="!editable_role"
         tabindex="0"
         [locale]="es"
         dateFormat="dd/mm/yy "
@@ -73,7 +73,7 @@
       <label class="mt-1 ml-1 mr-1">Descripción</label>
       <input
         type="text"
-        [disabled]="editar"
+        [disabled]="!editable_role"
         class="form-control-sm col-12 texto-monserrat texto-secondary"
         [(ngModel)]="descripcion"
       />
@@ -82,7 +82,7 @@
       <label class="mt-1 ml-1 mr-1">Observación</label>
       <input
         type="text"
-        [disabled]="editar"
+        [disabled]="!editable_role"
         class="form-control-sm col-12 texto-monserrat texto-secondary"
         [(ngModel)]="obesrvacion"
       />
@@ -91,6 +91,7 @@
     <div class="d-flex justify-content-end">
       <label class="mt-1 ml-1 mr-1">Estado :</label>
       <select
+        [disabled]="!editable_role"
         [(ngModel)]="selectedEstado"
         class="form-control-sm text-sm texto-monserrat texto-secondary"
         (change)="onChangeEstado($event)"
@@ -276,7 +277,7 @@
         <td style="width: 15%">{{ elementos.estado }}</td>
         <td style="width: 6%">
           <a
-            *ngIf="this.userData['access_list'][4]"
+            *ngIf="editable_role"
             (click)="editarProduccion($event, op3, elementos)"
             class="icon-hover"
           >

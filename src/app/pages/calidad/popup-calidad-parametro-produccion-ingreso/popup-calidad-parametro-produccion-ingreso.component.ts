@@ -56,7 +56,7 @@ export class PopupCalidadParametroProduccionIngresoComponent implements OnInit {
   ) {
     this.cols = [
       { field: "parametro", header: "Parámetro", width: "35%" },
-      { field: "", header: "Valor", width: "26%" },
+      { field: "", header: "Valor", width: "35%" },
       {
         field: "es_no_conformidad_descripcion",
         header: "No conformidad",
