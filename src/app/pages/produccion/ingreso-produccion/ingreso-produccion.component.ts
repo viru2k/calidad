@@ -233,7 +233,7 @@ export class IngresoProduccionComponent implements OnInit {
         data,
         header: "Detalle de orden producción",
         width: "98%",
-        height: "80%",
+        height: "100%",
       }
     );
 

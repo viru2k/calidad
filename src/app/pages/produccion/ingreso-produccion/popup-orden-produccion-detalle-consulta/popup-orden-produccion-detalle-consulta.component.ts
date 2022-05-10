@@ -157,7 +157,7 @@ export class PopupOrdenProduccionDetalleConsultaComponent implements OnInit {
       data,
       header: "Gestionar produccion",
       width: "70%",
-      height: "80%",
+      height: "100%",
     });
 
     ref.onClose.subscribe((PopupAsociarProduccionComponent: any) => {

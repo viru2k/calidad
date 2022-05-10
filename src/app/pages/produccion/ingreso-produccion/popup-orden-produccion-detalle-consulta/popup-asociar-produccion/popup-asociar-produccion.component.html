@@ -1,73 +1,157 @@
 <app-custom-preloader *ngIf="loading"></app-custom-preloader>
-<div class=" faq-title text-center pb-1 pt-2 ">
+<div class="faq-title text-center pb-1 pt-2">
   <h5>INICIAR UNA PRODUCCION</h5>
 </div>
 
 <div class="card-rounded card-header mb-2">
-  <div class="ml-2 row d-flex justify-content-between d-flex align-items-center">  
-      <div class="d-flex justify-content-start  d-flex align-items-center mb-4">
-        <label class="mr-2 mt-1 text-info">Es producción finalizada</label> <p-inputSwitch [(ngModel)]="checked" class="text-info" (onChange)="handleChange($event)"></p-inputSwitch>
-        <label class="mr-2 ml-2 mt-1">Lote: </label> 
-        <input type="text" class="form-control form-control-sm" style="width: 200px;" [disabled] = "!checked"  [(ngModel)]="lote">  
+  <div
+    class="ml-2 row d-flex justify-content-between d-flex align-items-center"
+  >
+    <div class="d-flex justify-content-start d-flex align-items-center mb-4">
+      <label class="mr-2 mt-1 text-info">Es producción finalizada</label>
+      <p-inputSwitch
+        [(ngModel)]="checked"
+        class="text-info"
+        (onChange)="handleChange($event)"
+      ></p-inputSwitch>
+      <label class="mr-2 ml-2 mt-1">Lote: </label>
+      <input
+        type="text"
+        class="form-control form-control-sm"
+        style="width: 200px"
+        [disabled]="!checked"
+        [(ngModel)]="lote"
+      />
 
-        <label class="mr-2 mt-1">Estado :</label>
-        <select [(ngModel)]="selectedEstado" class="form-control-sm text-sm texto-monserrat texto-secondary icon-hover" (change)="onChangeEstado($event)" >                        
-          <option  *ngFor="let grupo of estado" class="text-sm texto-monserrat texto-secondary icon-hover"    >
-            <label class="icon-hover"  >{{grupo.name}}</label>              
+      <label class="mr-2 mt-1">Estado :</label>
+      <select
+        [(ngModel)]="selectedEstado"
+        class="form-control-sm text-sm texto-monserrat texto-secondary icon-hover"
+        (change)="onChangeEstado($event)"
+      >
+        <option
+          *ngFor="let grupo of estado"
+          class="text-sm texto-monserrat texto-secondary icon-hover"
+        >
+          <label class="icon-hover">{{ grupo.name }}</label>
         </option>
       </select>
-      </div>
+    </div>
 
-      <div class="d-flex justify-content-center">
-        <label class="mt-2 ml-1 mr-1"></label>
-        <h6 class="mt-2 ml-1 mr-1 texto-secondary">Producción realizada entre   :</h6>
-          <p-calendar [(ngModel)]="fecha_desde"  [showTime]="true"   tabindex="0" [disabled]="!checked_iniciado" [locale]="es" dateFormat="dd/mm/yy "   [readonlyInput]="true">              
-          </p-calendar> 
-          <label class="mt-2 ml-2 mr-1">Finalizó :</label>
-          <p-calendar [(ngModel)]="fecha_hasta" [showTime]="true"   tabindex="0"  [disabled] = "!checked"  [locale]="es" dateFormat="dd/mm/yy "   [readonlyInput]="true">              
-          </p-calendar>           
-      </div>
-    
-     
-      <div class="d-flex justify-content-end  d-flex align-items-center mr-3">
-        <a (click)="guardar()" *ngIf="this.data.es_nuevo" > <i class="far fa-play-circle fa-3x icon-hover" [ngClass]="iconoColor('ACTIVO')"></i></a>             
-        <a (click)="actualizar()" *ngIf="!this.data.es_nuevo" > <i class="far fa-stop-circle fa-3x icon-hover" [ngClass]="iconoColor('CANCELADO')"></i></a>             
-     </div>
+    <div class="d-flex justify-content-center" #myview>
+      <label class="mt-2 ml-1 mr-1"></label>
+      <h6 class="mt-2 ml-1 mr-1 texto-secondary">
+        Producción realizada entre :
+      </h6>
+      <p-calendar
+        appendTo="body"
+        [(ngModel)]="fecha_desde"
+        [showTime]="true"
+        tabindex="0"
+        [disabled]="!checked_iniciado"
+        [locale]="es"
+        dateFormat="dd/mm/yy "
+        [readonlyInput]="true"
+      >
+      </p-calendar>
+      <label class="mt-2 ml-2 mr-1">Finalizó :</label>
+      <p-calendar
+        appendTo="body"
+        [(ngModel)]="fecha_hasta"
+        [showTime]="true"
+        tabindex="0"
+        [disabled]="!checked"
+        [locale]="es"
+        dateFormat="dd/mm/yy "
+        [readonlyInput]="true"
+      >
+      </p-calendar>
+    </div>
+
+    <div class="d-flex justify-content-end d-flex align-items-center mr-3">
+      <a (click)="guardar()" *ngIf="this.data.es_nuevo">
+        <i
+          class="far fa-play-circle fa-3x icon-hover"
+          [ngClass]="iconoColor('ACTIVO')"
+        ></i
+      ></a>
+      <a (click)="actualizar()" *ngIf="!this.data.es_nuevo">
+        <i
+          class="far fa-stop-circle fa-3x icon-hover"
+          [ngClass]="iconoColor('CANCELADO')"
+        ></i
+      ></a>
+    </div>
   </div>
- 
 </div>
 
-
 <div class="card-rounded card-header mb-1">
-  <div class="ml-2 row d-flex justify-content-between d-flex align-items-center">  
-      <div class="d-flex justify-content-start">
-        <label class="texto-secondary mt-2 mr-2">Linea:</label>
-        <p-dropdown [options]="maquinas" [(ngModel)]="selectedMaquina" optionLabel="maquina_nombre"></p-dropdown>       
-      </div>  
+  <div
+    class="ml-2 row d-flex justify-content-between d-flex align-items-center"
+  >
+    <div class="d-flex justify-content-start">
+      <label class="texto-secondary mt-2 mr-2">Linea:</label>
+      <p-dropdown
+        [options]="maquinas"
+        [(ngModel)]="selectedMaquina"
+        optionLabel="maquina_nombre"
+      ></p-dropdown>
+    </div>
 
-      <div class="d-flex justify-content-end">
-        <label class="texto-secondary mt-2 mr-2">Depósito de destino:</label>
-        <p-dropdown [options]="depositos" [(ngModel)]="selectedDeposito" optionLabel="descripcion"></p-dropdown>            
-    </div> 
+    <div class="d-flex justify-content-start m-1">
+      <label class="texto-secondary mt-2 mr-2">Depósito de destino:</label>
+      <p-dropdown
+        appendTo="body"
+        [options]="depositos"
+        [(ngModel)]="selectedDeposito"
+        optionLabel="descripcion"
+      ></p-dropdown>
+    </div>
   </div>
-  
-  <div class="ml-2 row d-flex justify-content-between d-flex align-items-center">  
+
+  <div
+    class="ml-2 row d-flex justify-content-between d-flex align-items-center"
+  >
     <div class="d-flex justify-content-start">
       <label class="mt-2 ml-1 mr-1">Producido :</label>
-      <label  class="mt-2 ml-1 mr-1 texto-bold texto-info">Packs: {{(producir / this.data.unidades) |  number : '1.0-2'}}</label>
+      <label class="mt-2 ml-1 mr-1 texto-bold texto-info"
+        >Packs: {{ producir / this.data.unidades | number: "1.0-2" }}</label
+      >
       <label class="mt-2 ml-1 mr-1">Unidades :</label>
-      <div class="d-flex justify-content-center" > 
-        <input type="number" class="form-control form-control-sm" [disabled] = "!checked"  [(ngModel)]="producir">  
-        <a  *ngIf="checked" (click)="calcular(this.data,this.producir)" class="icon-hover mt-1 ml-1"> <i class="fas fa-calculator text-info fa-2x"></i></a>
-        </div>      
-    </div>  
-
-</div>
+      <div class="d-flex justify-content-center">
+        <input
+          type="number"
+          class="form-control form-control-sm"
+          [disabled]="!checked"
+          [(ngModel)]="producir"
+        />
+        <a
+          *ngIf="checked"
+          (click)="calcular(this.data, this.producir)"
+          class="icon-hover mt-1 ml-1"
+        >
+          <i class="fas fa-calculator text-info fa-2x"></i
+        ></a>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="card-rounded card-header mb-1">
-  <label class="mt-2 ml-1 mr-4 texto-info ">Solicitado : {{this.data.cantidad_solicitada}} - Packs :  {{(this.data.cantidad_solicitada / this.data.unidades) |  number : '1.0-2'}}</label>
-  <label class="mt-2 ml-1 mr-4 texto-warning">Realizado : {{this.data.cantidad_usada}} - Packs :  {{(this.data.cantidad_usada / this.data.unidades) |  number : '1.0-2'}}</label>
-  <label class="mt-2 ml-1 mr-4 texto-danger">Restante : {{this.data.cantidad_pendiente}} - Packs :  {{(this.data.cantidad_pendiente / this.data.unidades) |  number : '1.0-2'}}</label>
+  <label class="mt-2 ml-1 mr-4 texto-info"
+    >Solicitado : {{ this.data.cantidad_solicitada }} - Packs :
+    {{
+      this.data.cantidad_solicitada / this.data.unidades | number: "1.0-2"
+    }}</label
+  >
+  <label class="mt-2 ml-1 mr-4 texto-warning"
+    >Realizado : {{ this.data.cantidad_usada }} - Packs :
+    {{ this.data.cantidad_usada / this.data.unidades | number: "1.0-2" }}</label
+  >
+  <label class="mt-2 ml-1 mr-4 texto-danger"
+    >Restante : {{ this.data.cantidad_pendiente }} - Packs :
+    {{
+      this.data.cantidad_pendiente / this.data.unidades | number: "1.0-2"
+    }}</label
+  >
 </div>
-
