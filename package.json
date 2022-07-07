@@ -42,7 +42,7 @@
     "jquery": "^3.5.0",
     "jspdf": "^1.5.3",
     "jspdf-autotable": "^2.3.5",
-    "moment": "^2.22.2",
+    "moment": "^2.29.4",
     "ngx-socket-io": "^2.1.1",
     "popper.js": "^1.14.6",
     "primeicons": "^1.0.0",
