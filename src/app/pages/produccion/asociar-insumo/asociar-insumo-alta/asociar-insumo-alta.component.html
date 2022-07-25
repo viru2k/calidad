@@ -21,6 +21,7 @@
     <div class="d-flex justify-content-end align-items-center">
       <label class="mt-2 ml-1 mr-1">Periodo Desde</label>
       <p-calendar
+        appendTo="body"
         [(ngModel)]="fecha_desde"
         [showTime]="true"
         tabindex="0"
@@ -31,6 +32,7 @@
       </p-calendar>
       <label class="mt-2 ml-1 mr-1">hasta</label>
       <p-calendar
+        appendTo="body"
         [(ngModel)]="fecha_hasta"
         [showTime]="true"
         tabindex="0"

@@ -1,17 +1,63 @@
-<div class="row ml-1 mr-1 mb-3"><span class="pr-1 pt-1"><h6 class="text-info">aArtículo seleccionado: {{this.config.data['descripcion']}}</h6></span></div>
+<div class="row ml-1 mr-1 mb-3">
+  <span class="pr-1 pt-1"
+    ><h6 class="text-info">
+      aArtículo seleccionado: {{ this.config.data["descripcion"] }}
+    </h6></span
+  >
+</div>
 <div class="row ml-1 mr-1">
-    <span class="pr-1 pt-1"><label>Fecha de producción:</label></span>
-    <p-calendar [inputStyle]="{'height':'29.1px'}"    class="mr-2 " [(ngModel)]="fecha"  (onSelect)="actualizarFecha($event)" tabindex="0"  [locale]="es" dateFormat="dd/mm/yy"   [readonlyInput]="true" showButtonBar="true"[monthNavigator]="true" [yearNavigator]="true" yearRange="1950:2100">
-      <ng-template pTemplate="date" let-date>
-           <span    style="border-radius:50%;padding: .25em;width: 1.75em; height:1.75em; display:block;">{{date.day}}</span>
-       </ng-template> 
-     </p-calendar>
-     <label class="mr-1 ml-1 mt-1">Calcular producción :</label>
-     <a     (click)="calcularPallet()" class="ml-1 mr-1"   ><i class="fas fa-calculator fa-2x icon-color-purple my-hover"></i></a> 
-     <label class="mr-1 mt-1 ml-1">Botellas producida :</label>
-     <input  class="form-control col-md-2 form-control-sm" type="number" [(ngModel)]="cantidad_botella"  placeholder="Cantidad producida"   >
-    
-     <label class="mr-1 ml-1 mt-1">Litros usados:</label>
-     <input  class="form-control col-md-2 form-control-sm " type="number" [(ngModel)]="cantidad_litros"  placeholder="Litros producidos"   >
-     <button class="btn btn-success btn-md btn-block " (click)="guardarProduccion()">Guardar producción</button>
-  </div> 
+  <span class="pr-1 pt-1"><label>Fecha de producción:</label></span>
+  <p-calendar
+    appendTo="body"
+    [inputStyle]="{ height: '29.1px' }"
+    class="mr-2"
+    [(ngModel)]="fecha"
+    (onSelect)="actualizarFecha($event)"
+    tabindex="0"
+    [locale]="es"
+    dateFormat="dd/mm/yy"
+    [readonlyInput]="true"
+    showButtonBar="true"
+    [monthNavigator]="true"
+    [yearNavigator]="true"
+    yearRange="1950:2100"
+  >
+    <ng-template pTemplate="date" let-date>
+      <span
+        style="
+          border-radius: 50%;
+          padding: 0.25em;
+          width: 1.75em;
+          height: 1.75em;
+          display: block;
+        "
+        >{{ date.day }}</span
+      >
+    </ng-template>
+  </p-calendar>
+  <label class="mr-1 ml-1 mt-1">Calcular producción :</label>
+  <a (click)="calcularPallet()" class="ml-1 mr-1"
+    ><i class="fas fa-calculator fa-2x icon-color-purple my-hover"></i
+  ></a>
+  <label class="mr-1 mt-1 ml-1">Botellas producida :</label>
+  <input
+    class="form-control col-md-2 form-control-sm"
+    type="number"
+    [(ngModel)]="cantidad_botella"
+    placeholder="Cantidad producida"
+  />
+
+  <label class="mr-1 ml-1 mt-1">Litros usados:</label>
+  <input
+    class="form-control col-md-2 form-control-sm"
+    type="number"
+    [(ngModel)]="cantidad_litros"
+    placeholder="Litros producidos"
+  />
+  <button
+    class="btn btn-success btn-md btn-block"
+    (click)="guardarProduccion()"
+  >
+    Guardar producción
+  </button>
+</div>

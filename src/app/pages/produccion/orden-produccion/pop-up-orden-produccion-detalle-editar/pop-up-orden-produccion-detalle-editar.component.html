@@ -21,6 +21,7 @@
       <div class="d-flex justify-content-start">
         <label class="mt-2 ml-1 mr-1">Producción para el dia :</label>
         <p-calendar
+          appendTo="body"
           [(ngModel)]="fecha_produccion"
           appendTo="body"
           (onSelect)="actualizarFecha($event)"
@@ -34,6 +35,7 @@
       <div class="d-flex justify-content-center">
         <label class="mt-2 ml-1 mr-1">Horas de producción:</label>
         <p-calendar
+          appendTo="body"
           [(ngModel)]="hora_produccion"
           appendTo="body"
           (onSelect)="calcularHoras()"

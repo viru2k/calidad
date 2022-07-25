@@ -15,6 +15,7 @@
     <div class="d-flex justify-content-end d-flex align-items-center">
       <label class="mt-2 ml-1 mr-1">Creado entre :</label>
       <p-calendar
+        appendTo="body"
         [(ngModel)]="fecha_desde"
         tabindex="0"
         [locale]="es"
@@ -24,6 +25,7 @@
       </p-calendar>
       <label class="mt-2 ml-1 mr-1">Hasta :</label>
       <p-calendar
+        appendTo="body"
         [(ngModel)]="fecha_hasta"
         tabindex="0"
         [locale]="es"

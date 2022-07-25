@@ -1,90 +1,156 @@
-
-<div class=" faq-title text-center pb-1 pt-2 ">
-    <h5>CARGAR PARAMETROS DE CONTROL DE CALIDAD 1</h5>
+<div class="faq-title text-center pb-1 pt-2">
+  <h5>CARGAR PARAMETROS DE CONTROL DE CALIDAD 1</h5>
+</div>
+<div *ngIf="data" class="d-flex justify-content-center align-items-center">
+  <div class="row">
+    <h5>PRODUCTO : {{ data.nombre }}</h5>
+    <h6 class="mr-2 ml-4 texto-secondary">
+      A PRODUCIR EL : {{ data.fecha_produccion | date: "EEEE dd/MM/yyyyy" }}
+    </h6>
+    <h6 class="mr-2 ml-2 texto-success">
+      SOLICITADO :
+      {{ data.orden_produccion_detalle_cantidad_solicitada }} UNIDADES - EN
+      PACKS :
+      {{ data.orden_produccion_detalle_cantidad_solicitada / data.unidades }}
+    </h6>
   </div>
-  <div *ngIf="data" class="d-flex justify-content-center align-items-center">
-    <div class="row">
-      <h5 >PRODUCTO : {{data.nombre}}</h5> 
-      <h6 class="mr-2 ml-4 texto-secondary">A PRODUCIR EL : {{data.fecha_produccion | date: 'EEEE dd/MM/yyyyy'}}</h6>
-      <h6 class="mr-2 ml-2 texto-success">SOLICITADO : {{data.orden_produccion_detalle_cantidad_solicitada}} UNIDADES - EN PACKS : {{data.orden_produccion_detalle_cantidad_solicitada / data.unidades}}</h6> 
-    </div>
-  </div>
-  <div class="d-flex justify-content-between m-2">
-    <div class="d-flex justify-content-start ">
-      <label class="mr-2 mt-1">Controles :</label>
-      <select [(ngModel)]="selected" class="form-control-sm text-sm texto-monserrat texto-secondary icon-hover" (change)="onChangeControl($event)" >             
-               
-        <option  *ngFor="let grupo of elementosControl" class="text-sm texto-monserrat texto-secondary icon-hover" [ngValue]="grupo"   >
-          <label class="icon-hover texto-secondary"  >{{grupo.calidad_titulo}}</label>              
+</div>
+<div class="d-flex justify-content-between m-2">
+  <div class="d-flex justify-content-start">
+    <label class="mr-2 mt-1">Controles :</label>
+    <select
+      [(ngModel)]="selected"
+      class="form-control-sm text-sm texto-monserrat texto-secondary icon-hover"
+      (change)="onChangeControl($event)"
+    >
+      <option
+        *ngFor="let grupo of elementosControl"
+        class="text-sm texto-monserrat texto-secondary icon-hover"
+        [ngValue]="grupo"
+      >
+        <label class="icon-hover texto-secondary">{{
+          grupo.calidad_titulo
+        }}</label>
       </option>
-      </select>
-    </div>
-    <div class="d-flex justify-content-center ">
-      <label class="mr-2 mt-1">Fecha de carga :</label>
-      <p-calendar [(ngModel)]="fecha"   tabindex="0"  [locale]="es" dateFormat="dd/mm/yy "   [readonlyInput]="true">   </p-calendar>    
-      <label class="mr-2 ml-2 mt-1">Hora de carga :</label>
-      <p-calendar [(ngModel)]="hora" [timeOnly]="true"></p-calendar>
-    </div>
-    <div class="d-flex justify-content-end ">
-
-    </div>
+    </select>
+  </div>
+  <div class="d-flex justify-content-center">
+    <label class="mr-2 mt-1">Fecha de carga :</label>
+    <p-calendar
+      appendTo="body"
+      [(ngModel)]="fecha"
+      tabindex="0"
+      [locale]="es"
+      dateFormat="dd/mm/yy "
+      [readonlyInput]="true"
+    >
+    </p-calendar>
+    <label class="mr-2 ml-2 mt-1">Hora de carga :</label>
+    <p-calendar
+      appendTo="body"
+      [(ngModel)]="hora"
+      [timeOnly]="true"
+    ></p-calendar>
+  </div>
+  <div class="d-flex justify-content-end"></div>
 </div>
 
 <div class="d-flex justify-content-center m-2" *ngIf="selected">
-    <label class="mr-2 mt-1 texto-terthiary texto-bold">Descripción : {{selected.calidad_descripcion}}</label>
-    <label class="mr-4 mt-1 texto-terthiary texto-bold">Ficha número : {{selected.ficha_nro}}</label>
+  <label class="mr-2 mt-1 texto-terthiary texto-bold"
+    >Descripción : {{ selected.calidad_descripcion }}</label
+  >
+  <label class="mr-4 mt-1 texto-terthiary texto-bold"
+    >Ficha número : {{ selected.ficha_nro }}</label
+  >
 </div>
 
-  <p-table  #dt   tableStyleClass="prime-table" selectionMode="single" [columns]="cols" [value]="elementos"  [loading]="loading"  columnResizeMode="expand" [responsive]="true"
-  scrollHeight="500px" [scrollable]="true"  [loading]="loading" loadingIcon="fas fa-spinner fa-2x icon-color-green" >
-  
+<p-table
+  #dt
+  tableStyleClass="prime-table"
+  selectionMode="single"
+  [columns]="cols"
+  [value]="elementos"
+  [loading]="loading"
+  columnResizeMode="expand"
+  [responsive]="true"
+  scrollHeight="500px"
+  [scrollable]="true"
+  [loading]="loading"
+  loadingIcon="fas fa-spinner fa-2x icon-color-green"
+>
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th
+        *ngFor="let col of columns"
+        [pSortableColumn]="col.field"
+        [ngStyle]="{ width: col.width }"
+      >
+        {{ col.header }}
+        <p-sortIcon
+          [field]="col.field"
+          ariaLabel="Activate to sort"
+          ariaLabelDesc="Activate to sort in descending order"
+          ariaLabelAsc="Activate to sort in ascending order"
+        ></p-sortIcon>
+      </th>
+    </tr>
+    <tr>
+      <th *ngFor="let col of columns" [ngSwitch]="col.field">
+        <input
+          style="font-size: 12px"
+          class="form-control col-md-12 form-control-sm"
+          *ngSwitchCase="'parametro'"
+          pInputText
+          type="text"
+          (input)="dt.filter($event.target.value, col.field, 'contains')"
+        />
+        <input
+          style="font-size: 12px"
+          class="form-control col-md-12 form-control-sm"
+          *ngSwitchCase="'calidad_valor'"
+          pInputText
+          type="text"
+          (input)="dt.filter($event.target.value, col.field, 'contains')"
+        />
+        <input
+          style="font-size: 12px"
+          class="form-control col-md-12 form-control-sm"
+          *ngSwitchCase="'es_no_conformidad'"
+          pInputText
+          type="text"
+          (input)="dt.filter($event.target.value, col.field, 'contains')"
+        />
+        <input
+          style="font-size: 12px"
+          class="form-control col-md-12 form-control-sm"
+          *ngSwitchCase="'tiene_accion_correctiva'"
+          pInputText
+          type="text"
+          (input)="dt.filter($event.target.value, col.field, 'contains')"
+        />
+      </th>
+      <th></th>
+    </tr>
+  </ng-template>
 
+  <ng-template pTemplate="body" let-elementos>
+    <tr style="height: 24px">
+      <td style="width: 35%">{{ elementos.parametro }}</td>
 
-             <ng-template pTemplate="header" let-columns >
-            
-                        <tr >
-                             
-                          <th  *ngFor="let col of columns" [pSortableColumn]="col.field"  [ngStyle]="{'width': col.width}">
-                              {{col.header}}
-                              <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
-                          </th> 
-                          
-                      </tr> 
-                      <tr >
-                      <th *ngFor="let col of columns" [ngSwitch]="col.field"  >
-                           <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'parametro'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">  
-                          <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'calidad_valor'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
-                          <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'es_no_conformidad'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
-                          <input style=" font-size: 12px;" class="form-control col-md-12 form-control-sm" *ngSwitchCase="'tiene_accion_correctiva'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">                      
-                      </th>
-                      <th></th>
-                  </tr>
-              </ng-template>
-            
-      <ng-template pTemplate="body" let-elementos  >
-          <tr style="height:24px" >
-
-                  <td style="width: 35%" >{{elementos.parametro}}</td>                                         
-    
-                  <td style="width: 12%;" class="text-info texto-bold">
-                       <label> {{elementos.calidad_valor |  number : '1.2-2'}}</label>                                     
-                  </td>                           
-                  <td style="width: 30%"  [ngClass]="iconoColor('CANCELADO')">
-                    {{elementos.es_no_conformidad_descripcion }}
-                </td>                   
-                  <td style="width: 30%"  [ngClass]="iconoColor('PAUSADO')">
-                    {{elementos.tiene_accion_correctiva_descripcion }}
-                </td>                   
-                  <td style="width: 8%">
-                    <a  (click)="accion($event,elementos)"  class="icon-hover"> <i class="fas fa-pen icon-color-info fa-lg"></i></a>                        
-                  </td>
-          </tr>
-
-         
-          
-      </ng-template>
-  
-      
-    
-
-  </p-table>
+      <td style="width: 12%" class="text-info texto-bold">
+        <label> {{ elementos.calidad_valor | number: "1.2-2" }}</label>
+      </td>
+      <td style="width: 30%" [ngClass]="iconoColor('CANCELADO')">
+        {{ elementos.es_no_conformidad_descripcion }}
+      </td>
+      <td style="width: 30%" [ngClass]="iconoColor('PAUSADO')">
+        {{ elementos.tiene_accion_correctiva_descripcion }}
+      </td>
+      <td style="width: 8%">
+        <a (click)="accion($event, elementos)" class="icon-hover">
+          <i class="fas fa-pen icon-color-info fa-lg"></i
+        ></a>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
