@@ -239,7 +239,7 @@ export class InsumoAltaComponent implements OnInit {
   }
 
   exportarExcel() {
-    const fecha = formatDate(new Date(), "dd/MM/yyyy hh:mm", "es-Ar");
+    const fecha = formatDate(new Date(), "dd/MM/yyyy HH:mm", "es-Ar");
     console.log(this.elementosFiltrados);
     if (this.elementosFiltrados == null) {
       this.elementosFiltrados = this.elementos;
