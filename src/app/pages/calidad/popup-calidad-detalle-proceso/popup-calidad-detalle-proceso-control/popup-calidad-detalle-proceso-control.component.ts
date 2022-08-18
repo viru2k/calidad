@@ -221,4 +221,29 @@ export class PopupCalidadDetalleProcesoControlComponent implements OnInit {
     });
     chart.render();
   }
+
+  changeRanking(event, elem: any) {
+    console.log(event.target.value);
+    const resultado = this.elementos.findIndex((x) => x["id"] === elem.id);
+    this.elementos[resultado]["calidad_ranking"] = event.target.value;
+    this.elementos[resultado]["calidad_valor"] = 0;
+    this.elementos[resultado]["calidad_verificado"] = "NO";
+    this.elementos[resultado]["calidad_tiempo"] = "00:00";
+    console.log("RANKING", this.elementos[resultado]);
+  }
+
+  changeEstado(event, elem: any) {
+    console.log(event);
+
+    const resultado = this.elementos.findIndex((x) => x["id"] === elem.id);
+    if (event) {
+      this.elementos[resultado]["calidad_verificado"] = "SI";
+    } else {
+      this.elementos[resultado]["calidad_verificado"] = "NO";
+    }
+    this.elementos[resultado]["calidad_valor"] = 0;
+    this.elementos[resultado]["calidad_ranking"] = 0;
+    this.elementos[resultado]["calidad_tiempo"] = "00:00";
+    console.log("ESTADO", this.elementos[resultado]);
+  }
 }

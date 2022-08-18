@@ -116,7 +116,43 @@
           {{ elementos.fecha_carga | date: "EEEE dd/MMM HH:mm" }}
         </td>
         <td style="width: 20%">{{ elementos.parametro }}</td>
-        <td style="width: 16%">{{ elementos.calidad_valor }}</td>
+        <!--   <td style="width: 16%">{{ elementos.calidad_valor }}</td> -->
+
+        <td style="width: 16%">
+          <div
+            class="d-flex justify-content-start d-flex align-items-center"
+            *ngIf="elementos.control_tipo === 'NUMERO'"
+          >
+            <b>
+              <label class="mr-1 mt-2"> {{ elementos.calidad_valor }}</label>
+            </b>
+          </div>
+
+          <div
+            class="d-flex justify-content-start d-flex align-items-center"
+            *ngIf="elementos.control_tipo === 'RANKING'"
+          >
+            <b>
+              <label class="mr-1 mt-2">
+                {{ elementos.calidad_ranking }} /10</label
+              >
+            </b>
+          </div>
+
+          <div
+            class="d-flex justify-content-start d-flex align-items-center"
+            *ngIf="elementos.control_tipo === 'OPCION'"
+          >
+            <label>{{ elementos.calidad_verificado }}</label>
+          </div>
+          <div
+            class="d-flex justify-content-start d-flex align-items-center"
+            *ngIf="elementos.control_tipo === 'TIEMPO'"
+          >
+            <label> {{ elementos.calidad_tiempo | date: "HH:mm" }}</label>
+          </div>
+        </td>
+
         <td style="width: 10%">{{ elementos.es_no_conformidad }}</td>
         <td style="width: 26%">
           {{ elementos.es_no_conformidad_descripcion }}

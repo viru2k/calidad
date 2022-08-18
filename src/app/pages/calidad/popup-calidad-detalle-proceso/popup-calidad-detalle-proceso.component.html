@@ -35,10 +35,13 @@
       </button>
     </div>
     <div class="d-flex justify-content-end align-items-end">
-      <a class="texto-info icon-hover" (click)="verEstadistica()"
+      <!--       <a class="texto-info icon-hover" (click)="verEstadistica()"
         ><i class="icon-chart-color mr-4"></i
         ><label class="texto-info icon-hover">Estadistica</label>
-      </a>
+      </a> -->
+      <button (click)="exportarExcel()" class="btn btn-sm btn- btn-excel">
+        <i class="fas fa-file-excel fa-lg mr-1"></i> Excel
+      </button>
     </div>
   </div>
 </div>
@@ -113,10 +116,9 @@
         <td style="width: 40%">{{ elementos.calidad_descripcion }}</td>
         <td style="width: 16%">{{ elementos.ficha_nro }}</td>
         <td style="width: 10%">
-          <a class="icon-hover" (click)="detalle(elementos)"
-            ><i class="icon-account mr-1"></i
-            ><label class="texto-menu icon-hover">Detalle</label>
-          </a>
+          <button class="btn btn-info" (click)="detalle(elementos)">
+            Detalle
+          </button>
         </td>
       </tr>
     </ng-template>

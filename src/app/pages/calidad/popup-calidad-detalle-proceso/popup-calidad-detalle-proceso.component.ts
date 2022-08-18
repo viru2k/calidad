@@ -13,6 +13,10 @@ import { calendarioIdioma } from "../../../config/config";
 import * as CanvasJS from "../../../../assets/canvasjs.min";
 import { CalculosService } from "../../../services/calculos.service";
 import { PopupCalidadDetalleProcesoControlComponent } from "./popup-calidad-detalle-proceso-control/popup-calidad-detalle-proceso-control.component";
+import { formatDate } from "@angular/common";
+import { ExporterService } from "../../../services/exporter.service";
+import { concatMap } from "rxjs-compat/operator/concatMap";
+import { concat, Observable, of } from "rxjs";
 
 @Component({
   selector: "app-popup-calidad-detalle-proceso",
@@ -45,6 +49,7 @@ export class PopupCalidadDetalleProcesoComponent implements OnInit {
   elementoFinal: any[] = [];
   data: any;
   tieneEstadistica;
+  elementosFiltrados: any[] = null;
 
   constructor(
     private alertServiceService: AlertServiceService,
@@ -54,7 +59,8 @@ export class PopupCalidadDetalleProcesoComponent implements OnInit {
     private messageService: MessageService,
     private config: DynamicDialogConfig,
     public ref: DynamicDialogRef,
-    public calculos: CalculosService
+    public calculos: CalculosService,
+    private exporterService: ExporterService
   ) {
     this.cols = [
       { field: "calidad_titulo", header: "Control", width: "36%" },
@@ -93,6 +99,7 @@ export class PopupCalidadDetalleProcesoComponent implements OnInit {
             console.log(resp);
             this.elementos = resp;
             console.log(this.elementos);
+            this.loadProduccionDetalleForPrint();
             this.loading = false;
           },
           (error) => {
@@ -116,6 +123,28 @@ export class PopupCalidadDetalleProcesoComponent implements OnInit {
         "500"
       );
     }
+  }
+
+  loadProduccionDetalleForPrint() {
+    this.calidadService
+      .getControlesDetalleByIdProduccion(this.elementos[0].id)
+      .subscribe(
+        (resp: any[]) => {
+          this.elementosFiltrados = resp;
+          this.exportarExcel();
+        },
+        (error) => {
+          // error path
+          console.log(error);
+          this.loading = false;
+          this.alertServiceService.throwAlert(
+            "error",
+            "Error: " + error.status + "  Error al cargar los registros",
+            "",
+            "500"
+          );
+        }
+      );
   }
 
   buscarByDates() {}
@@ -187,5 +216,26 @@ export class PopupCalidadDetalleProcesoComponent implements OnInit {
       ],
     });
     chart.render();
+  }
+
+  exportarExcel() {
+    const fecha = formatDate(new Date(), "dd/MM/yyyy HH:mm", "es-Ar");
+    if (this.elementosFiltrados == null) {
+      this.elementosFiltrados = this.elementos;
+    }
+    console.log(this.elementosFiltrados);
+
+    let paginas: string[] = [];
+    let contenidoPaginas: any[] = [];
+    this.elementosFiltrados.forEach((elem) => {
+      paginas.push(elem.ficha_nro);
+      contenidoPaginas.push(elem);
+    });
+    console.log("paginas", paginas);
+    console.log("contenidoPaginas", contenidoPaginas);
+    this.exporterService.exportAsExcelFile(
+      this.elementosFiltrados,
+      "controles realizados"
+    );
   }
 }

@@ -3,9 +3,8 @@
 <div class="card-rounded card-header mt-3">
   <div class="d-flex justify-content-end align-items-center">
     <label class="mt-2 ml-1 mr-1">Periodo Desde</label>
-      <p-calendar
-    appendTo="body"
-
+    <p-calendar
+      appendTo="body"
       [(ngModel)]="fecha_desde"
       [showTime]="true"
       tabindex="0"
@@ -15,9 +14,8 @@
     >
     </p-calendar>
     <label class="mt-2 ml-1 mr-1">hasta</label>
-      <p-calendar
-    appendTo="body"
-
+    <p-calendar
+      appendTo="body"
       [(ngModel)]="fecha_hasta"
       [showTime]="true"
       tabindex="0"
@@ -75,7 +73,7 @@
           <input
             style="font-size: 12px"
             class="form-control col-md-12 form-control-sm"
-            *ngSwitchCase="'orden_produccion_id'"
+            *ngSwitchCase="'orden_produccion_detalle_id'"
             pInputText
             type="text"
             (input)="dt.filter($event.target.value, col.field, 'contains')"
@@ -104,14 +102,15 @@
             type="text"
             (input)="dt.filter($event.target.value, col.field, 'contains')"
           />
-          <input
-            style="font-size: 12px"
-            class="form-control col-md-12 form-control-sm"
-            *ngSwitchCase="'nombre'"
-            pInputText
-            type="text"
-            (input)="dt.filter($event.target.value, col.field, 'contains')"
-          />
+          <p-multiSelect
+            [style]="{ height: '28px', width: '100%', 'font-size': '10px' }"
+            [options]="_nombre"
+            appendTo="body"
+            defaultLabel=""
+            showHeader="false"
+            *ngIf="col.field == 'nombre'"
+            (onChange)="dt.filter($event.value, col.field, 'in')"
+          ></p-multiSelect>
           <input
             style="font-size: 12px"
             class="form-control col-md-12 form-control-sm"
@@ -159,6 +158,7 @@
 
     <ng-template pTemplate="body" let-elementos>
       <tr style="height: 24px" [ngClass]="colorRow(elementos.estado)">
+        <td style="width: 7.5%">{{ elementos.orden_produccion_detalle_id }}</td>
         <td
           style="width: 7%; font-size: 14px; font-weight: bold"
           [ngClass]="iconoColor(elementos.estado)"
@@ -176,6 +176,9 @@
             ></i
             ><label class="texto-warning ml-1 mt-1 texto-bold"></label>
           </a>
+        </td>
+        <td style="width: 18%; font-size: 8px">
+          {{ elementos.fecha_produccion | date: "EEEE dd/MM/yyyy" }}
         </td>
         <td style="width: 18%">{{ elementos.lote }}</td>
         <td style="width: 40%">{{ elementos.nombre }}</td>

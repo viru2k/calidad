@@ -9,6 +9,7 @@ import { OverlayPanel } from "primeng-lts/overlaypanel";
 import { PopupCalidadAsociadaProduccionComponent } from "../popup-calidad-asociada-produccion/popup-calidad-asociada-produccion.component";
 import { PopupCalidadDetalleProcesoComponent } from "./../popup-calidad-detalle-proceso/popup-calidad-detalle-proceso.component";
 import { ProduccionService } from "../../../services/produccion.service";
+import { Filter } from "../../../shared/filter";
 
 @Component({
   selector: "app-calidad-consulta-produccion",
@@ -26,6 +27,9 @@ export class CalidadConsultaProduccionComponent implements OnInit {
   elemento: any;
   elementos: any[];
   selecteditems: any;
+  _estado: any[] = [];
+  _maquina_nombre: any[] = [];
+  _nombre: any[] = [];
   loading;
   // breadcrumb
   home: MenuItem = { icon: "pi pi-home", routerLink: "/" };
@@ -35,7 +39,8 @@ export class CalidadConsultaProduccionComponent implements OnInit {
     private produccionService: ProduccionService,
     private alertServiceService: AlertServiceService,
     public dialogService: DialogService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private filter: Filter
   ) {
     this.breadCrumbItems = [
       this.home,
@@ -44,9 +49,14 @@ export class CalidadConsultaProduccionComponent implements OnInit {
       { label: "Controles Realizados" },
     ];
     this.cols = [
-      { field: "orden_produccion_id", header: "Prod Nº", width: "7.5%" },
+      {
+        field: "orden_produccion_detalle_id",
+        header: "Prod Nº",
+        width: "7.5%",
+      },
       { field: "estado", header: "Estado", width: "12%" },
-      { field: "parametro_desviacion", header: "", width: "6%" },
+
+      { field: "fecha_produccion", header: "Fecha", width: "18%" },
       { field: "lote", header: "Lote", width: "18%" },
       { field: "nombre", header: "Producto", width: "40%" },
       { field: "maquina_nombre", header: "Linea", width: "18%" },
@@ -107,6 +117,7 @@ export class CalidadConsultaProduccionComponent implements OnInit {
           (resp) => {
             if (resp[0]) {
               this.elementos = resp;
+              this.realizarFiltroBusqueda(resp);
               console.log(this.elementos);
             } else {
               this.elementos = null;
@@ -167,5 +178,23 @@ export class CalidadConsultaProduccionComponent implements OnInit {
     if (estado === "FINALIZADO") {
       return { "icono-secondary": "null" };
     }
+  }
+
+  realizarFiltroBusqueda(resp: any[]) {
+    // FILTRO LOS ELEMENTOS QUE SE VAN USAR PARA FILTRAR LA LISTA
+    this._estado = [];
+    this._maquina_nombre = [];
+    this._nombre = [];
+
+    resp.forEach((element) => {
+      this._estado.push(element.estado);
+      this._maquina_nombre.push(element.maquina_nombre);
+      this._nombre.push(element.nombre);
+    });
+
+    // ELIMINO DUPLICADOS
+    this._estado = this.filter.filterArray(this._estado);
+    this._maquina_nombre = this.filter.filterArray(this._maquina_nombre);
+    this._nombre = this.filter.filterArray(this._nombre);
   }
 }
