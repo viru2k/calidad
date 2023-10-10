@@ -13,6 +13,8 @@ import { calendarioIdioma } from "../../../config/config";
 import * as CanvasJS from "../../../../assets/canvasjs.min";
 import { CalculosService } from "../../../services/calculos.service";
 import { PopupCalidadDetalleProcesoControlComponent } from "./popup-calidad-detalle-proceso-control/popup-calidad-detalle-proceso-control.component";
+import { formatDate } from "@angular/common";
+import { ExporterService } from "src/app/services/exporter.service";
 
 @Component({
   selector: "app-popup-calidad-detalle-proceso",
@@ -54,7 +56,8 @@ export class PopupCalidadDetalleProcesoComponent implements OnInit {
     private messageService: MessageService,
     private config: DynamicDialogConfig,
     public ref: DynamicDialogRef,
-    public calculos: CalculosService
+    public calculos: CalculosService,
+    private exporterService: ExporterService
   ) {
     this.cols = [
       { field: "calidad_titulo", header: "Control", width: "36%" },
@@ -187,5 +190,90 @@ export class PopupCalidadDetalleProcesoComponent implements OnInit {
       ],
     });
     chart.render();
+  }
+
+  exportarExcel(
+    id: number,
+    calidad_control_id: number,
+    calidad_titulo: string
+  ) {
+    this.loading = true;
+    try {
+      this.calidadService
+        .getControlesDetalleByIdControl(id, calidad_control_id)
+        .subscribe(
+          (resp) => {
+            console.log(resp);
+            const fecha = formatDate(new Date(), "dd/MM/yyyy hh:mm", "es-Ar");
+            console.log(resp);
+            if (resp == null) {
+              resp = this.elementos;
+            }
+            this.exporterService.exportAsExcelFile(resp, calidad_titulo);
+            this.loading = false;
+          },
+          (error) => {
+            // error path
+            console.log(error);
+            this.loading = false;
+            this.alertServiceService.throwAlert(
+              "error",
+              "Error: " + error.status + "  Error al cargar los registros",
+              "",
+              "500"
+            );
+          }
+        );
+    } catch (error) {
+      this.loading = false;
+      this.alertServiceService.throwAlert(
+        "error",
+        "Error: " + error.status + "  Error al cargar los registros",
+        "",
+        "500"
+      );
+    }
+  }
+
+  exportarTodosExcel() {
+    this.loading = true;
+    try {
+      this.calidadService
+        .getControlesDetalleByIdProduccion(this.config.data.id)
+        .subscribe(
+          (resp) => {
+            console.log(resp);
+            const fecha = formatDate(new Date(), "dd/MM/yyyy hh:mm", "es-Ar");
+            console.log(resp);
+            if (resp == null) {
+              resp = this.elementos;
+            }
+            this.exporterService.exportAsExcelFile(
+              resp,
+              "producciones_activas"
+            );
+            this.loading = false;
+          },
+          (error) => {
+            // error path
+            console.log(error);
+            this.loading = false;
+            this.alertServiceService.throwAlert(
+              "error",
+              "Error: " + error.status + "  Error al cargar los registros",
+              "",
+              "500"
+            );
+          }
+        );
+    } catch (error) {
+      this.loading = false;
+      this.alertServiceService.throwAlert(
+        "error",
+        "Error: " + error.status + "  Error al cargar los registros",
+        "",
+        "500"
+      );
+    }
   }
 }

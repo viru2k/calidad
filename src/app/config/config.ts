@@ -12,15 +12,6 @@ export const config: SocketIoConfig = {
 export const URL_ARCHIVO =
   "https://productosgraziani.com.ar/api-calidad/public/";
 
-/***********SERVER DE PRUEBAS ********************** */
-
-// REMOTO WEB
-
-//export const URL_SERVICIOS = 'https://clinicaz.com.ar/graziani/api-calidad/public/api/';
-//export const config: SocketIoConfig = { url: 'http://clinicaz.com.ar:4444', options: {} };
-//export const URL_ARCHIVO = 'http://clinicaz.com.ar/graziani/api-calidad/public/';
-
-//export const URL_SERVICIOS = 'http://192.168.1.7/api-vision/public/api/'
 import { SocketIoModule, SocketIoConfig } from "ngx-socket-io";
 
 export const PARAMS = "json=";
