@@ -47,6 +47,7 @@ export class PopupCalidadDetalleProcesoComponent implements OnInit {
   elementoFinal: any[] = [];
   data: any;
   tieneEstadistica;
+  elementosFiltrados: any[] = null;
 
   constructor(
     private alertServiceService: AlertServiceService,
@@ -96,6 +97,7 @@ export class PopupCalidadDetalleProcesoComponent implements OnInit {
             console.log(resp);
             this.elementos = resp;
             console.log(this.elementos);
+            this.loadProduccionDetalleForPrint();
             this.loading = false;
           },
           (error) => {
@@ -119,6 +121,28 @@ export class PopupCalidadDetalleProcesoComponent implements OnInit {
         "500"
       );
     }
+  }
+
+  loadProduccionDetalleForPrint() {
+    this.calidadService
+      .getControlesDetalleByIdProduccion(this.elementos[0].id)
+      .subscribe(
+        (resp: any[]) => {
+          this.elementosFiltrados = resp;
+          this.exportarTodosExcel();
+        },
+        (error) => {
+          // error path
+          console.log(error);
+          this.loading = false;
+          this.alertServiceService.throwAlert(
+            "error",
+            "Error: " + error.status + "  Error al cargar los registros",
+            "",
+            "500"
+          );
+        }
+      );
   }
 
   buscarByDates() {}
