@@ -55,7 +55,6 @@ export class CalidadConsultaProduccionComponent implements OnInit {
         width: "7.5%",
       },
       { field: "estado", header: "Estado", width: "12%" },
-
       { field: "fecha_produccion", header: "Fecha", width: "18%" },
       { field: "lote", header: "Lote", width: "18%" },
       { field: "nombre", header: "Producto", width: "40%" },

@@ -78,14 +78,15 @@
             type="text"
             (input)="dt.filter($event.target.value, col.field, 'contains')"
           />
-          <input
-            style="font-size: 12px"
-            class="form-control col-md-12 form-control-sm"
-            *ngSwitchCase="'estado'"
-            pInputText
-            type="text"
-            (input)="dt.filter($event.target.value, col.field, 'contains')"
-          />
+          <p-multiSelect
+            [style]="{ height: '28px', width: '100%', 'font-size': '10px' }"
+            placeholder="Filtrar"
+            [options]="_estado"
+            appendTo="body"
+            defaultLabel=""
+            *ngIf="col.field == 'estado'"
+            (onChange)="dt.filter($event.value, col.field, 'in')"
+          ></p-multiSelect>
           <input
             style="font-size: 12px"
             class="form-control col-md-12 form-control-sm"
@@ -159,12 +160,7 @@
     <ng-template pTemplate="body" let-elementos>
       <tr style="height: 24px" [ngClass]="colorRow(elementos.estado)">
         <td style="width: 7.5%">{{ elementos.orden_produccion_detalle_id }}</td>
-        <td
-          style="width: 7%; font-size: 14px; font-weight: bold"
-          [ngClass]="iconoColor(elementos.estado)"
-        >
-          {{ elementos.orden_produccion_id }}
-        </td>
+
         <td style="width: 12%" [ngClass]="iconoColor(elementos.estado)">
           {{ elementos.estado }}
         </td>
@@ -178,7 +174,7 @@
           </a>
         </td>
         <td style="width: 18%; font-size: 8px">
-          {{ elementos.fecha_produccion | date: "EEEE dd/MM/yyyy" }}
+          {{ elementos.fecha_produccion | date : "EEEE dd/MM/yyyy" }}
         </td>
         <td style="width: 18%">{{ elementos.lote }}</td>
         <td style="width: 40%">{{ elementos.nombre }}</td>
@@ -187,40 +183,41 @@
           style="width: 8%; font-weight: bold; font-size: 11px"
           class="texto-success"
         >
-          {{ elementos.hora_inicio | date: " HH:mm" }}
+          {{ elementos.hora_inicio | date : " HH:mm" }}
         </td>
         <td
           style="width: 8%; font-weight: bold; font-size: 11px"
           class="texto-danger-soft"
         >
-          {{ elementos.hora_fin | date: "HH:mm" }}
+          {{ elementos.hora_fin | date : "HH:mm" }}
         </td>
         <td
           style="font-size: 12px; width: 10%; text-align: right"
           class="texto-warning"
         >
-          {{ elementos.cantidad_solicitada | number: "1.0-2" }}
+          {{ elementos.cantidad_solicitada | number : "1.0-2" }}
         </td>
         <td
           style="font-size: 12px; width: 10%; text-align: right"
           class="texto-warning texto-bold"
         >
           {{
-            elementos.cantidad_solicitada / elementos.unidades | number: "1.0-2"
+            elementos.cantidad_solicitada / elementos.unidades
+              | number : "1.0-2"
           }}
         </td>
         <td
           style="font-size: 12px; width: 10%; text-align: right"
           class="texto-success"
         >
-          {{ elementos.cantidad_producida | number: "1.0-2" }}
+          {{ elementos.cantidad_producida | number : "1.0-2" }}
         </td>
         <td
           style="font-size: 12px; width: 10%; text-align: right"
           class="texto-success texto-bold"
         >
           {{
-            elementos.cantidad_producida / elementos.unidades | number: "1.0-2"
+            elementos.cantidad_producida / elementos.unidades | number : "1.0-2"
           }}
         </td>
         <td style="width: 6%">

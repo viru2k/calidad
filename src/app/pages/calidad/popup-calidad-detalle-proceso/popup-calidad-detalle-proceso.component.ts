@@ -64,7 +64,7 @@ export class PopupCalidadDetalleProcesoComponent implements OnInit {
       { field: "calidad_titulo", header: "Control", width: "36%" },
       { field: "calidad_descripcion", header: "Descripción", width: "40%" },
       { field: "ficha_nro", header: "Registro nro", width: "16%" },
-      { field: "", header: "", width: "10%" },
+      { field: "", header: "", width: "24%" },
     ];
   }
 
@@ -97,7 +97,7 @@ export class PopupCalidadDetalleProcesoComponent implements OnInit {
             console.log(resp);
             this.elementos = resp;
             console.log(this.elementos);
-            this.loadProduccionDetalleForPrint();
+            //     this.loadProduccionDetalleForPrint();
             this.loading = false;
           },
           (error) => {
@@ -145,7 +145,7 @@ export class PopupCalidadDetalleProcesoComponent implements OnInit {
       );
   }
 
-  buscarByDates() {}
+  buscarByDates() { }
 
   detalle(elem: any) {
     console.log(elem);

@@ -118,23 +118,30 @@
         <td style="width: 36%">{{ elementos.calidad_titulo }}</td>
         <td style="width: 40%">{{ elementos.calidad_descripcion }}</td>
         <td style="width: 16%">{{ elementos.ficha_nro }}</td>
-        <td style="width: 10%">
-          <a class="icon-hover" (click)="detalle(elementos)"
-            ><i class="icon-account mr-1"></i
-            ><label class="texto-menu icon-hover">Detalle</label>
-          </a>
-          <button
-            (click)="
-              exportarExcel(
-                elementos.id,
-                elementos.calidad_control_id,
-                elementos.calidad_titulo
-              )
-            "
-            class="btn btn-sm btn- btn-excel pl-2"
-          >
-            <i class="fas fa-file-excel fa-lg mr-1"></i>
-          </button>
+        <td style="width: 24%">
+          <div class="row">
+            <button
+              style="width: 60px"
+              class="btn btn-info btn-sm mr-1"
+              (click)="detalle(elementos)"
+            >
+              Detalle
+            </button>
+
+            <button
+              style="width: 30px"
+              (click)="
+                exportarExcel(
+                  elementos.id,
+                  elementos.calidad_control_id,
+                  elementos.calidad_titulo
+                )
+              "
+              class="btn btn-sm btn- btn-excel"
+            >
+              <i class="fas fa-file-excel fa-lg"></i>
+            </button>
+          </div>
         </td>
       </tr>
     </ng-template>
